@@ -10,16 +10,37 @@ import io
 from textblob import TextBlob
 import re
 import nltk
+from sl_utils.logger import logger
 from nltk.corpus import stopwords
+
 from nltk.stem import WordNetLemmatizer
 import spacy
+
+# check directory structure
+import os
+current_dir = os.getcwd()
+current_dir
+
+# check current directory contains the file README.md
+if os.path.exists("README.md"):
+    print("The file README.md exists in the current directory")
+else:
+    print("The file README.md does not exist in the current directory")
+    print("You are in the directory: ", current_dir)
+    print("Changing current directory to its parent directory")
+    os.chdir(os.path.dirname(current_dir))
+    print("You set a new current directory")
+    current_dir = os.getcwd()
+    if os.path.exists("README.md"):
+        print("The file README.md exists in the current directory")
+    else:
+        RuntimeError("The file README.md does not exist in the"
+                     " current directory, please check the current directory")
+        print("Current Directory =", current_dir)
 
 # Download necessary NLTK resources (if you haven't already)
 nltk.download('stopwords')
 nltk.download('wordnet')
-
-# Download the spaCy model (if you haven't already)
-!python -m spacy download en_core_web_sm
 
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
@@ -47,16 +68,24 @@ def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
 
 def dataload():
     # load the data
-    fake_df = pd.read_csv("source_data/fake.csv")
-    true_df = pd.read_csv("source_data/true.csv")
+    fake_df = pd.read_csv("2_source_data/fake.csv")
+    true_df = pd.read_csv("2_source_data/true.csv")
     return fake_df, true_df
 
 
 def classify_media(text):
-    media_dict = {'video': ['video', 'watch'],
-                  'image': ['image'],
+    media_dict = {'video': ['video', 'watch', 'live', 
+                            'stream', 'youtube',
+                            'vimeo', 'twitch'],
+                  'audio': ['audio', 'listen', 'podcast', 'radio'],
+                  'image': ['image', 'photo', 'picture', 'gif'],
+                  'infographic': ['infographic'],
                   'poll': ['poll'],
-                  'twitter': ['twitter']}
+                  'twitter': ['twitter', 'X', 'x', 'tweet', 'retweeted'],
+                  'facebook': ['facebook', 'fb', 'like', 'share', 'comment'],
+                  'instagram': ['instagram', 'ig', ],
+                  'linkedin': ['linkedin', 'share'],
+                  }
     if pd.isna(text):  # Handle NaN cases safely
         return 'text'
     for key, value in media_dict.items():
@@ -64,6 +93,48 @@ def classify_media(text):
         if any(word in text.lower() for word in value):
             return key
     return 'text'
+
+
+def identify_media(text):
+    """Identifies media types and social media platforms in text.
+    Apply the function
+    df_media = df["text"].apply(lambda x: pd.Series(identify_media(x)))
+    df = pd.concat([df, df_media], axis=1)
+    """
+    media_dict = {'video': ['video', 'watch', 'live', 
+                            'stream', 'youtube',
+                            'vimeo', 'twitch'],
+                'audio': ['audio', 'listen', 'podcast', 'radio'],
+                'image': ['image', 'photo', 'picture', 'gif'],
+                'infographic': ['infographic'],
+                'poll': ['poll'],
+                'twitter': ['twitter', 'X', 'x', 'tweet', 'retweeted'],
+                'facebook': ['facebook', 'fb'],
+                'instagram': ['instagram', 'ig', ],
+                'linkedin': ['linkedin'],
+                'wordpress': ['wordpress'],
+                'tumblr': ['tumblr'],
+                }
+    # create media dictionary based of toplevel options in media_dict
+    media = {key: False for key in media_dict.keys()}  
+
+    if isinstance(text, str):
+        text_lower = text.lower()
+
+        for key, value in media_dict.items():
+            if any(word in text_lower for word in value):
+                media[key] = True
+                if key in ['twitter', 'facebook', 'instagram', 'linkedin']:
+                    media[key] = True
+
+        blob = TextBlob(text)
+        media['polarity'] = blob.sentiment.polarity
+        media['subjectivity'] = blob.sentiment.subjectivity
+    else:
+        media['polarity'] = None
+        media['subjectivity'] = None
+
+    return media
 
 
 def classify_and_combine(true_df, fake_df):
