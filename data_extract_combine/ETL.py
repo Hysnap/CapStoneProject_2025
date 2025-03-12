@@ -1,6 +1,9 @@
 import pandas as pd
 import re
 import zlib
+import numpy as np
+import holidays
+import datetime as dt
 
 
 
@@ -48,7 +51,10 @@ def classify_and_combine(true_df, fake_df):
     combined_df['media_type_article'] = (
         combined_df['article_text'].apply(classify_media))
     combined_df['media_type'] = combined_df.apply(
-        lambda row: row['media_type_title'] if row['media_type_title'] != 'text' else row['media_type_article'], axis=1
+        lambda row: row['media_type_title'] 
+        if row['media_type_title'] != 'text' 
+        else row['media_type_article'], 
+        axis=1
     )
     # Month mapping dictionary
     month_map = {
@@ -67,38 +73,92 @@ def classify_and_combine(true_df, fake_df):
     }
 
     # Remove punctuation & trim spaces
-    combined_df['date'] = combined_df['date'].str.replace(r'[^\w\s]', '', regex=True).str.strip()
+    combined_df['date'] = (
+        combined_df['date'].str.replace(r'[^\w\s]',
+                                        '',
+                                        regex=True).str.strip())
 
     # Extract month, day, and year
-    combined_df[['month', 'day', 'year']] = combined_df['date'].str.extract(r'(\w+)\s+(\d+),?\s*(\d+)?')
+    combined_df[['month', 'day', 'year']] = (
+        combined_df['date'].str.extract(r'(\w+)\s+(\d+),?\s*(\d+)?'))
 
     # Convert month names to numbers
     combined_df['month'] = combined_df['month'].str.lower().map(month_map)
 
     # Ensure numeric values and handle missing years (e.g., "23" → "2023")
-    combined_df['year'] = combined_df['year'].fillna(pd.to_datetime('today').year).astype(str)
-    combined_df['year'] = combined_df['year'].apply(lambda x: '20' + x if len(x) == 2 else x)
+    combined_df['year'] = (
+        combined_df['year'].fillna(pd.to_datetime('today').year).astype(str))
+    combined_df['year'] = (
+        combined_df['year'].apply(lambda x: '20' + x if len(x) == 2 else x))
 
-    # Ensure month, day, and year are strings and fill NaN values with empty strings
-    combined_df[['year', 'month', 'day']] = combined_df[['year', 'month', 'day']].astype(str).fillna('')
+    # Ensure month, day, and year are strings and
+    # fill NaN values with empty strings
+    combined_df[['year', 'month', 'day']] = (
+        combined_df[['year', 'month', 'day']].astype(str).fillna(''))
 
     # Ensure we only concatenate if all components are present
     combined_df['date_str'] = combined_df.apply(
-        lambda row: f"{row['year']}-{row['month']}-{row['day']}" if row['year'] and row['month'] and row['day'] else None,
+        lambda row: f"{row['year']}-{row['month']}-{row['day']}" 
+            if row['year'] and row['month'] and row['day'] else None,
         axis=1
     )
 
     # Convert to datetime, forcing errors to NaT
-    combined_df['date_clean'] = pd.to_datetime(combined_df['date_str'], errors='coerce')
+    combined_df['date_clean'] = pd.to_datetime(combined_df['date_str'],
+                                               errors='coerce')
 
     # Drop rows where date conversion failed
     combined_df = combined_df.dropna(subset=['date_clean'])
 
     # Ensure the final format is YYYY-MM-DD
-    combined_df['date_clean'] = combined_df['date_clean'].dt.strftime('%Y-%m-%d')
+    combined_df['date_clean'] = (
+        combined_df['date_clean'].dt.strftime('%Y-%m-%d'))
 
+    # ensure date_clean is in datetime format
+    combined_df['date_clean'] = (
+        pd.to_datetime(combined_df['date_clean']))
+
+    # find earliest date and latest date then 
+    # find all Us_holidays in period
+    min_date = combined_df['date_clean'].min()
+    max_date = combined_df['date_clean'].max()
+    min_year = min_date.year
+    max_year = max_date.year
+    us_holidays = holidays.US(years=range(min_year, max_year+1))
+
+    # Extract Features for use in future models
+    combined_df['day_of_week'] = (
+        combined_df['date_clean'].dt.day_name())
+    combined_df['week_of_year'] = (
+        combined_df['date_clean'].dt.isocalendar().week)
+    combined_df['is_weekend'] = (
+        combined_df['day_of_week'].isin(['Saturday', 'Sunday']).astype(int))
+    combined_df['is_weekday'] = (
+        (~combined_df['day_of_week'].isin(['Saturday', 'Sunday'])).astype(int))
+    combined_df['week_of_year_sin'] = (
+        np.sin(2 * np.pi * combined_df['week_of_year'] / 52))
+    combined_df['week_of_year_cos'] = (
+        np.cos(2 * np.pi * combined_df['week_of_year'] / 52))
+    combined_df['holiday'] = (
+        combined_df['date_clean'].isin(us_holidays).astype(int))
+    combined_df['day_of_month_sine'] = (
+        np.sin(2 * np.pi * combined_df['date_clean'].dt.day / 31))
+    combined_df['day_of_month_cos'] = (
+        np.cos(2 * np.pi * combined_df['date_clean'].dt.day / 31))
+    combined_df['month_sin'] = (
+        np.sin(2 * np.pi * combined_df['date_clean'].dt.month / 12))
+    combined_df['month_cos'] = (
+        np.cos(2 * np.pi * combined_df['date_clean'].dt.month / 12))
+
+    # create day label set it to holiday name if holiday,
+    # else set it to day of week
+    combined_df['day_label'] = combined_df['date_clean'].apply(
+        lambda x: us_holidays.get(x) if x in us_holidays else x.day_name()
+    )
+    
     # export combined_pre_clean to csv
-    combined_pre_clean.to_csv("data/combined_pre_clean.csv", index=False)
+    combined_pre_clean.to_csv("data/combined_pre_clean.csv",
+                              index=False)
 
     # drop combined_pre_clean datafile
     del combined_pre_clean
@@ -130,7 +190,8 @@ def extract_source_and_clean(text):
 def separate_string(input_string):
     # Extract the contents of the brackets
     bracket_content = re.search(r'\((.*?)\)', input_string).group(1)
-    # Extract the remaining text excluding the brackets and the hyphen or minus sign
+    # Extract the remaining text excluding the 
+    # brackets and the hyphen or minus sign
     remaining_text = re.sub(r'\(.*?\)| -', '', input_string).strip()
     return remaining_text, bracket_content
 
@@ -160,22 +221,33 @@ def data_pipeline():
         combined_df.apply(lambda x: x.str.strip()
                           if x.dtype == "object" else x))
     # split the source into location and source name
-    combined_df[['location', 'source_name']] = combined_df['source'].apply(lambda x: pd.Series(separate_string(x)))
+    combined_df[['location', 'source_name']] = (
+        combined_df['source'].apply(lambda x: pd.Series(separate_string(x))))
     # strip all extra spaces from location and source_name
-    combined_df['location'] = combined_df['location'].str.strip()
-    combined_df['source_name'] = combined_df['source_name'].str.strip()
+    combined_df['location'] = (
+        combined_df['location'].str.strip())
+    combined_df['source_name'] = (
+        combined_df['source_name'].str.strip())
     # turn any locations with a "/" in them into a list
-    combined_df['location'] = combined_df['location'].str.split('/')
+    combined_df['location'] = (
+        combined_df['location'].str.split('/'))
     # remove any leading or trailing spaces from the location
-    combined_df['location'] = combined_df['location'].apply(lambda x: [i.strip() for i in x])
+    combined_df['location'] = (
+        combined_df['location'].apply(lambda x: [i.strip() for i in x]))
     combined_df['location'] = combined_df['location'].fillna('UNKNOWN')
     combined_df['source_name'] = combined_df['source_name'].fillna('Unknown')
     combined_df['title_length'] = combined_df['title'].apply(len)
     combined_df['text_length'] = combined_df['cleaned_text'].apply(len)
     # drop columns that are not needed
-    combined_df.drop(['article_text', 'date', 'date_str', 'year', 'month', 'day'], axis=1, inplace=True)
-    # USE ZLIBTO COMPRESS THE DATA
-    combined_df['cleaned_text'] = combined_df['cleaned_text'].apply(lambda x: zlib.compress(x.encode('utf-8')))
+    combined_df.drop(['article_text',
+                      'date',
+                      'date_str',
+                      'media_type_title',
+                      'media_type_article'], axis=1, inplace=True)
+    # # USE ZLIBTO COMPRESS THE DATA
+    # combined_df['cleaned_text'] = (
+    #     combined_df['cleaned_text']
+    #     .apply(lambda x: zlib.compress(x.encode('utf-8'))))
     
     return combined_df
 
@@ -191,4 +263,3 @@ if combined_df.isnull().sum().sum() == 0:
     print("Data cleaned and saved as combined_data.csv in data folder")
 else:
     print("There are still missing values in the data")
-
