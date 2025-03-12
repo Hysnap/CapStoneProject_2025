@@ -3,21 +3,16 @@ import re
 import zlib
 import numpy as np
 import holidays
-import datetime as dt
-import pandas as pd
 import zipfile
 import io
 from textblob import TextBlob
-import re
 import nltk
-from sl_utils.logger import logger
 from nltk.corpus import stopwords
-
 from nltk.stem import WordNetLemmatizer
 import spacy
-
 # check directory structure
 import os
+
 current_dir = os.getcwd()
 current_dir
 
@@ -74,7 +69,7 @@ def dataload():
 
 
 def classify_media(text):
-    media_dict = {'video': ['video', 'watch', 'live', 
+    media_dict = {'video': ['video', 'watch', 'live',
                             'stream', 'youtube',
                             'vimeo', 'twitch'],
                   'audio': ['audio', 'listen', 'podcast', 'radio'],
@@ -101,22 +96,22 @@ def identify_media(text):
     df_media = df["text"].apply(lambda x: pd.Series(identify_media(x)))
     df = pd.concat([df, df_media], axis=1)
     """
-    media_dict = {'video': ['video', 'watch', 'live', 
+    media_dict = {'video': ['video', 'watch', 'live',
                             'stream', 'youtube',
                             'vimeo', 'twitch'],
-                'audio': ['audio', 'listen', 'podcast', 'radio'],
-                'image': ['image', 'photo', 'picture', 'gif'],
-                'infographic': ['infographic'],
-                'poll': ['poll'],
-                'twitter': ['twitter', 'X', 'x', 'tweet', 'retweeted'],
-                'facebook': ['facebook', 'fb'],
-                'instagram': ['instagram', 'ig', ],
-                'linkedin': ['linkedin'],
-                'wordpress': ['wordpress'],
-                'tumblr': ['tumblr'],
-                }
+                  'audio': ['audio', 'listen', 'podcast', 'radio'],
+                  'image': ['image', 'photo', 'picture', 'gif'],
+                  'infographic': ['infographic'],
+                  'poll': ['poll'],
+                  'twitter': ['twitter', 'X', 'x', 'tweet', 'retweeted'],
+                  'facebook': ['facebook', 'fb'],
+                  'instagram': ['instagram', 'ig', ],
+                  'linkedin': ['linkedin'],
+                  'wordpress': ['wordpress'],
+                  'tumblr': ['tumblr'],
+                  }
     # create media dictionary based of toplevel options in media_dict
-    media = {key: False for key in media_dict.keys()}  
+    media = {key: False for key in media_dict.keys()}
 
     if isinstance(text, str):
         text_lower = text.lower()
@@ -160,9 +155,9 @@ def classify_and_combine(true_df, fake_df):
     combined_df['media_type_article'] = (
         combined_df['article_text'].apply(classify_media))
     combined_df['media_type'] = combined_df.apply(
-        lambda row: row['media_type_title'] 
-        if row['media_type_title'] != 'text' 
-        else row['media_type_article'], 
+        lambda row: row['media_type_title']
+        if row['media_type_title'] != 'text'
+        else row['media_type_article'],
         axis=1
     )
     # Month mapping dictionary
@@ -207,9 +202,9 @@ def classify_and_combine(true_df, fake_df):
 
     # Ensure we only concatenate if all components are present
     combined_df['date_str'] = combined_df.apply(
-        lambda row: f"{row['year']}-{row['month']}-{row['day']}" 
-            if row['year'] and row['month'] and row['day'] else None,
-        axis=1
+        lambda row: f"{row['year']}-{row['month']}-{row['day']}"
+        if row['year'] and row['month'] and row['day']
+        else None, axis=1
     )
 
     # Convert to datetime, forcing errors to NaT
@@ -227,7 +222,7 @@ def classify_and_combine(true_df, fake_df):
     combined_df['date_clean'] = (
         pd.to_datetime(combined_df['date_clean']))
 
-    # find earliest date and latest date then 
+    # find earliest date and latest date then
     # find all Us_holidays in period
     min_date = combined_df['date_clean'].min()
     max_date = combined_df['date_clean'].max()
@@ -298,7 +293,7 @@ def extract_source_and_clean(text):
 def separate_string(input_string):
     # Extract the contents of the brackets
     bracket_content = re.search(r'\((.*?)\)', input_string).group(1)
-    # Extract the remaining text excluding the 
+    # Extract the remaining text excluding the
     # brackets and the hyphen or minus sign
     remaining_text = re.sub(r'\(.*?\)| -', '', input_string).strip()
     return remaining_text, bracket_content
@@ -411,9 +406,9 @@ def data_pipeline():
     combined_df['nlp_location'] = (
         combined_df['location'].apply(lambda x: [clean_text(i) for i in x]))
     combined_df[['article_polarity', 'article_subjectivity']] = (
-        combined_df['nlf_text'].apply(lambda x: pd.Series(get_sentiment(x))))
+        combined_df['nlp_text'].apply(lambda x: pd.Series(get_sentiment(x))))
     combined_df[['title_polarity', 'title_subjectivity']] = (
-        combined_df['nlf_title'].apply(lambda x: pd.Series(get_sentiment(x))))
+        combined_df['nlp_title'].apply(lambda x: pd.Series(get_sentiment(x))))
     combined_df['overall_polarity'] = (
         (combined_df['article_polarity'] + combined_df['title_polarity']) / 2)
     combined_df['sentiment_article'] = (
@@ -436,6 +431,10 @@ def data_pipeline():
                       'media_type_title',
                       'media_type_article',
                       'nlp_textloc',
+                      'subject',
+                      'source',
+                      'location',
+                      'nlp_location',
                       ], axis=1, inplace=True)
     # USE ZLIBTO COMPRESS THE DATA
     combined_df['cleaned_text'] = (
@@ -443,12 +442,6 @@ def data_pipeline():
         .apply(lambda x: zlib.compress(x.encode('utf-8'))))
     combined_df['nlp_text'] = (
         combined_df['nlp_text']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-    combined_df['nlp_title'] = (
-        combined_df['nlp_title']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-    combined_df['title'] = (
-        combined_df['title']
         .apply(lambda x: zlib.compress(x.encode('utf-8'))))
 
     return combined_df

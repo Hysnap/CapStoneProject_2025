@@ -2,19 +2,21 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-sns.set_style("whitegrid")
 from scipy.sparse import issparse
-from sklearn.preprocessing import StandardScaler, OneHotEncoder, OrdinalEncoder, PowerTransformer
+from sklearn.preprocessing import (StandardScaler,
+                                   OneHotEncoder,
+                                   OrdinalEncoder,
+                                   PowerTransformer)
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.feature_selection import RFE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.model_selection import train_test_split
-from itertools import chain
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-
+from sklearn.metrics import (classification_report,
+                             confusion_matrix,
+                             )
+sns.set_style("whitegrid")
 
 
 def preprocessor_process(
@@ -32,7 +34,7 @@ def preprocessor_process(
                 high_cardinality_features)
     # Define preprocessor
     transformers = []
-    
+
     if skewed_numeric_features:
         transformers.append(('numskew',
                              PowerTransformer(method='yeo-johnson',
@@ -51,7 +53,7 @@ def preprocessor_process(
         transformers.append(('cat',
                              OneHotEncoder(handle_unknown='ignore'),
                              low_cardinality_features))
-    
+
     preprocessor = ColumnTransformer(transformers=transformers)
 
     # Create pipeline
@@ -90,7 +92,7 @@ def preprocessor_process(
     processed_df.columns = all_feature_names
     # Merge back the target column
     # Ensure correct alignment!
-    processed_df[target] = source_df[target]  
+    processed_df[target] = source_df[target]
     return processed_df
 
 
@@ -118,7 +120,9 @@ def feature_visualisations(processed_df, target):
 
     # Plot each feature
     for i, feature in enumerate(features_to_plot):
-        sns.boxplot(x=processed_df["label"], y=processed_df[feature], ax=axes[i])
+        sns.boxplot(x=processed_df["label"],
+                    y=processed_df[feature],
+                    ax=axes[i])
         axes[i].set_title(f"{feature.replace('_', ' ').title()} vs. Label")
 
     # Remove any unused subplots
@@ -170,8 +174,13 @@ def feature_clean_and_selection(processed_df,
     corr_matrix = X[selected_features].corr().abs()
 
     # Find features with correlation above 0.9
-    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
-    to_drop = [column for column in upper.columns if any(upper[column] > correlation_threshold)]
+    upper = (
+        corr_matrix.where(np.triu(np.ones(corr_matrix.shape),
+                                  k=1).astype(bool)))
+    to_drop = [
+        column for column in upper.columns
+        if any(upper[column] > correlation_threshold)
+    ]
 
     # Drop highly correlated features
     X_reduced = X[selected_features].drop(columns=to_drop)
@@ -180,13 +189,15 @@ def feature_clean_and_selection(processed_df,
     dropped_features_post_high_correlation = list(to_drop)
     # produce list of removed features
     removed_features_post_correlation_text = (
-        "Removed Features after correlation filtering:", list(to_drop))
+        "Removed Features after correlation filtering:", list(to_drop)
+        )
     features_post_correlation_text = ("Features after correlation filtering:",
                                       list(X_reduced.columns))
     return (removed_features_text, remaining_features_text,
             removed_features_post_correlation_text,
             features_post_correlation_text,
             selected_features_post_high_correlation,
+            dropped_features_post_high_correlation,
             X_reduced)
 
 
@@ -215,7 +226,8 @@ def Plot(X_reduced, y, selected_features):
 def PlotFeatureImportance(model, selected_features):
     # Plot feature importance
     importances = pd.Series(model.feature_importances_,
-                            index=selected_features).sort_values(ascending=False)
+                            index=selected_features
+                            ).sort_values(ascending=False)
     importances.plot(kind="bar", figsize=(10, 5), title="Feature Importance")
     return plt.show(), importances
 
@@ -224,7 +236,7 @@ def model_prep(processed_df, target, test_size=0.2, random_state=80):
     (X_train,
      X_test,
      y_train,
-     y_test) = train_test_split(processed_df.drop([target], axis=1),
+     y_test) = train_test_split(processed_df.drop(columns=[target]),
                                 processed_df[target],
                                 test_size=test_size,
                                 random_state=random_state)
@@ -240,12 +252,15 @@ def model_prep(processed_df, target, test_size=0.2, random_state=80):
 
 def confusion_matrix_and_report(X_train, y_train, pipeline, target_map):
     """
-    Gets features, target, pipeline and how labelled (named) the levels from your target
+    Gets features, target, pipeline and how labelled (named)
+    the levels from your target
 
     - it predicts based on features
     - compare predictions and actuals in a confusion matrix
-        - the first argument stays as rows and the second stay as columns in the matrix
-        - we will use the pattern where the predictions are in the row and actual values are in the columns
+        - the first argument stays as rows and the second stay as columns
+        in the matrix
+        - we will use the pattern where the predictions are in the row and
+        actual values are in the columns
         - to refresh that, revert to the Performance Metric video in Module 2
     - show classification report
 
@@ -310,38 +325,40 @@ def model_test(X_train,
                     y_test=y_test,
                     pipeline=model,
                     label_map=[target_map[0], target_map[1]]
-                        )
+                    )
     return y_pred_live, y_pred_prob_live
 
 
 def original_settings():
     # Load dataset
-    source_df = pd.read_csv("data/combined_data.csv")
+    source_df = pd.read_csv("data/data.csv")
 
     # Define features
-    numericfeatures = [
-                    "month",
-                    "day",
-                    "year",
-                    "week_of_year",
-                    "is_weekend",
-                    "is_weekday",
-                    "week_of_year_sin",
-                    "week_of_year_cos",
-                    "holiday",
-                    "day_of_month_sine",
-                    "day_of_month_cos",
-                    "month_sin",
-                    "month_cos",   
-                    ]
+
     skewed_numeric_features = ["title_length", "text_length"]
-    high_cardinality_features = ["location"]
+    numericfeatures = [
+        col for col in source_df.select_dtypes(
+            include=[np.number]
+        ).columns.tolist()
+        if col not in skewed_numeric_features
+    ]
     low_cardinality_features = ["media_type",
                                 "source_name",
                                 "subject",
                                 "day_label",
                                 "day_of_week"
                                 ]
+    high_cardinality_features = [
+        col for col in source_df.select_dtypes(include=['object']).columns
+        if col not in low_cardinality_features
+    ]
+    remaining_features = [
+        col for col in source_df.columns
+        if col not in high_cardinality_features
+        and col not in low_cardinality_features
+        and col not in numericfeatures
+        and col not in skewed_numeric_features
+    ]
     target = "label"
     target_map = ["Fake", "Real"]
 
@@ -350,6 +367,7 @@ def original_settings():
             skewed_numeric_features,
             high_cardinality_features,
             low_cardinality_features,
+            remaining_features,
             target,
             target_map)
 
@@ -362,20 +380,24 @@ def main():
      skewed_numeric_features,
      high_cardinality_features,
      low_cardinality_features,
+     remaining_features,
      target,
      target_map) = original_settings()
-    # create a function called run_outputs that will be used to generate outputs
-    # all the returned variable from original settings into it as dictionary
-    run_outputs ={{"original_settings", {"source_df": source_df.head(5),
-                   "numericfeatures": numericfeatures,
-                   "skewed_numeric_features": skewed_numeric_features,
-                   "high_cardinality_features": high_cardinality_features,
-                   "low_cardinality_features": low_cardinality_features,
-                   "target": target,
-                   "target_map": target_map
-                   }}}
-        
-    
+    # create a function called run_outputs that will be used to generate
+    # outputs all the returned variable from original settings into
+    # it as dictionary
+    run_outputs = {}
+    run_outputs = {"original_settings":
+                   {"source_df": source_df.head(5),
+                    "numericfeatures": numericfeatures,
+                    "skewed_numeric_features": skewed_numeric_features,
+                    "high_cardinality_features": high_cardinality_features,
+                    "low_cardinality_features": low_cardinality_features,
+                    "remaining_features": remaining_features,
+                    "target": target,
+                    "target_map": target_map
+                    }}
+
     # Preprocess the data
     processed_df = preprocessor_process(source_df,
                                         low_cardinality_features,
@@ -384,7 +406,8 @@ def main():
                                         high_cardinality_features,
                                         target)
     # append processed_df.head(5) to run_outputs
-    run_outputs["preprocessor_process"] = {"processed_df",processed_df.head(5)}
+    run_outputs["preprocessor_process"] = {"processed_df":
+                                           processed_df.head(5)}
 
     # Check correlation
     correlation = check_correlation(processed_df)
@@ -392,21 +415,26 @@ def main():
     run_outputs["check_correlation"] = {"correlation": correlation}
 
     # Feature selection and cleaning
-    (removed_features_text,
-     remaining_features_text,
-     removed_features_post_correlation_text,
-     features_post_correlation_text,
-     selected_features_post_high_correlation,
-     X_reduced) = feature_clean_and_selection(processed_df,
+    (removed_features_text, remaining_features_text,
+            removed_features_post_correlation_text,
+            features_post_correlation_text,
+            selected_features_post_high_correlation,
+            dropped_features_post_high_correlation,
+            X_reduced) = feature_clean_and_selection(processed_df,
                                               target)
 
-    run_outputs["feature_clean"] = {"removed_features":   removed_features_text,
-                                    "remaining_features": remaining_features_text,
-                                    "removed_features_post_correlation": removed_features_post_correlation_text,
-                                    "features_post_correlation": features_post_correlation_text,
-                                    "selected_features_post_high_correlation": selected_features_post_high_correlation,
-                                    "X_reduced": X_reduced.head(5)}
-
+    run_outputs["feature_clean"] = {
+        "removed_features":   removed_features_text,
+        "remaining_features": remaining_features_text,
+        "removed_features_post_correlation":
+        removed_features_post_correlation_text,
+        "features_post_correlation":
+        features_post_correlation_text,
+        "selected_features_post_high_correlation":
+        selected_features_post_high_correlation,
+        "dropped_features_post_high_correlation":
+        dropped_features_post_high_correlation,
+        "X_reduced": X_reduced.head(5)}
 
     # Recursive feature elimination
     y = processed_df[target]
@@ -415,25 +443,27 @@ def main():
      selected_features,
      X_rfe) = recursive_feature_elimination(X_reduced, y)
 
-    run_outputs["recursive_feature_elimination"] = {"final_selected_features": final_selected_features_text,
-                                                    "selected_features": selected_features,
-                                                    "X_rfe": X_rfe.head(5)}
+    run_outputs["recursive_feature_elimination"] = {
+        "final_selected_features": final_selected_features_text,
+        "selected_features": selected_features,
+        "X_rfe": X_rfe[:5]}
 
-
+    # create temp variable to store all selected features and target
+    final_selected_features_inc_target = final_selected_features_text[1] + [target]
     # Split the data into train and test sets
     (X_train,
      X_test,
      y_train,
      y_test,
-     dataset_info) = model_prep(X_rfe,
+     dataset_info) = model_prep(processed_df[final_selected_features_inc_target],
                                 target)
 
     run_outputs["model_prep"] = {"X_train": X_train.head(5),
-                                "X_test": X_test.head(5),
-                                "y_train": y_train.head(5),
-                                "y_test": y_test.head(5),
-                                "dataset_info": dataset_info}
-    
+                                 "X_test": X_test.head(5),
+                                 "y_train": y_train.head(5),
+                                 "y_test": y_test.head(5),
+                                 "dataset_info": dataset_info}
+
     # Train the model
     model = RandomForestClassifier()
     X_train_selected = X_train[selected_features]
@@ -441,7 +471,8 @@ def main():
     model.fit(X_train_selected, y_train)
 
     # Plot feature importance
-    run_outputs["FeatureImportance"]={"FIPlot": PlotFeatureImportance(model, selected_features)}
+    run_outputs["FeatureImportance"] = {
+        "FIPlot": PlotFeatureImportance(model, selected_features)}
 
     # Evaluate model performance
     performance = clf_performance(X_train_selected,
@@ -461,3 +492,10 @@ if __name__ == "__main__":
     returned = main()
     print(returned)
     print("Done")
+    # save returned to a file
+    if returned:
+        with open("output.txt", "w") as f:
+            f.write(str(returned))
+            f.close()
+    else:
+        print("No output returned")
