@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import json
+import csv
 from scipy.sparse import issparse
 from sklearn.preprocessing import (
     StandardScaler, OneHotEncoder, OrdinalEncoder, PowerTransformer
@@ -131,17 +131,74 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
     return results
 
 
+def save_results_to_csv(run_name,
+                        numeric,
+                        skewed_numeric,
+                        high_cardinality,
+                        low_cardinality,
+                        target,
+                        correlation,
+                        selected_features,
+                        importances,
+                        evaluation_results,
+                        csv_file="data/MachineLearning_results.csv"):
+    # Prepare row data
+    row_data = {
+        "Run Name": run_name,
+        "Run Date": str(pd.Timestamp.now()),
+        "Target Variable": target,
+        "Numeric Features": ", ".join(numeric),
+        "Skewed Numeric": ", ".join(skewed_numeric),
+        "High Cardinality Features": ", ".join(high_cardinality),
+        "Low Cardinality Features": ", ".join(low_cardinality),
+        "Selected Features": ", ".join(selected_features),
+    }
+
+    # Add correlation values (flatten dictionary)
+    for feature, value in correlation.items():
+        row_data[f"Correlation_{feature}"] = value
+
+    # Add feature importances (flatten dictionary)
+    for feature, importance in importances.items():
+        row_data[f"Importance_{feature}"] = importance
+
+    # Add evaluation metrics (flatten nested dictionary)
+    for key, metrics in evaluation_results.items():
+        if isinstance(metrics, dict):
+            for metric_name, value in metrics.items():
+                row_data[f"Test_{key}_{metric_name}"] = value
+        else:
+            row_data[f"Test_{key}"] = metrics.tolist() if isinstance(metrics, np.ndarray) else metrics
+
+    # Write to CSV
+    file_exists = False
+    try:
+        with open(csv_file, "r") as f:
+            file_exists = True
+    except FileNotFoundError:
+        pass  # File does not exist, it will be created
+
+    with open(csv_file, "a", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=row_data.keys())
+        if not file_exists:
+            writer.writeheader()  # Write header only if file does not exist
+        writer.writerow(row_data)
+
+
 def main():
     """Main execution function."""
     source_df = pd.read_csv("data/combined_data.zip")
     print(source_df.head())
     print(source_df.info())
-    run_name = "ML_Model_1"
-    numeric = ["month", "day", "year", "week_of_year",
-               "is_weekend", "is_weekday"]
+    run_name = "ML_Model_3"
+    numeric = ["overall_subjectivity", "overall_polarity",
+               "title_subjectivity", "title_polarity",
+               "article_subjectivity", "article_polarity",
+               "contradiction_polarity", "contradiction_subjectivity"]
     skewed_numeric = ["title_length", "text_length"]
-    high_cardinality = ["locationsfromarticle", "day_label"]
-    low_cardinality = ["media_type", "source_name"]
+    high_cardinality = ["sentiment_title",
+                        "sentiment_article"]
+    low_cardinality = ["media_type", "sentiment_overall"]
     target = "label"
 
     processed_df, pp_pipeline = preprocess_data(
@@ -150,10 +207,11 @@ def main():
     )
 
     correlation = check_correlation(processed_df, target)
-    
+
     (X_reduced,
-     selected_features) = feature_selection(processed_df.drop(columns=[target]),
-                                            target)
+     selected_features) = (
+         feature_selection(processed_df.drop(columns=[target]),
+                           target))
 
     (X_train,
      X_test,
@@ -177,29 +235,44 @@ def main():
                                         X_test,
                                         y_test)
 
-    outputs = {
-        run_name: {
-            "datetimerun": str(pd.Timestamp.now()),
-            "numeric": numeric,
-            "skewed_numeric": skewed_numeric,
-            "high_cardinality": high_cardinality,
-            "low_cardinality": low_cardinality,
-            "target": target,
-            "correlation": correlation.to_dict(),
-            "selected_features": selected_features,
-            "importances": importances.to_dict(),
-            "evaluation": {
-        key: (value.tolist() if isinstance(value, np.ndarray) else value)
-        for key, value in evaluation_results.items()
-            }
-        }}
+    save_results_to_csv(
+        run_name=run_name,
+        numeric=numeric,
+        skewed_numeric=skewed_numeric,
+        high_cardinality=high_cardinality,
+        low_cardinality=low_cardinality,
+        target=target,
+        correlation=correlation.to_dict(),
+        selected_features=selected_features,
+        importances=importances.to_dict(),
+        evaluation_results={key: (
+            value.tolist() if isinstance(value, np.ndarray) else value)
+                            for key, value in evaluation_results.items()}
+        )
 
-    return outputs
+
+    # outputs = {"Machine_Learning_Models": {
+    #     run_name: {
+    #         "datetimerun": str(pd.Timestamp.now()),
+    #         "numeric": numeric,
+    #         "skewed_numeric": skewed_numeric,
+    #         "high_cardinality": high_cardinality,
+    #         "low_cardinality": low_cardinality,
+    #         "target": target,
+    #         "correlation": correlation.to_dict(),
+    #         "selected_features": selected_features,
+    #         "importances": importances.to_dict(),
+    #         "evaluation": {
+    #             key: (value.tolist() if isinstance(value,
+    #                                                np.ndarray) else value)
+    #             for key, value in evaluation_results.items()
+    #         }
+    #     }}}
+    return evaluation_results
 
 
 if __name__ == "__main__":
+    # Simulated function call with example parameters (replace with real data)
     results = main()
-    # append results to a json file
-    with open("data/results.json", "a") as f:
-        json.dump(results, f, indent=4)
-        f.write("\n")
+    print(results)
+
