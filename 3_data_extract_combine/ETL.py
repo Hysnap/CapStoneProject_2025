@@ -44,7 +44,13 @@ nltk.download('wordnet')
 nlp = spacy.load("en_core_web_sm")
 
 # Initialize the geolocator
-geolocator = GoogleV3(api_key="AIzaSyADjbelpDQ-lsyoWtVikfgSCsOfLh3OvAM")
+# Load the API key from an environment variable
+api_key = os.getenv("GOOGLE_API_KEY")
+
+if not api_key:
+    raise RuntimeError("Google API key not found. Please set the GOOGLE_API_KEY environment variable.")
+
+geolocator = GoogleV3(api_key=api_key)
 
 
 def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
@@ -368,17 +374,20 @@ def string_to_list(location_str):
 
 
 def get_geolocation_info(location):
+    usetimedelay = True
     try:
         location_info = geolocator.geocode(location, timeout=10)
         if location_info:
-            time.sleep(1)
+            if usetimedelay:
+                time.sleep(1)
             return {
                 'latitude': location_info.latitude,
                 'longitude': location_info.longitude,
                 'address': location_info.address
             }
         else:
-            time.sleep(1)
+            if usetimedelay:
+                time.sleep(1)
             return {
                 'latitude': None,
                 'longitude': None,
@@ -386,7 +395,8 @@ def get_geolocation_info(location):
             }
     except GeocoderTimedOut:
         print(location)
-        time.sleep(1)
+        if usetimedelay:
+            time.sleep(1)
         return {
             'latitude': None,
             'longitude': None,
@@ -394,13 +404,14 @@ def get_geolocation_info(location):
         }
     except Exception as e:
         print(f"Geocoding error: {e}")
-        time.sleep(1)
+        if usetimedelay:
+            time.sleep(1)
         return {
             'latitude': None,
             'longitude': None,
             'address': None
         }
-    time.sleep(1)
+    
 
 
 def extract_geolocation_details(address):
@@ -553,10 +564,44 @@ df_unique_locations = (
     pd.DataFrame({'location': df_locations['location'].unique()}))
 print(df_unique_locations.shape)
 # add a column which classifies the location as a city, country or other
-worldcities_df = pd.read_csv('2_source_data/simplemaps_worldcities_basicv1.77.zip/worldcities.csv')
+with zipfile.ZipFile('2_source_data/simplemaps_worldcities_basicv1.77.zip', 'r') as z:
+    with z.open('worldcities.csv') as f:
+        worldcities_df = pd.read_csv(f)
 print(worldcities_df.head(5))
-
-# use geolocation to classify the location as a city, country or other
+# change city, city_ascii, country, iso2, iso3, admin_name to lowercase
+worldcities_df['city'] = worldcities_df['city'].str.lower()
+worldcities_df['city_ascii'] = worldcities_df['city_ascii'].str.lower()
+worldcities_df['country'] = worldcities_df['country'].str.lower()
+worldcities_df['iso2'] = worldcities_df['iso2'].str.lower()
+worldcities_df['iso3'] = worldcities_df['iso3'].str.lower()
+worldcities_df['admin_name'] = worldcities_df['admin_name'].str.lower()
+# change the location column to lowercase
+df_unique_locations['location'] = df_unique_locations['location'].str.lower()
+# merge the worldcities data with the unique locations data on location to city
+df_unique_locations = pd.merge(df_unique_locations,
+                               worldcities_df,
+                               left_on='location',
+                               right_on='city',
+                               how='left')
+# rename lat to latitude and lon to longitude
+df_unique_locations.rename(columns={'lat': 'latitude',
+                                    'lng': 'longitude'}, inplace=True)
+# provide a count of null city values
+print(df_unique_locations['city'].isnull().sum())
+# provide a count of null city_ascii values
+print(df_unique_locations['city_ascii'].isnull().sum())
+print(df_unique_locations.head(5))
+# merge the worldcities data with the unique locations data on location to city_ascii if city is null
+df_unique_locations = pd.merge(df_unique_locations,
+                               worldcities_df,
+                               left_on='location',
+                               right_on='city_ascii',
+                               how='left')
+# copy lat to latitude and lon to longitude if latitude is null
+df_unique_locations['latitude'] = (
+    df_unique_locations['latitude'].fillna(df_unique_locations['lat']))
+df_unique_locations['longitude'] = (
+    df_unique_locations['longitude'].fillna(df_unique_locations['lng']))
 
 
 if usegeoapi:
@@ -581,46 +626,48 @@ if usegeoapi:
             ))
 else:
     print("Using worldcities data")
-# Drop the temporary 'geolocation_info' and 'address' columns
-df_unique_locations.drop(columns=['geolocation_info', 'address'],
-                         inplace=True)
-# update df_locations with the information from df_unique_locations
-df_locations = pd.merge(df_locations,
-                        df_unique_locations,
-                        on='location',
-                        how='left')
-# save the locationsfromarticle data to a csv file
-save_dataframe_to_zip(df_locations,
-                      'data/locationsfromarticle.zip',
-                      'locationsfromarticle.csv')
-# save the unique locations data to a csv file
-save_dataframe_to_zip(df_unique_locations,
-                      'data/unique_locations.zip',
-                      'unique_locations.csv')
+# # Drop the temporary 'geolocation_info' and 'address' columns
+# df_unique_locations.drop(columns=['geolocation_info', 'address'],
+#                          inplace=True)
+# # update df_locations with the information from df_unique_locations
+# df_locations = pd.merge(df_locations,
+#                         df_unique_locations,
+#                         on='location',
+#                         how='left')
+# # save the locationsfromarticle data to a csv file
+# save_dataframe_to_zip(df_locations,
+#                       'data/locationsfromarticle.zip',
+#                       'locationsfromarticle.csv')
+# # save the unique locations data to a csv file
+# save_dataframe_to_zip(df_unique_locations,
+#                       'data/unique_locations.zip',
+#                       'unique_locations.csv')
 
-# using NLP produce a list of common themes
-# create a list of common themes
-common_themes = []
-# iterate over the nlp_text column
-for text in combined_df['nlp_text']:
-    # create a doc object
-    doc = nlp(text)
-    # iterate over the entities in the doc
-    for ent in doc.ents:
-        # if the entity is a common noun
-        if ent.label_ == 'NOUN':
-            # append the entity to the common_themes list
-            common_themes.append(ent.text)
-# create a dataframe of common themes
-df_common_themes = pd.DataFrame(common_themes, columns=['theme'])
-# create a count of the number of times each theme appears
-df_common_themes = df_common_themes['theme'].value_counts().reset_index()
-# rename the columns
-df_common_themes.columns = ['theme', 'count']
-# save the common themes data to a csv file
-save_dataframe_to_zip(df_common_themes,
-                      'data/common_themes.zip',
-                      'common_themes.csv')
+findcommonthemes = False
+if findcommonthemes:
+    # using NLP produce a li    st of common themes
+    # create a list of common themes
+    common_themes = []
+    # iterate over the nlp_text column
+    for text in combined_df['nlp_text']:
+        # create a doc object
+        doc = nlp(text)
+        # iterate over the entities in the doc
+        for ent in doc.ents:
+            # if the entity is a common noun
+            if ent.label_ == 'NOUN':
+                # append the entity to the common_themes list
+                common_themes.append(ent.text)
+    # create a dataframe of common themes
+    df_common_themes = pd.DataFrame(common_themes, columns=['theme'])
+    # create a count of the number of times each theme appears
+    df_common_themes = df_common_themes['theme'].value_counts().reset_index()
+    # rename the columns
+    df_common_themes.columns = ['theme', 'count']
+    # save the common themes data to a csv file
+    save_dataframe_to_zip(df_common_themes,
+                        'data/common_themes.zip',
+                        'common_themes.csv')
 
 
 # if no blank or null values in title, article_text, date, label,
