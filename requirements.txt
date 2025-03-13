@@ -18,4 +18,3 @@ spacy
 geopy
 nltk
 scipy
-re 

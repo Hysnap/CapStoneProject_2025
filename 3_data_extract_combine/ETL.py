@@ -1,9 +1,11 @@
+import time
 import pandas as pd
 import re
-import zlib
 import numpy as np
 import holidays
 import zipfile
+from geopy.geocoders import GoogleV3
+from geopy.exc import GeocoderTimedOut
 import io
 from textblob import TextBlob
 import nltk
@@ -12,6 +14,7 @@ from nltk.stem import WordNetLemmatizer
 import spacy
 # check directory structure
 import os
+import ast
 
 current_dir = os.getcwd()
 current_dir
@@ -40,6 +43,9 @@ nltk.download('wordnet')
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
 
+# Initialize the geolocator
+geolocator = GoogleV3(api_key="AIzaSyADjbelpDQ-lsyoWtVikfgSCsOfLh3OvAM")
+
 
 def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
     """Saves a pandas DataFrame to a zipped CSV file.
@@ -63,8 +69,8 @@ def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
 
 def dataload():
     # load the data
-    fake_df = pd.read_csv("2_source_data/fake.csv")
-    true_df = pd.read_csv("2_source_data/true.csv")
+    fake_df = pd.read_csv("2_source_data/fake.csv.zip")
+    true_df = pd.read_csv("2_source_data/true.csv.zip")
     return fake_df, true_df
 
 
@@ -353,6 +359,61 @@ def extract_locations(text):
     return locations
 
 
+def string_to_list(location_str):
+    """Safely converts a string representation of a list to a list."""
+    try:
+        return ast.literal_eval(location_str)
+    except (ValueError, SyntaxError, TypeError):
+        return []
+
+
+def get_geolocation_info(location):
+    try:
+        location_info = geolocator.geocode(location, timeout=10)
+        if location_info:
+            time.sleep(1)
+            return {
+                'latitude': location_info.latitude,
+                'longitude': location_info.longitude,
+                'address': location_info.address
+            }
+        else:
+            time.sleep(1)
+            return {
+                'latitude': None,
+                'longitude': None,
+                'address': None
+            }
+    except GeocoderTimedOut:
+        print(location)
+        time.sleep(1)
+        return {
+            'latitude': None,
+            'longitude': None,
+            'address': None
+        }
+    except Exception as e:
+        print(f"Geocoding error: {e}")
+        time.sleep(1)
+        return {
+            'latitude': None,
+            'longitude': None,
+            'address': None
+        }
+    time.sleep(1)
+
+
+def extract_geolocation_details(address):
+    if address:
+        address_parts = address.split(', ')
+        country = address_parts[-1] if len(address_parts) > 0 else None
+        state = address_parts[-2] if len(address_parts) > 1 else None
+        continent = address_parts[-3] if len(address_parts) > 2 else None
+        return continent, country, state
+    else:
+        return None, None, None
+
+
 # Function to load and clean the data
 def data_pipeline():
     #  Pipeline to transform the data
@@ -360,6 +421,12 @@ def data_pipeline():
     # Combine the dataframes
     combined_df = classify_and_combine(true_df, fake_df)
     print(combined_df.columns[combined_df.columns.duplicated()])
+    # ensure index is unique
+    combined_df.reset_index(drop=True, inplace=True)
+    # rename index to article_id
+    combined_df['article_id'] = combined_df.index
+    # ensure index is labbelled index
+    combined_df.index.name = 'index'
     # Extract the source and clean the text
     combined_df[['source', 'cleaned_text']] = (
         combined_df['article_text'].apply(
@@ -436,25 +503,132 @@ def data_pipeline():
                       'location',
                       'nlp_location',
                       ], axis=1, inplace=True)
-    # USE ZLIBTO COMPRESS THE DATA
-    combined_df['cleaned_text'] = (
-        combined_df['cleaned_text']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-    combined_df['nlp_text'] = (
-        combined_df['nlp_text']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-
+    # drop any rows where cleaned_text is empty
+    combined_df = combined_df.dropna(subset=['cleaned_text'])
+    # save the combined data to a csv file
+    save_dataframe_to_zip(combined_df,
+                          'data/combined_data_step1.zip',
+                          'combined_data_step1.csv')
     return combined_df
 
 
 # Generate Combined Data and save as a csv file
-combined_df = data_pipeline()
+usesavedfile = True
+usegeoapi = False
+if usesavedfile is False:
+    combined_df = data_pipeline()
+else:
+    combined_df = pd.read_csv('data/combined_data_step1.zip')
 # check for any blank values
 print(combined_df.isnull().sum())
+print(combined_df.head(5))
+# rename index to article_id if column article_id does not exist
+if 'article_id' not in combined_df.columns:
+    combined_df.index.name = 'index'
+    combined_df['article_id'] = combined_df.index
+# split locationsfromarticle into separate datafram
+# create a referenced list based of locationsfromarticle with an
+# entry for each location in the list
+# and a reference to the index of the article
+df_locations = combined_df[['article_id',
+                            'locationsfromarticle']].copy()
+print(df_locations.head(5))
+df_locations['locationsfromarticle'] = (
+    df_locations['locationsfromarticle'].apply(string_to_list))
+df_locations = (
+    df_locations.explode('locationsfromarticle')
+    .rename(columns={'locationsfromarticle': 'location'})
+)
+print(df_locations.head(10))
+# summarise the locationsfromarticle data by article_id and location adding
+# a count of the number of times the location appears in the article
+df_locations_sum = (
+    df_locations.groupby(['article_id',
+                          'location'])
+    .size()
+    .reset_index(name='count'))
+print(df_locations_sum.head(10))
+# create a dataframe of unique locations
+df_unique_locations = (
+    pd.DataFrame({'location': df_locations['location'].unique()}))
+print(df_unique_locations.shape)
+# add a column which classifies the location as a city, country or other
+worldcities_df = pd.read_csv('2_source_data/simplemaps_worldcities_basicv1.77.zip/worldcities.csv')
+print(worldcities_df.head(5))
+
+# use geolocation to classify the location as a city, country or other
+
+
+if usegeoapi:
+    # Apply geolocation info extraction
+    df_unique_locations['geolocation_info'] = (
+        df_unique_locations['location']
+        .apply(get_geolocation_info))
+    # Extract latitude, longitude, and address
+    df_unique_locations['latitude'] = (
+        df_unique_locations['geolocation_info']
+        .apply(lambda x: x['latitude']))
+    df_unique_locations['longitude'] = (
+        df_unique_locations['geolocation_info']
+        .apply(lambda x: x['longitude']))
+    df_unique_locations['address'] = (
+        df_unique_locations['geolocation_info']
+        .apply(lambda x: x['address']))
+    # Extract continent, country, and state
+    df_unique_locations[['continent', 'country', 'state']] = (
+        df_unique_locations['address'].apply(
+            lambda x: pd.Series(extract_geolocation_details(x))
+            ))
+else:
+    print("Using worldcities data")
+# Drop the temporary 'geolocation_info' and 'address' columns
+df_unique_locations.drop(columns=['geolocation_info', 'address'],
+                         inplace=True)
+# update df_locations with the information from df_unique_locations
+df_locations = pd.merge(df_locations,
+                        df_unique_locations,
+                        on='location',
+                        how='left')
+# save the locationsfromarticle data to a csv file
+save_dataframe_to_zip(df_locations,
+                      'data/locationsfromarticle.zip',
+                      'locationsfromarticle.csv')
+# save the unique locations data to a csv file
+save_dataframe_to_zip(df_unique_locations,
+                      'data/unique_locations.zip',
+                      'unique_locations.csv')
+
+# using NLP produce a list of common themes
+# create a list of common themes
+common_themes = []
+# iterate over the nlp_text column
+for text in combined_df['nlp_text']:
+    # create a doc object
+    doc = nlp(text)
+    # iterate over the entities in the doc
+    for ent in doc.ents:
+        # if the entity is a common noun
+        if ent.label_ == 'NOUN':
+            # append the entity to the common_themes list
+            common_themes.append(ent.text)
+# create a dataframe of common themes
+df_common_themes = pd.DataFrame(common_themes, columns=['theme'])
+# create a count of the number of times each theme appears
+df_common_themes = df_common_themes['theme'].value_counts().reset_index()
+# rename the columns
+df_common_themes.columns = ['theme', 'count']
+# save the common themes data to a csv file
+save_dataframe_to_zip(df_common_themes,
+                      'data/common_themes.zip',
+                      'common_themes.csv')
+
+
 # if no blank or null values in title, article_text, date, label,
 # subject then export to csv
 if combined_df.isnull().sum().sum() == 0:
-    save_dataframe_to_zip(combined_df, 'data/combined_data.zip')
+    save_dataframe_to_zip(combined_df,
+                          'data/combined_data.zip',
+                          'combined_data.csv')
     print("Data cleaned and saved as combined_data.csv in data folder")
 else:
     print("There are still missing values in the data")

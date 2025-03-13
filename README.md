@@ -8,7 +8,7 @@ News Scorer for a user submitted element.  Also to include relevant background i
 
 ## Dataset Content
 * Data Sets for training of ML model are from Kaggle and the ones considered were:
-
+* Data of cities is from  https://simplemaps.com/data/world-cities, a reference to which needs to be included on the dashboard.
 
 
 ## Business Requirements
