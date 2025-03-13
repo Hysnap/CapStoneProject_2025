@@ -616,8 +616,11 @@ def data_pipeline():
 
 
 # Generate Combined Data and save as a csv file
-usesavedfile = True
-usegeoapi = True
+usesavedfile = False
+usegeoapi = False
+useworldcitiesdata = False
+findcommonthemes = False
+
 if usesavedfile is False:
     combined_df = data_pipeline()
 else:
@@ -661,59 +664,9 @@ print(df_unique_locations.shape)
 # Load the unique locations data
 df_unique_locations_existing = pd.read_csv('data/unique_locations.zip')
 # merge the existing unique locations data with the new unique locations data
-df_unique_locations = pd.concat([df_unique_locations_existing,
-                                    df_unique_locations]).drop_duplicates()
-# generate a list of rows with missing data and without the ignore flag = 1
-missing_geolocation_info = (
-    df_unique_locations[df_unique_locations['geolocation_info'].isnull()]
-    .query('ignore != 1')
-)
-# check the number of missing geolocation_info
-print(missing_geolocation_info.shape)
+# df_unique_locations = pd.concat([df_unique_locations_existing,
+#                                 df_unique_locations]).drop_duplicates()
 
-
-if usegeoapi:
-    # Apply geolocation info extraction
-    missing_geolocation_info['geolocation_info'] = (
-        missing_geolocation_info['location']
-        .apply(get_geolocation_info))
-    # Extract latitude, longitude, and address
-    missing_geolocation_info['latitude'] = (
-        missing_geolocation_info['geolocation_info']
-        .apply(lambda x: x['latitude']))
-    missing_geolocation_info['longitude'] = (
-        missing_geolocation_info['geolocation_info']
-        .apply(lambda x: x['longitude']))
-    missing_geolocation_info['address'] = (
-        missing_geolocation_info['geolocation_info']
-        .apply(lambda x: x['address']))
-    # Extract continent, country, and state
-    missing_geolocation_info[['continent', 'country', 'state']] = (
-        missing_geolocation_info['address'].apply(
-            lambda x: pd.Series(extract_geolocation_details(x))
-            ))
-else:
-    print("Using worldcities data")
-
-# add a column which classifies the location as a city, country or other
-with zipfile.ZipFile('2_source_data/simplemaps_worldcities_basicv1.77.zip',
-'r') as z:
-    with z.open('worldcities.csv') as f:
-        worldcities_df = pd.read_csv(f)
-print(worldcities_df.head(5))
-# change city, city_ascii, country, iso2, iso3, admin_name to lowercase
-worldcities_df['city'] = worldcities_df['city'].str.lower()
-worldcities_df['city_ascii'] = worldcities_df['city_ascii'].str.lower()
-worldcities_df['country'] = worldcities_df['country'].str.lower()
-worldcities_df['iso2'] = worldcities_df['iso2'].str.lower()
-worldcities_df['iso3'] = worldcities_df['iso3'].str.lower()
-worldcities_df['admin_name'] = worldcities_df['admin_name'].str.lower()
-print(worldcities_df.head(5))
-# change the location column to lowercase
-df_unique_locations['location'] = df_unique_locations['location'].str.lower()
-# merge the worldcities data with the unique
-# locations data on location to city
-import pandas as pd
 
 def find_location_match(location, worldcities_df):
     """
@@ -751,40 +704,91 @@ def find_location_match(location, worldcities_df):
                 'country': match.iloc[0]['country']
             }
             return result
-    
+
     return None  # Return None if no match is found
 
-# Example usage:
-# Assuming worldcities_df is already loaded
-location_to_search = "New York"
-result = find_location_match(location_to_search, worldcities_df)
+# # Example usage:
+# # Assuming worldcities_df is already loaded
+# location_to_search = "New York"
+# result = find_location_match(location_to_search, worldcities_df)
 
-if result:
-    print("Match found:", result)
+# if result:
+#     print("Match found:", result)
+# else:
+#     print("No match found.")
+
+
+if usegeoapi:
+    # generate a list of rows with missing data and without the ignore flag = 1
+    missing_geolocation_info = (
+        df_unique_locations[
+            df_unique_locations['geolocation_info'].isnull()
+        ].query('ignore != 1')
+        )
+    # check the number of missing geolocation_info
+    print(missing_geolocation_info.shape)
+    # Apply geolocation info extraction
+    missing_geolocation_info['geolocation_info'] = (
+        missing_geolocation_info['location']
+        .apply(get_geolocation_info))
+    # Extract latitude, longitude, and address
+    missing_geolocation_info['latitude'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['latitude']))
+    missing_geolocation_info['longitude'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['longitude']))
+    missing_geolocation_info['address'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['address']))
+    # Extract continent, country, and state
+    missing_geolocation_info[['continent', 'country', 'state']] = (
+        missing_geolocation_info['address'].apply(
+            lambda x: pd.Series(extract_geolocation_details(x))
+            ))
 else:
-    print("No match found.")
+    if useworldcitiesdata:
+        print("Using worldcities data")
+
+        # add a column which classifies the location
+        # as a city, country or other
+        zip_file_path = '2_source_data/simplemaps_worldcities_basicv1.77.zip'
+        with zipfile.ZipFile(zip_file_path, 'r') as z:
+            with z.open('worldcities.csv') as f:
+                worldcities_df = pd.read_csv(f)
+        print(worldcities_df.head(5))
+        # change city, city_ascii, country, iso2, iso3, admin_name to lowercase
+        worldcities_df['city'] = worldcities_df['city'].str.lower()
+        worldcities_df['city_ascii'] = worldcities_df['city_ascii'].str.lower()
+        worldcities_df['country'] = worldcities_df['country'].str.lower()
+        worldcities_df['iso2'] = worldcities_df['iso2'].str.lower()
+        worldcities_df['iso3'] = worldcities_df['iso3'].str.lower()
+        worldcities_df['admin_name'] = worldcities_df['admin_name'].str.lower()
+        print(worldcities_df.head(5))
+        # change the location column to lowercase
+        df_unique_locations['location'] = (
+            df_unique_locations['location'].str.lower())
+        # merge the worldcities data with the unique
+        # locations data on location to city
+        # # Drop the temporary 'geolocation_info' and 'address' columns
+        # df_unique_locations.drop(columns=['geolocation_info', 'address'],
+        #                          inplace=True)
+        # # update df_locations with the information from df_unique_locations
+        # df_locations = pd.merge(df_locations,
+        #                         df_unique_locations,
+        #                         on='location',
+        #                         how='left')
+        # save the locationsfromarticle data to a csv file
+
+        # save_dataframe_to_zip(df_locations,
+        #                     'data/locationsfromarticle.zip',
+        #                     'locationsfromarticle.csv')
+        # # save the unique locations data to a csv file
+        # save_dataframe_to_zip(df_unique_locations,
+        #                     'data/unique_locations.zip',
+        #                     'unique_locations.csv')
 
 
-
-
-# # Drop the temporary 'geolocation_info' and 'address' columns
-# df_unique_locations.drop(columns=['geolocation_info', 'address'],
-#                          inplace=True)
-# # update df_locations with the information from df_unique_locations
-# df_locations = pd.merge(df_locations,
-#                         df_unique_locations,
-#                         on='location',
-#                         how='left')
-# save the locationsfromarticle data to a csv file
-save_dataframe_to_zip(df_locations,
-                      'data/locationsfromarticle.zip',
-                      'locationsfromarticle.csv')
-# save the unique locations data to a csv file
-save_dataframe_to_zip(df_unique_locations,
-                      'data/unique_locations.zip',
-                      'unique_locations.csv')
-
-findcommonthemes = False
 if findcommonthemes:
     # using NLP produce a li    st of common themes
     # create a list of common themes
