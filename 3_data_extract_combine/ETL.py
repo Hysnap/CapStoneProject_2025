@@ -1,23 +1,76 @@
+import time
 import pandas as pd
 import re
-import zlib
 import numpy as np
 import holidays
-import datetime as dt
-import pandas as pd
 import zipfile
+import csv
+from geopy.geocoders import GoogleV3
+from geopy.exc import GeocoderTimedOut
+from google.cloud import api_keys_v2
+from google.cloud.api_keys_v2 import Key
 import io
 from textblob import TextBlob
-import re
 import nltk
-from sl_utils.logger import logger
 from nltk.corpus import stopwords
-
 from nltk.stem import WordNetLemmatizer
 import spacy
-
 # check directory structure
 import os
+import ast
+
+
+def restrict_api_key_server(project_id: str, key_id: str) -> Key:
+    """
+    Restricts the API key based on IP addresses. You can specify one or
+    more IP addresses of the callers,
+    for example web servers or cron jobs, that are allowed to use your API key.
+
+    TODO(Developer): Replace the variables before running this sample.
+
+    Args:
+        project_id: Google Cloud project id.
+        key_id: ID of the key to restrict. This ID is auto-created
+        during key creation.
+            This is different from the key string. To obtain the key_id,
+            you can also use the lookup api: client.lookup_key()
+
+    Returns:
+        response: Returns the updated API Key.
+    """
+
+    # Create the API Keys client.
+    client = api_keys_v2.ApiKeysClient()
+
+    # Restrict the API key usage by specifying the IP addresses.
+    # You can specify the IP addresses in IPv4 or IPv6 or a
+    # subnet using CIDR notation.
+    server_key_restrictions = api_keys_v2.ServerKeyRestrictions()
+    server_key_restrictions.allowed_ips = ["80.189.63.110"]
+
+    # Set the API restriction.
+    # For more information on API key restriction, see:
+    # https://cloud.google.com/docs/authentication/api-keys
+    restrictions = api_keys_v2.Restrictions()
+    restrictions.server_key_restrictions = server_key_restrictions
+
+    key = api_keys_v2.Key()
+    key.name = f"projects/{project_id}/locations/global/keys/{key_id}"
+    key.restrictions = restrictions
+
+    # Initialize request and set arguments.
+    request = api_keys_v2.UpdateKeyRequest()
+    request.key = key
+    request.update_mask = "restrictions"
+
+    # Make the request and wait for the operation to complete.
+    response = client.update_key(request=request).result()
+
+    print(f"Successfully updated the API key: {response.name}")
+    # Use response.key_string to authenticate.
+    return response
+
+
 current_dir = os.getcwd()
 current_dir
 
@@ -45,6 +98,16 @@ nltk.download('wordnet')
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
 
+# Initialize the geolocator
+# Load the API key from an environment variable
+api_key = os.getenv("GOOGLE_API_KEY")
+
+if not api_key:
+    raise RuntimeError("Google API key not found. Please set "
+                       "the GOOGLE_API_KEY environment variable.")
+
+geolocator = GoogleV3(api_key=api_key)
+
 
 def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
     """Saves a pandas DataFrame to a zipped CSV file.
@@ -59,7 +122,11 @@ def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
     csv_buffer = io.StringIO()
 
     # Save the DataFrame to the buffer as a CSV
-    df.to_csv(csv_buffer, index=False)  # index=False to exclude the index
+    df.to_csv(csv_buffer,
+              index=True,
+              index_label="index",
+              quoting=csv.QUOTE_NONNUMERIC
+              )  # index=False to exclude the index
 
     # Create a zip file and add the CSV data to it
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zip_file:
@@ -68,13 +135,13 @@ def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
 
 def dataload():
     # load the data
-    fake_df = pd.read_csv("2_source_data/fake.csv")
-    true_df = pd.read_csv("2_source_data/true.csv")
+    fake_df = pd.read_csv("2_source_data/fake.csv.zip")
+    true_df = pd.read_csv("2_source_data/true.csv.zip")
     return fake_df, true_df
 
 
 def classify_media(text):
-    media_dict = {'video': ['video', 'watch', 'live', 
+    media_dict = {'video': ['video', 'watch', 'live',
                             'stream', 'youtube',
                             'vimeo', 'twitch'],
                   'audio': ['audio', 'listen', 'podcast', 'radio'],
@@ -101,22 +168,22 @@ def identify_media(text):
     df_media = df["text"].apply(lambda x: pd.Series(identify_media(x)))
     df = pd.concat([df, df_media], axis=1)
     """
-    media_dict = {'video': ['video', 'watch', 'live', 
+    media_dict = {'video': ['video', 'watch', 'live',
                             'stream', 'youtube',
                             'vimeo', 'twitch'],
-                'audio': ['audio', 'listen', 'podcast', 'radio'],
-                'image': ['image', 'photo', 'picture', 'gif'],
-                'infographic': ['infographic'],
-                'poll': ['poll'],
-                'twitter': ['twitter', 'X', 'x', 'tweet', 'retweeted'],
-                'facebook': ['facebook', 'fb'],
-                'instagram': ['instagram', 'ig', ],
-                'linkedin': ['linkedin'],
-                'wordpress': ['wordpress'],
-                'tumblr': ['tumblr'],
-                }
+                  'audio': ['audio', 'listen', 'podcast', 'radio'],
+                  'image': ['image', 'photo', 'picture', 'gif'],
+                  'infographic': ['infographic'],
+                  'poll': ['poll'],
+                  'twitter': ['twitter', 'X', 'x', 'tweet', 'retweeted'],
+                  'facebook': ['facebook', 'fb'],
+                  'instagram': ['instagram', 'ig', ],
+                  'linkedin': ['linkedin'],
+                  'wordpress': ['wordpress'],
+                  'tumblr': ['tumblr'],
+                  }
     # create media dictionary based of toplevel options in media_dict
-    media = {key: False for key in media_dict.keys()}  
+    media = {key: False for key in media_dict.keys()}
 
     if isinstance(text, str):
         text_lower = text.lower()
@@ -160,9 +227,9 @@ def classify_and_combine(true_df, fake_df):
     combined_df['media_type_article'] = (
         combined_df['article_text'].apply(classify_media))
     combined_df['media_type'] = combined_df.apply(
-        lambda row: row['media_type_title'] 
-        if row['media_type_title'] != 'text' 
-        else row['media_type_article'], 
+        lambda row: row['media_type_title']
+        if row['media_type_title'] != 'text'
+        else row['media_type_article'],
         axis=1
     )
     # Month mapping dictionary
@@ -207,9 +274,9 @@ def classify_and_combine(true_df, fake_df):
 
     # Ensure we only concatenate if all components are present
     combined_df['date_str'] = combined_df.apply(
-        lambda row: f"{row['year']}-{row['month']}-{row['day']}" 
-            if row['year'] and row['month'] and row['day'] else None,
-        axis=1
+        lambda row: f"{row['year']}-{row['month']}-{row['day']}"
+        if row['year'] and row['month'] and row['day']
+        else None, axis=1
     )
 
     # Convert to datetime, forcing errors to NaT
@@ -227,7 +294,7 @@ def classify_and_combine(true_df, fake_df):
     combined_df['date_clean'] = (
         pd.to_datetime(combined_df['date_clean']))
 
-    # find earliest date and latest date then 
+    # find earliest date and latest date then
     # find all Us_holidays in period
     min_date = combined_df['date_clean'].min()
     max_date = combined_df['date_clean'].max()
@@ -298,7 +365,7 @@ def extract_source_and_clean(text):
 def separate_string(input_string):
     # Extract the contents of the brackets
     bracket_content = re.search(r'\((.*?)\)', input_string).group(1)
-    # Extract the remaining text excluding the 
+    # Extract the remaining text excluding the
     # brackets and the hyphen or minus sign
     remaining_text = re.sub(r'\(.*?\)| -', '', input_string).strip()
     return remaining_text, bracket_content
@@ -343,7 +410,7 @@ def get_sentiment(text):
         return None, None
 
 
-def categorize_sentiment(polarity):
+def categorize_polarity(polarity):
     if polarity > 0:
         return 'positive'
     elif polarity < 0:
@@ -352,10 +419,82 @@ def categorize_sentiment(polarity):
         return 'neutral'
 
 
+def categorize_subjectivity(subjectivity):
+    if subjectivity > 0.8:
+        return 'highly subjective'
+    elif subjectivity > 0.6:
+        return 'subjective'
+    elif subjectivity > 0.4:
+        return 'neutral'
+    elif subjectivity > 0.2:
+        return 'objective'
+    else:
+        return 'higly objective'
+
+
 def extract_locations(text):
     doc = nlp(text)
     locations = [ent.text for ent in doc.ents if ent.label_ == "GPE"]
     return locations
+
+
+def string_to_list(location_str):
+    """Safely converts a string representation of a list to a list."""
+    try:
+        return ast.literal_eval(location_str)
+    except (ValueError, SyntaxError, TypeError):
+        return []
+
+
+def get_geolocation_info(location):
+    usetimedelay = True
+    try:
+        location_info = geolocator.geocode(location, timeout=10)
+        if location_info:
+            if usetimedelay:
+                time.sleep(1)
+            return {
+                'latitude': location_info.latitude,
+                'longitude': location_info.longitude,
+                'address': location_info.address
+            }
+        else:
+            if usetimedelay:
+                time.sleep(1)
+            return {
+                'latitude': None,
+                'longitude': None,
+                'address': None
+            }
+    except GeocoderTimedOut:
+        print(location)
+        if usetimedelay:
+            time.sleep(1)
+        return {
+            'latitude': None,
+            'longitude': None,
+            'address': None
+        }
+    except Exception as e:
+        print(f"Geocoding error: {e}")
+        if usetimedelay:
+            time.sleep(1)
+        return {
+            'latitude': None,
+            'longitude': None,
+            'address': None
+        }
+
+
+def extract_geolocation_details(address):
+    if address:
+        address_parts = address.split(', ')
+        country = address_parts[-1] if len(address_parts) > 0 else None
+        state = address_parts[-2] if len(address_parts) > 1 else None
+        continent = address_parts[-3] if len(address_parts) > 2 else None
+        return continent, country, state
+    else:
+        return None, None, None
 
 
 # Function to load and clean the data
@@ -365,6 +504,12 @@ def data_pipeline():
     # Combine the dataframes
     combined_df = classify_and_combine(true_df, fake_df)
     print(combined_df.columns[combined_df.columns.duplicated()])
+    # ensure index is unique
+    combined_df.reset_index(drop=True, inplace=True)
+    # rename index to article_id
+    combined_df['article_id'] = combined_df.index
+    # ensure index is labbelled index
+    combined_df.index.name = 'index'
     # Extract the source and clean the text
     combined_df[['source', 'cleaned_text']] = (
         combined_df['article_text'].apply(
@@ -411,17 +556,37 @@ def data_pipeline():
     combined_df['nlp_location'] = (
         combined_df['location'].apply(lambda x: [clean_text(i) for i in x]))
     combined_df[['article_polarity', 'article_subjectivity']] = (
-        combined_df['nlf_text'].apply(lambda x: pd.Series(get_sentiment(x))))
+        combined_df['nlp_text'].apply(lambda x: pd.Series(get_sentiment(x))))
     combined_df[['title_polarity', 'title_subjectivity']] = (
-        combined_df['nlf_title'].apply(lambda x: pd.Series(get_sentiment(x))))
+        combined_df['nlp_title'].apply(lambda x: pd.Series(get_sentiment(x))))
     combined_df['overall_polarity'] = (
         (combined_df['article_polarity'] + combined_df['title_polarity']) / 2)
+    combined_df['overall_subjectivity'] = (
+        (combined_df['article_subjectivity'] +
+         combined_df['title_subjectivity']) / 2)
+    # code to measure contradiction between title and article polarity
+    combined_df['contradiction_polarity'] = (
+        combined_df['article_polarity'] - combined_df['title_polarity'])
+    combined_df['contradiction_subjectivity'] = (
+        combined_df['article_subjectivity'] -
+        combined_df['title_subjectivity'])
+    combined_df['polarity_variations'] = (
+        combined_df['contradiction_polarity'] /
+        combined_df['title_polarity'])
+    combined_df['subjectivity_variations'] = (
+        combined_df['contradiction_subjectivity'] /
+        combined_df['title_subjectivity'])
+    # code to apply categorize_sentiment to article_polarity
+    # and article_subjectivity and return the result
     combined_df['sentiment_article'] = (
-        combined_df['article_polarity'].apply(categorize_sentiment))
-    combined_df['sentiment_title'] = (
-        combined_df['title_polarity'].apply(categorize_sentiment))
-    combined_df['sentiment_overall'] = (
-        combined_df['overall_polarity'].apply(categorize_sentiment))
+        combined_df['article_polarity'].apply(categorize_polarity) + " " +
+        combined_df['article_subjectivity'].apply(categorize_subjectivity))
+    combined_df['sentiment_title'] = ((
+        combined_df['title_polarity'].apply(categorize_polarity)) +
+        (combined_df['title_subjectivity'].apply(categorize_subjectivity)))
+    combined_df['sentiment_overall'] = ((
+        combined_df['overall_polarity'].apply(categorize_polarity)) +
+        (combined_df['overall_subjectivity'].apply(categorize_subjectivity)))
     # append nlp locations to nlp text
     combined_df['nlp_textloc'] = (
         combined_df['nlp_text'] + ' ' +
@@ -436,32 +601,229 @@ def data_pipeline():
                       'media_type_title',
                       'media_type_article',
                       'nlp_textloc',
+                      'subject',
+                      'source',
+                      'location',
+                      'nlp_location',
                       ], axis=1, inplace=True)
-    # USE ZLIBTO COMPRESS THE DATA
-    combined_df['cleaned_text'] = (
-        combined_df['cleaned_text']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-    combined_df['nlp_text'] = (
-        combined_df['nlp_text']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-    combined_df['nlp_title'] = (
-        combined_df['nlp_title']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-    combined_df['title'] = (
-        combined_df['title']
-        .apply(lambda x: zlib.compress(x.encode('utf-8'))))
-
+    # drop any rows where cleaned_text is empty
+    combined_df = combined_df.dropna(subset=['cleaned_text'])
+    # save the combined data to a csv file
+    save_dataframe_to_zip(combined_df,
+                          'data/combined_data_step1.zip',
+                          'combined_data_step1.csv')
     return combined_df
 
 
 # Generate Combined Data and save as a csv file
-combined_df = data_pipeline()
+usesavedfile = False
+usegeoapi = False
+useworldcitiesdata = False
+findcommonthemes = False
+
+if usesavedfile is False:
+    combined_df = data_pipeline()
+else:
+    combined_df = pd.read_csv('data/combined_data_step1.zip')
 # check for any blank values
 print(combined_df.isnull().sum())
+print(combined_df.head(5))
+# rename index to article_id if column article_id does not exist
+if 'article_id' not in combined_df.columns:
+    combined_df.index.name = 'index'
+    combined_df['article_id'] = combined_df.index
+# split locationsfromarticle into separate datafram
+# create a referenced list based of locationsfromarticle with an
+# entry for each location in the list
+# and a reference to the index of the article
+df_locations = combined_df[['article_id',
+                            'locationsfromarticle']].copy()
+print(df_locations.head(5))
+df_locations['locationsfromarticle'] = (
+    df_locations['locationsfromarticle'].apply(string_to_list))
+df_locations = (
+    df_locations.explode('locationsfromarticle')
+    .rename(columns={'locationsfromarticle': 'location'})
+)
+print(df_locations.head(10))
+# summarise the locationsfromarticle data by article_id and location adding
+# a count of the number of times the location appears in the article
+df_locations_sum = (
+    df_locations.groupby(['article_id',
+                          'location'])
+    .size()
+    .reset_index(name='count'))
+print(df_locations_sum.head(10))
+# create a dataframe of unique locations
+df_unique_locations = (
+    pd.DataFrame({'location': df_locations['location'].unique()}))
+print(df_unique_locations.shape)
+
+# Use unique_locations.zip to prepopulate the geolocation_info
+# and address columns
+# Load the unique locations data
+df_unique_locations_existing = pd.read_csv('data/unique_locations.zip')
+# merge the existing unique locations data with the new unique locations data
+# df_unique_locations = pd.concat([df_unique_locations_existing,
+#                                 df_unique_locations]).drop_duplicates()
+
+
+def find_location_match(location, worldcities_df):
+    """
+    Search for a location in multiple columns of worldcities_df.
+
+    Args:
+        location (str): The location to search for.
+        worldcities_df (DataFrame): The dataframe containing city data.
+
+    Returns:
+        dict: A dictionary containing the matched value, the column it was
+        found in, latitude, longitude, and country.
+              Returns None if no match is found.
+    """
+    search_columns = ['city', 'city_ascii', 'country',
+                      'iso2', 'iso3', 'admin_name']
+
+    # Convert input to string and lowercase for case-insensitive comparison
+    location = str(location).strip().lower()
+
+    for col in search_columns:
+        # Find rows where the location matches the column
+        match = worldcities_df[worldcities_df[col]
+                               .astype(str)
+                               .str.strip()
+                               .str.lower() == location]
+
+        if not match.empty:
+            # Extract the first match found
+            result = {
+                'matched_value': match.iloc[0][col],
+                'matched_column': col,
+                'latitude': match.iloc[0]['lat'],
+                'longitude': match.iloc[0]['lng'],
+                'country': match.iloc[0]['country']
+            }
+            return result
+
+    return None  # Return None if no match is found
+
+# # Example usage:
+# # Assuming worldcities_df is already loaded
+# location_to_search = "New York"
+# result = find_location_match(location_to_search, worldcities_df)
+
+# if result:
+#     print("Match found:", result)
+# else:
+#     print("No match found.")
+
+
+if usegeoapi:
+    # generate a list of rows with missing data and without the ignore flag = 1
+    missing_geolocation_info = (
+        df_unique_locations[
+            df_unique_locations['geolocation_info'].isnull()
+        ].query('ignore != 1')
+        )
+    # check the number of missing geolocation_info
+    print(missing_geolocation_info.shape)
+    # Apply geolocation info extraction
+    missing_geolocation_info['geolocation_info'] = (
+        missing_geolocation_info['location']
+        .apply(get_geolocation_info))
+    # Extract latitude, longitude, and address
+    missing_geolocation_info['latitude'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['latitude']))
+    missing_geolocation_info['longitude'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['longitude']))
+    missing_geolocation_info['address'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['address']))
+    # Extract continent, country, and state
+    missing_geolocation_info[['continent', 'country', 'state']] = (
+        missing_geolocation_info['address'].apply(
+            lambda x: pd.Series(extract_geolocation_details(x))
+            ))
+else:
+    if useworldcitiesdata:
+        print("Using worldcities data")
+
+        # add a column which classifies the location
+        # as a city, country or other
+        zip_file_path = '2_source_data/simplemaps_worldcities_basicv1.77.zip'
+        with zipfile.ZipFile(zip_file_path, 'r') as z:
+            with z.open('worldcities.csv') as f:
+                worldcities_df = pd.read_csv(f)
+        print(worldcities_df.head(5))
+        # change city, city_ascii, country, iso2, iso3, admin_name to lowercase
+        worldcities_df['city'] = worldcities_df['city'].str.lower()
+        worldcities_df['city_ascii'] = worldcities_df['city_ascii'].str.lower()
+        worldcities_df['country'] = worldcities_df['country'].str.lower()
+        worldcities_df['iso2'] = worldcities_df['iso2'].str.lower()
+        worldcities_df['iso3'] = worldcities_df['iso3'].str.lower()
+        worldcities_df['admin_name'] = worldcities_df['admin_name'].str.lower()
+        print(worldcities_df.head(5))
+        # change the location column to lowercase
+        df_unique_locations['location'] = (
+            df_unique_locations['location'].str.lower())
+        # merge the worldcities data with the unique
+        # locations data on location to city
+        # # Drop the temporary 'geolocation_info' and 'address' columns
+        # df_unique_locations.drop(columns=['geolocation_info', 'address'],
+        #                          inplace=True)
+        # # update df_locations with the information from df_unique_locations
+        # df_locations = pd.merge(df_locations,
+        #                         df_unique_locations,
+        #                         on='location',
+        #                         how='left')
+        # save the locationsfromarticle data to a csv file
+
+        # save_dataframe_to_zip(df_locations,
+        #                     'data/locationsfromarticle.zip',
+        #                     'locationsfromarticle.csv')
+        # # save the unique locations data to a csv file
+        # save_dataframe_to_zip(df_unique_locations,
+        #                     'data/unique_locations.zip',
+        #                     'unique_locations.csv')
+
+
+if findcommonthemes:
+    # using NLP produce a li    st of common themes
+    # create a list of common themes
+    common_themes = []
+    # iterate over the nlp_text column
+    for text in combined_df['nlp_text']:
+        # create a doc object
+        doc = nlp(text)
+        # iterate over the entities in the doc
+        for ent in doc.ents:
+            # if the entity is a common noun
+            if ent.label_ == 'NOUN':
+                # append the entity to the common_themes list
+                common_themes.append(ent.text)
+    # create a dataframe of common themes
+    df_common_themes = pd.DataFrame(common_themes, columns=['theme'])
+    # create a count of the number of times each theme appears
+    df_common_themes = df_common_themes['theme'].value_counts().reset_index()
+    # rename the columns
+    df_common_themes.columns = ['theme', 'count']
+    # save the common themes data to a csv file
+    save_dataframe_to_zip(df_common_themes,
+                          'data/common_themes.zip',
+                          'common_themes.csv')
+
+
 # if no blank or null values in title, article_text, date, label,
 # subject then export to csv
 if combined_df.isnull().sum().sum() == 0:
-    save_dataframe_to_zip(combined_df, 'data/combined_data.zip')
+    save_dataframe_to_zip(combined_df,
+                          'data/combined_data.zip',
+                          'combined_data.csv')
     print("Data cleaned and saved as combined_data.csv in data folder")
 else:
     print("There are still missing values in the data")
+    save_dataframe_to_zip(combined_df,
+                          'data/combined_data.zip',
+                          'combined_data.csv')
