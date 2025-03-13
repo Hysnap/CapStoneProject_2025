@@ -4,8 +4,11 @@ import re
 import numpy as np
 import holidays
 import zipfile
+import csv
 from geopy.geocoders import GoogleV3
 from geopy.exc import GeocoderTimedOut
+from google.cloud import api_keys_v2
+from google.cloud.api_keys_v2 import Key
 import io
 from textblob import TextBlob
 import nltk
@@ -15,6 +18,58 @@ import spacy
 # check directory structure
 import os
 import ast
+
+
+def restrict_api_key_server(project_id: str, key_id: str) -> Key:
+    """
+    Restricts the API key based on IP addresses. You can specify one or
+    more IP addresses of the callers,
+    for example web servers or cron jobs, that are allowed to use your API key.
+
+    TODO(Developer): Replace the variables before running this sample.
+
+    Args:
+        project_id: Google Cloud project id.
+        key_id: ID of the key to restrict. This ID is auto-created
+        during key creation.
+            This is different from the key string. To obtain the key_id,
+            you can also use the lookup api: client.lookup_key()
+
+    Returns:
+        response: Returns the updated API Key.
+    """
+
+    # Create the API Keys client.
+    client = api_keys_v2.ApiKeysClient()
+
+    # Restrict the API key usage by specifying the IP addresses.
+    # You can specify the IP addresses in IPv4 or IPv6 or a
+    # subnet using CIDR notation.
+    server_key_restrictions = api_keys_v2.ServerKeyRestrictions()
+    server_key_restrictions.allowed_ips = ["80.189.63.110"]
+
+    # Set the API restriction.
+    # For more information on API key restriction, see:
+    # https://cloud.google.com/docs/authentication/api-keys
+    restrictions = api_keys_v2.Restrictions()
+    restrictions.server_key_restrictions = server_key_restrictions
+
+    key = api_keys_v2.Key()
+    key.name = f"projects/{project_id}/locations/global/keys/{key_id}"
+    key.restrictions = restrictions
+
+    # Initialize request and set arguments.
+    request = api_keys_v2.UpdateKeyRequest()
+    request.key = key
+    request.update_mask = "restrictions"
+
+    # Make the request and wait for the operation to complete.
+    response = client.update_key(request=request).result()
+
+    print(f"Successfully updated the API key: {response.name}")
+    # Use response.key_string to authenticate.
+    return response
+
 
 current_dir = os.getcwd()
 current_dir
@@ -48,7 +103,8 @@ nlp = spacy.load("en_core_web_sm")
 api_key = os.getenv("GOOGLE_API_KEY")
 
 if not api_key:
-    raise RuntimeError("Google API key not found. Please set the GOOGLE_API_KEY environment variable.")
+    raise RuntimeError("Google API key not found. Please set "
+                       "the GOOGLE_API_KEY environment variable.")
 
 geolocator = GoogleV3(api_key=api_key)
 
@@ -66,7 +122,11 @@ def save_dataframe_to_zip(df, zip_filename, csv_filename='data.csv'):
     csv_buffer = io.StringIO()
 
     # Save the DataFrame to the buffer as a CSV
-    df.to_csv(csv_buffer, index=False)  # index=False to exclude the index
+    df.to_csv(csv_buffer,
+              index=True,
+              index_label="index",
+              quoting=csv.QUOTE_NONNUMERIC
+              )  # index=False to exclude the index
 
     # Create a zip file and add the CSV data to it
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zip_file:
@@ -350,13 +410,26 @@ def get_sentiment(text):
         return None, None
 
 
-def categorize_sentiment(polarity):
+def categorize_polarity(polarity):
     if polarity > 0:
         return 'positive'
     elif polarity < 0:
         return 'negative'
     else:
         return 'neutral'
+
+
+def categorize_subjectivity(subjectivity):
+    if subjectivity > 0.8:
+        return 'highly subjective'
+    elif subjectivity > 0.6:
+        return 'subjective'
+    elif subjectivity > 0.4:
+        return 'neutral'
+    elif subjectivity > 0.2:
+        return 'objective'
+    else:
+        return 'higly objective'
 
 
 def extract_locations(text):
@@ -411,7 +484,6 @@ def get_geolocation_info(location):
             'longitude': None,
             'address': None
         }
-    
 
 
 def extract_geolocation_details(address):
@@ -489,12 +561,32 @@ def data_pipeline():
         combined_df['nlp_title'].apply(lambda x: pd.Series(get_sentiment(x))))
     combined_df['overall_polarity'] = (
         (combined_df['article_polarity'] + combined_df['title_polarity']) / 2)
+    combined_df['overall_subjectivity'] = (
+        (combined_df['article_subjectivity'] +
+         combined_df['title_subjectivity']) / 2)
+    # code to measure contradiction between title and article polarity
+    combined_df['contradiction_polarity'] = (
+        combined_df['article_polarity'] - combined_df['title_polarity'])
+    combined_df['contradiction_subjectivity'] = (
+        combined_df['article_subjectivity'] -
+        combined_df['title_subjectivity'])
+    combined_df['polarity_variations'] = (
+        combined_df['contradiction_polarity'] /
+        combined_df['title_polarity'])
+    combined_df['subjectivity_variations'] = (
+        combined_df['contradiction_subjectivity'] /
+        combined_df['title_subjectivity'])
+    # code to apply categorize_sentiment to article_polarity
+    # and article_subjectivity and return the result
     combined_df['sentiment_article'] = (
-        combined_df['article_polarity'].apply(categorize_sentiment))
-    combined_df['sentiment_title'] = (
-        combined_df['title_polarity'].apply(categorize_sentiment))
-    combined_df['sentiment_overall'] = (
-        combined_df['overall_polarity'].apply(categorize_sentiment))
+        combined_df['article_polarity'].apply(categorize_polarity) + " " +
+        combined_df['article_subjectivity'].apply(categorize_subjectivity))
+    combined_df['sentiment_title'] = ((
+        combined_df['title_polarity'].apply(categorize_polarity)) +
+        (combined_df['title_subjectivity'].apply(categorize_subjectivity)))
+    combined_df['sentiment_overall'] = ((
+        combined_df['overall_polarity'].apply(categorize_polarity)) +
+        (combined_df['overall_subjectivity'].apply(categorize_subjectivity)))
     # append nlp locations to nlp text
     combined_df['nlp_textloc'] = (
         combined_df['nlp_text'] + ' ' +
@@ -525,7 +617,7 @@ def data_pipeline():
 
 # Generate Combined Data and save as a csv file
 usesavedfile = True
-usegeoapi = False
+usegeoapi = True
 if usesavedfile is False:
     combined_df = data_pipeline()
 else:
@@ -563,8 +655,49 @@ print(df_locations_sum.head(10))
 df_unique_locations = (
     pd.DataFrame({'location': df_locations['location'].unique()}))
 print(df_unique_locations.shape)
+
+# Use unique_locations.zip to prepopulate the geolocation_info
+# and address columns
+# Load the unique locations data
+df_unique_locations_existing = pd.read_csv('data/unique_locations.zip')
+# merge the existing unique locations data with the new unique locations data
+df_unique_locations = pd.concat([df_unique_locations_existing,
+                                    df_unique_locations]).drop_duplicates()
+# generate a list of rows with missing data and without the ignore flag = 1
+missing_geolocation_info = (
+    df_unique_locations[df_unique_locations['geolocation_info'].isnull()]
+    .query('ignore != 1')
+)
+# check the number of missing geolocation_info
+print(missing_geolocation_info.shape)
+
+
+if usegeoapi:
+    # Apply geolocation info extraction
+    missing_geolocation_info['geolocation_info'] = (
+        missing_geolocation_info['location']
+        .apply(get_geolocation_info))
+    # Extract latitude, longitude, and address
+    missing_geolocation_info['latitude'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['latitude']))
+    missing_geolocation_info['longitude'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['longitude']))
+    missing_geolocation_info['address'] = (
+        missing_geolocation_info['geolocation_info']
+        .apply(lambda x: x['address']))
+    # Extract continent, country, and state
+    missing_geolocation_info[['continent', 'country', 'state']] = (
+        missing_geolocation_info['address'].apply(
+            lambda x: pd.Series(extract_geolocation_details(x))
+            ))
+else:
+    print("Using worldcities data")
+
 # add a column which classifies the location as a city, country or other
-with zipfile.ZipFile('2_source_data/simplemaps_worldcities_basicv1.77.zip', 'r') as z:
+with zipfile.ZipFile('2_source_data/simplemaps_worldcities_basicv1.77.zip',
+'r') as z:
     with z.open('worldcities.csv') as f:
         worldcities_df = pd.read_csv(f)
 print(worldcities_df.head(5))
@@ -575,57 +708,65 @@ worldcities_df['country'] = worldcities_df['country'].str.lower()
 worldcities_df['iso2'] = worldcities_df['iso2'].str.lower()
 worldcities_df['iso3'] = worldcities_df['iso3'].str.lower()
 worldcities_df['admin_name'] = worldcities_df['admin_name'].str.lower()
+print(worldcities_df.head(5))
 # change the location column to lowercase
 df_unique_locations['location'] = df_unique_locations['location'].str.lower()
-# merge the worldcities data with the unique locations data on location to city
-df_unique_locations = pd.merge(df_unique_locations,
-                               worldcities_df,
-                               left_on='location',
-                               right_on='city',
-                               how='left')
-# rename lat to latitude and lon to longitude
-df_unique_locations.rename(columns={'lat': 'latitude',
-                                    'lng': 'longitude'}, inplace=True)
-# provide a count of null city values
-print(df_unique_locations['city'].isnull().sum())
-# provide a count of null city_ascii values
-print(df_unique_locations['city_ascii'].isnull().sum())
-print(df_unique_locations.head(5))
-# merge the worldcities data with the unique locations data on location to city_ascii if city is null
-df_unique_locations = pd.merge(df_unique_locations,
-                               worldcities_df,
-                               left_on='location',
-                               right_on='city_ascii',
-                               how='left')
-# copy lat to latitude and lon to longitude if latitude is null
-df_unique_locations['latitude'] = (
-    df_unique_locations['latitude'].fillna(df_unique_locations['lat']))
-df_unique_locations['longitude'] = (
-    df_unique_locations['longitude'].fillna(df_unique_locations['lng']))
+# merge the worldcities data with the unique
+# locations data on location to city
+import pandas as pd
 
+def find_location_match(location, worldcities_df):
+    """
+    Search for a location in multiple columns of worldcities_df.
 
-if usegeoapi:
-    # Apply geolocation info extraction
-    df_unique_locations['geolocation_info'] = (
-        df_unique_locations['location']
-        .apply(get_geolocation_info))
-    # Extract latitude, longitude, and address
-    df_unique_locations['latitude'] = (
-        df_unique_locations['geolocation_info']
-        .apply(lambda x: x['latitude']))
-    df_unique_locations['longitude'] = (
-        df_unique_locations['geolocation_info']
-        .apply(lambda x: x['longitude']))
-    df_unique_locations['address'] = (
-        df_unique_locations['geolocation_info']
-        .apply(lambda x: x['address']))
-    # Extract continent, country, and state
-    df_unique_locations[['continent', 'country', 'state']] = (
-        df_unique_locations['address'].apply(
-            lambda x: pd.Series(extract_geolocation_details(x))
-            ))
+    Args:
+        location (str): The location to search for.
+        worldcities_df (DataFrame): The dataframe containing city data.
+
+    Returns:
+        dict: A dictionary containing the matched value, the column it was
+        found in, latitude, longitude, and country.
+              Returns None if no match is found.
+    """
+    search_columns = ['city', 'city_ascii', 'country',
+                      'iso2', 'iso3', 'admin_name']
+
+    # Convert input to string and lowercase for case-insensitive comparison
+    location = str(location).strip().lower()
+
+    for col in search_columns:
+        # Find rows where the location matches the column
+        match = worldcities_df[worldcities_df[col]
+                               .astype(str)
+                               .str.strip()
+                               .str.lower() == location]
+
+        if not match.empty:
+            # Extract the first match found
+            result = {
+                'matched_value': match.iloc[0][col],
+                'matched_column': col,
+                'latitude': match.iloc[0]['lat'],
+                'longitude': match.iloc[0]['lng'],
+                'country': match.iloc[0]['country']
+            }
+            return result
+    
+    return None  # Return None if no match is found
+
+# Example usage:
+# Assuming worldcities_df is already loaded
+location_to_search = "New York"
+result = find_location_match(location_to_search, worldcities_df)
+
+if result:
+    print("Match found:", result)
 else:
-    print("Using worldcities data")
+    print("No match found.")
+
+
+
+
 # # Drop the temporary 'geolocation_info' and 'address' columns
 # df_unique_locations.drop(columns=['geolocation_info', 'address'],
 #                          inplace=True)
@@ -634,14 +775,14 @@ else:
 #                         df_unique_locations,
 #                         on='location',
 #                         how='left')
-# # save the locationsfromarticle data to a csv file
-# save_dataframe_to_zip(df_locations,
-#                       'data/locationsfromarticle.zip',
-#                       'locationsfromarticle.csv')
-# # save the unique locations data to a csv file
-# save_dataframe_to_zip(df_unique_locations,
-#                       'data/unique_locations.zip',
-#                       'unique_locations.csv')
+# save the locationsfromarticle data to a csv file
+save_dataframe_to_zip(df_locations,
+                      'data/locationsfromarticle.zip',
+                      'locationsfromarticle.csv')
+# save the unique locations data to a csv file
+save_dataframe_to_zip(df_unique_locations,
+                      'data/unique_locations.zip',
+                      'unique_locations.csv')
 
 findcommonthemes = False
 if findcommonthemes:
@@ -666,8 +807,8 @@ if findcommonthemes:
     df_common_themes.columns = ['theme', 'count']
     # save the common themes data to a csv file
     save_dataframe_to_zip(df_common_themes,
-                        'data/common_themes.zip',
-                        'common_themes.csv')
+                          'data/common_themes.zip',
+                          'common_themes.csv')
 
 
 # if no blank or null values in title, article_text, date, label,
@@ -679,3 +820,6 @@ if combined_df.isnull().sum().sum() == 0:
     print("Data cleaned and saved as combined_data.csv in data folder")
 else:
     print("There are still missing values in the data")
+    save_dataframe_to_zip(combined_df,
+                          'data/combined_data.zip',
+                          'combined_data.csv')

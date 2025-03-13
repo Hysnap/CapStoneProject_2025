@@ -18,3 +18,4 @@ spacy
 geopy
 nltk
 scipy
+google-cloud-api-keys
