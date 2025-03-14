@@ -12,6 +12,8 @@ from sklearn.feature_selection import VarianceThreshold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
 
 sns.set_style("whitegrid")
 
@@ -219,11 +221,11 @@ def main():
      y_test) = split_data(X_reduced,
                           processed_df[target])
 
-    print("Processed DF Columns:", processed_df.columns)
-    print("First 5 rows:\n", processed_df.head())
-    print("X_reduced shape:", X_reduced.shape)
-    print("X_reduced columns:", X_reduced.columns)
-    print("X_reduced first 5 row:\n", X_reduced.head())
+    # print("Processed DF Columns:", processed_df.columns)
+    # print("First 5 rows:\n", processed_df.head())
+    # print("X_reduced shape:", X_reduced.shape)
+    # print("X_reduced columns:", X_reduced.columns)
+    # print("X_reduced first 5 row:\n", X_reduced.head())
 
     model, importances = train_model(X_train, y_train)
 
@@ -275,4 +277,3 @@ if __name__ == "__main__":
     # Simulated function call with example parameters (replace with real data)
     results = main()
     print(results)
-
