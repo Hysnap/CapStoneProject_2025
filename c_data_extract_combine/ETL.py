@@ -99,8 +99,10 @@ def checkdirectory():
             print("The file README.md exists in the current directory")
         else:
             RuntimeError("The file README.md does not exist in the"
-                         " current directory, please check the current directory")
+                         " current directory, please"
+                         " check the current directory")
             print("Current Directory =", current_dir)
+
 
 # Download necessary NLTK resources (if you haven't already)
 nltk.download('stopwords')
