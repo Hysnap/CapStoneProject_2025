@@ -1,9 +1,9 @@
 # all globel variables and constants are defined here  #
 import streamlit as st
 from pathlib import Path
-from utils.logger import (log_function_call,
-                          logger,
-                          init_state_var)
+from sl_utils.logger import (log_function_call,
+                             logger,
+                             init_state_var)
 import config as config  # Import the config file
 import os
 
@@ -30,14 +30,10 @@ def initialize_session_state():
     # Initialize simple configuration values
     init_state_var("BASE_DIR", BASE_DIR)
     init_state_var("filenames", config.FILENAMES)
-    init_state_var("PLACEHOLDER_DATE", config.PLACEHOLDER_DATE)
-    init_state_var("PLACEHOLDER_ID", config.PLACEHOLDER_ID)
-    init_state_var("thresholds", config.THRESHOLDS)
     init_state_var("data_remappings", config.DATA_REMAPPINGS)
     init_state_var("filter_def", config.FILTER_DEF)
     init_state_var("security", config.SECURITY)
-    init_state_var("perc_target", config.perc_target)
-    init_state_var("RERUN_MP_PARTY_MEMBERSHIP", config.RERUN_MP_PARTY_MEMBERSHIP)
+
     # Initialize directories
     init_state_var("directories", config.DIRECTORIES)
 
@@ -47,13 +43,20 @@ def initialize_session_state():
 
     # Initialize directory references
     for dir_key in [
-        "reference_dir",
         "data_dir",
-        "output_dir",
+        "requirements_dir",
+        "source_dir",
+        "data_extract_combined_dir",
+        "transform_dir",
+        "nlp_data_processing_dir",
+        "dashboard_dir",
+        "future_work_dir",
         "logs_dir",
-        "components_dir",
         "app_pages_dir",
         "utils_dir",
+        "components_dir",
+        "reference_dir",
+        "visualisation_dir",
             ]:
         init_state_var(dir_key, config.DIRECTORIES.get(dir_key))
 

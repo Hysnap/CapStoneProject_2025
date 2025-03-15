@@ -20,7 +20,7 @@ logging.basicConfig(
     encoding="utf-8",
     handlers=[
         # Logs to a file
-        logging.FileHandler("logs/app_log.log", encoding="utf-8"),
+        logging.FileHandler("sl_logs/app_log.log", encoding="utf-8"),
         # Logs to console
         logging.StreamHandler(sys.stdout)
     ]

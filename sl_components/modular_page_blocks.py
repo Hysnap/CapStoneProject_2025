@@ -1,24 +1,20 @@
 import streamlit as st
 import datetime as dt
-from components.filters import filter_by_date, apply_filters
-from components.calculations import (
-    compute_summary_statistics,
+from sl_components.filters import filter_by_date, apply_filters
+from sl_components.calculations import (
     get_mindate,
     get_maxdate,
     calculate_percentage,
     format_number,
 )
-from Visualisations import ( 
+from sl_Visualisations import ( 
     plot_bar_line,
-    plot_pie_chart,
-    plot_bar_chart,
-    plot_regressionplot
     )
-from components.text_management import (
+from sl_components.text_management import (
     load_page_text,
     save_text,
     )
-from utils.logger import log_function_call, logger
+from sl_utils.logger import log_function_call, logger
 
 
 @log_function_call

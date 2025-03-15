@@ -13,8 +13,7 @@ st.set_page_config(page_title="Political Party Analysis",
 try:
     import setup
     import ROD_menu
-    from utils.logger import logger
-    from data.data_utils import initialise_data
+    from sl_utils.logger import logger
 except ImportError as e:
     raise SystemExit(f"Error: Failed to import modules - {e}")
 
@@ -51,23 +50,23 @@ except Exception as e:
 
 
 # Run the first load function
-try:
-    # Create a loading message
-    loading_message = st.empty()
-    # Display a loading message
-    loading_message.markdown(
-        "<h3 style='text-align: center; color: blue;'>"
-        "Please wait while the data sets are being "
-        "calculated...</h3>",
-        unsafe_allow_html=True,
-    )
-    initialise_data()  # Load the data
-    # Clear the loading message
-    loading_message.empty()
-except Exception as e:
-    logger.critical(f"First load crashed: {e}", exc_info=True)
-    st.error(f"Data loading failed. Please check logs. {e}")
-    raise SystemExit("Data loading failed. Exiting.")
+# try:
+#     # Create a loading message
+#     loading_message = st.empty()
+#     # Display a loading message
+#     loading_message.markdown(
+#         "<h3 style='text-align: center; color: blue;'>"
+#         "Please wait while the data sets are being "
+#         "calculated...</h3>",
+#         unsafe_allow_html=True,
+#     )
+#     initialise_data()  # Load the data
+#     # Clear the loading message
+#     loading_message.empty()
+# except Exception as e:
+#     logger.critical(f"First load crashed: {e}", exc_info=True)
+#     st.error(f"Data loading failed. Please check logs. {e}")
+#     raise SystemExit("Data loading failed. Exiting.")
 
 logger.info("App is fully loaded and ready!")
 # The app is now ready to be run.

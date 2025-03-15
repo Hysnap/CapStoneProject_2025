@@ -6,20 +6,14 @@ from pathlib import Path
 # Base directory
 BASE_DIR = Path(os.getcwd())
 
-# ReRun MP Party Membership
-RERUN_MP_PARTY_MEMBERSHIP = False
 
 # Placeholder values
-PLACEHOLDER_DATE = pd.Timestamp("1900-01-01 00:00:00")
-PLACEHOLDER_ID = 1000001
-perc_target = 0.5
-
 DIRECTORIES = {  # "directory_name": "directory_path"
     "BASE_DIR": Path(os.getcwd()),
     "data_dir": os.path.join("data"),
-    "requirements_dir": os.path.join("a_requirements_gathering"),
-    "source_dir": os.path.join("source_data"),
-    "data_extract_combined_dir": os.path.join("c_data_extract_combined"),
+    "requirements_dir": os.path.join("a_requirement_gathering"),
+    "source_dir": os.path.join("b_source_data"),
+    "data_extract_combined_dir": os.path.join("c_data_extract_combine"),
     "transform_dir": os.path.join("d_transform"),
     "nlp_data_processing_dir": os.path.join("e_nlp_data_processing"),
     "dashboard_dir": os.path.join("f_dashboard"),
@@ -29,10 +23,8 @@ DIRECTORIES = {  # "directory_name": "directory_path"
     "utils_dir": os.path.join("sl_utils"),
     "components_dir": os.path.join("sl_components"),
     "reference_dir": os.path.join("sl_reference_files"),
-    "visualisation_dir": os.path.join("sl_visualisation"),
+    "visualisation_dir": os.path.join("sl_visualisations"),
 }
-
-
 
 # File paths
 FILENAMES = {  # "directory" : {"file_name": "file_path"}
@@ -54,16 +46,19 @@ FILENAMES = {  # "directory" : {"file_name": "file_path"}
         "locationsfromarticles_fname": "locationsfromarticles.zip",
         "MachineLearning_results_fname": "MachineLearning_results.csv",
         "unique_locations_fname": "unique_locations.csv",
+        "article_locations_fname": "articleformapc.csv",
     },
     "dashboard_dir": {
         "dashboard_fname": "Real_or_Dubious_news.pbix"
     },
+    "transform_dir": {
+        "ML_model_fname": "ML_models.py",}
 }
 
 
 # Data remappings
-DATA_REMAPPINGS = {}
-
+DATA_REMAPPINGS = {"label_remapping": {0: "True News", 1: "Fake News"}
+                   }
 
 # category filter definitions
 FILTER_DEF = {  # "filter_name": {"column_name": "value"}
@@ -78,7 +73,7 @@ FILTER_DEF = {  # "filter_name": {"column_name": "value"}
     },
     "validdates_ftr": {
         "date": "> 2001-01-01"
-    },
+    },}
 
 SECURITY = {  # "security_variable": "security_value"
     "is_admin": False,

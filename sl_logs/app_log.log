@@ -1,0 +1,219 @@
+2025/03/15 05:56 ERROR:Error in pagesetup: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:56 CRITICAL:Menu setup crashed: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:56 ERROR:Error in pagesetup: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:56 CRITICAL:Menu setup crashed: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:57 ERROR:Error in pagesetup: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:57 ERROR:Error in pagesetup: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:57 CRITICAL:Menu setup crashed: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:57 CRITICAL:Menu setup crashed: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:57 ERROR:Error in pagesetup: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 05:57 CRITICAL:Menu setup crashed: No module named 'utils'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 10, in pagesetup
+    from sl_app_pages.multi_page import MultiPage
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\__init__.py", line 1, in <module>
+    from utils.version import get_git_version
+ModuleNotFoundError: No module named 'utils'
+2025/03/15 06:02 CRITICAL:Menu setup crashed: No module named 'components'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 13, in pagesetup
+    from sl_app_pages.notesondataprep import notesondataprep_body
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py", line 2, in <module>
+    import components.calculations as ppcalc
+ModuleNotFoundError: No module named 'components'
+2025/03/15 06:03 ERROR:Error in pagesetup: No module named 'components'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 13, in pagesetup
+    from sl_app_pages.notesondataprep import notesondataprep_body
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py", line 2, in <module>
+    import components.calculations as ppcalc
+ModuleNotFoundError: No module named 'components'
+2025/03/15 06:03 ERROR:Error in pagesetup: cannot import name 'notesondataprep_body' from 'sl_app_pages.notesondataprep' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 13, in pagesetup
+    from sl_app_pages.notesondataprep import notesondataprep_body
+ImportError: cannot import name 'notesondataprep_body' from 'sl_app_pages.notesondataprep' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py)
+2025/03/15 06:03 CRITICAL:Menu setup crashed: No module named 'components'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 13, in pagesetup
+    from sl_app_pages.notesondataprep import notesondataprep_body
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py", line 2, in <module>
+    import components.calculations as ppcalc
+ModuleNotFoundError: No module named 'components'
+2025/03/15 06:03 CRITICAL:Menu setup crashed: cannot import name 'notesondataprep_body' from 'sl_app_pages.notesondataprep' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 13, in pagesetup
+    from sl_app_pages.notesondataprep import notesondataprep_body
+ImportError: cannot import name 'notesondataprep_body' from 'sl_app_pages.notesondataprep' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\notesondataprep.py)
+2025/03/15 06:04 ERROR:Error in pagesetup: cannot import name 'compute_summary_statistics' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
+    from sl_app_pages.mod_page_calls import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py", line 2, in <module>
+    from sl_app_pages.modular_page import display_data_page
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\modular_page.py", line 2, in <module>
+    from sl_components.modular_page_blocks import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_components\modular_page_blocks.py", line 4, in <module>
+    from sl_components.calculations import (
+ImportError: cannot import name 'compute_summary_statistics' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+2025/03/15 06:04 CRITICAL:Menu setup crashed: cannot import name 'compute_summary_statistics' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
+    from sl_app_pages.mod_page_calls import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py", line 2, in <module>
+    from sl_app_pages.modular_page import display_data_page
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\modular_page.py", line 2, in <module>
+    from sl_components.modular_page_blocks import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_components\modular_page_blocks.py", line 4, in <module>
+    from sl_components.calculations import (
+ImportError: cannot import name 'compute_summary_statistics' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+2025/03/15 06:05 ERROR:Error in pagesetup: cannot import name 'get_mindate' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
+    from sl_app_pages.mod_page_calls import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py", line 2, in <module>
+    from sl_app_pages.modular_page import display_data_page
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\modular_page.py", line 2, in <module>
+    from sl_components.modular_page_blocks import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_components\modular_page_blocks.py", line 4, in <module>
+    from sl_components.calculations import (
+ImportError: cannot import name 'get_mindate' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+2025/03/15 06:05 ERROR:Error in pagesetup: cannot import name 'loginpage' from 'sl_app_pages.mod_page_calls' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
+    from sl_app_pages.mod_page_calls import (
+ImportError: cannot import name 'loginpage' from 'sl_app_pages.mod_page_calls' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py)
+2025/03/15 06:05 CRITICAL:Menu setup crashed: cannot import name 'get_mindate' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
+    from sl_app_pages.mod_page_calls import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py", line 2, in <module>
+    from sl_app_pages.modular_page import display_data_page
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\modular_page.py", line 2, in <module>
+    from sl_components.modular_page_blocks import (
+  File "H:\VScode\CapStoneProject_2025-1\sl_components\modular_page_blocks.py", line 4, in <module>
+    from sl_components.calculations import (
+ImportError: cannot import name 'get_mindate' from 'sl_components.calculations' (H:\VScode\CapStoneProject_2025-1\sl_components\calculations.py)
+2025/03/15 06:05 CRITICAL:Menu setup crashed: cannot import name 'loginpage' from 'sl_app_pages.mod_page_calls' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py)
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
+    from sl_app_pages.mod_page_calls import (
+ImportError: cannot import name 'loginpage' from 'sl_app_pages.mod_page_calls' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py)
