@@ -2,8 +2,8 @@ import streamlit as st
 import json
 import os
 import bcrypt
-from utils.global_variables import initialize_session_state
-from utils.logger import log_function_call  # Import decorator
+from sl_utils.global_variables import initialize_session_state
+from sl_utils.logger import log_function_call  # Import decorator
 
 
 # File paths

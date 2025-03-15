@@ -3,9 +3,9 @@ Configuration file for the package.
 """
 import os
 import streamlit as st
-from utils.logger import logger, log_function_call
-from utils.version import get_git_version
-from utils.global_variables import initialize_session_state
+from sl_utils.logger import logger, log_function_call
+from sl_utils.version import get_git_version
+from sl_utils.global_variables import initialize_session_state
 
 
 @log_function_call
@@ -45,7 +45,6 @@ def setup_package():
         "plotly",
         "patsy",
         "statsmodels",
-        "rapidfuzz",
         "streamlit",
         "pytest",
         "bcrypt"
@@ -63,7 +62,7 @@ def setup_package():
     # Define the package keywords
     packagekeywords = ["data", "cleaning", "deduplication", "Real or Dubious News analysis"]
     # Define the package URL
-    packageurl = 
+    packageurl = ""
     # initialize variables
     try:
         initialize_session_state()

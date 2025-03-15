@@ -1,5 +1,5 @@
 import streamlit as st
-from components.modular_page_blocks import (
+from sl_components.modular_page_blocks import (
     display_summary_statistics,
     display_textual_insights_predefined,
     display_textual_insights_custom,
@@ -8,7 +8,7 @@ from components.modular_page_blocks import (
 )
 from components.text_management import manage_text_elements
 # from utils.logger import logger
-from utils.logger import log_function_call  # Import decorator
+from sl_utils.logger import log_function_call  # Import decorator
 
 
 @log_function_call
