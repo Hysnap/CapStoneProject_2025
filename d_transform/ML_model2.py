@@ -45,7 +45,7 @@ def evaluate_model(model, X_test, y_test, model_type="classification"):
 model_type = "regression"
 source_df = pd.read_csv("data/combined_data.zip")
 
-#drop rows with missing values
+# drop rows with missing values
 source_df = source_df.dropna(inplace=True)
 
 if model_type == "regression":
