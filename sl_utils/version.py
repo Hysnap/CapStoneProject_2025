@@ -1,7 +1,8 @@
 import subprocess
 import os
 import streamlit as st
-from utils.logger import log_function_call
+from sl_utils.logger import log_function_call
+
 
 @log_function_call
 @st.cache_data

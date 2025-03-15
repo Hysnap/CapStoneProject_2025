@@ -18,8 +18,10 @@ import spacy
 import os
 import ast
 import logging
+import tqdm
 from flashtext import KeywordProcessor
 
+tqdm.pandas
 
 # Set up logging
 logging.basicConfig(level=logging.INFO,
@@ -384,6 +386,9 @@ def classify_and_combine(true_df, fake_df, test_data_df):
     combined_pre_clean['date_clean'] = (
         combined_pre_clean['date_clean'].
         fillna(pd.to_datetime('2000-02-01')))
+    # set missing month, day and year values
+    combined_pre_clean[['month', 'day', 'year']] = (
+        combined_pre_clean['date'].str.extract(r'(\w+)\s+(\d+),?\s*(\d+)?'))
     # Drop rows where date conversion failed
     combined_pre_clean = combined_pre_clean.dropna(subset=['date_clean'])
     # log rows following date extraction
@@ -785,18 +790,21 @@ def data_pipeline(useprecombineddata=False, usepostnlpdata=False):
         # return NLP-extracted ones
         final_locations = (
             matched_locations if matched_locations else nlp_locations)
-        logging.info(f"Final Extracted Locations: {final_locations}")
+        logging.debug(f"Final Extracted Locations: {final_locations}")
 
         return list(final_locations)
 
     logging.info("Extracting locations from articles...")
     combined_df['locationsfromarticle'] = (
-        combined_df['nlp_textloc'].apply(extract_locations))
+        combined_df['nlp_textloc'].progressapply(extract_locations))
 
     logging.info("Saving combined data post location to CSV...")
     save_dataframe_to_zip(combined_df,
                           'data/combined_data_step2.zip',
                           'combined_data_step2.csv')
+
+    logging.info("filling nulls with default values...")
+    combined_df['subject'] = combined_df['subject'].fillna('Unknown')
 
     logging.info("Dropping unnecessary columns...")
     combined_df.drop([
@@ -807,6 +815,8 @@ def data_pipeline(useprecombineddata=False, usepostnlpdata=False):
 
     logging.info("Dropping rows with empty cleaned_text...")
     combined_df = combined_df.dropna(subset=['cleaned_text'])
+    logging.info("Number of rows in combined dataframe"
+                 f" after dropping empty cleaned_text: {combined_df.shape[0]}")
 
     logging.info("Saving combined data to CSV...")
     save_dataframe_to_zip(combined_df,
@@ -894,6 +904,14 @@ def find_location_match(location, worldcities_df):
         dict: A dictionary containing the matched value, the column it was
         found in, latitude, longitude, and country.
               Returns None if no match is found.
+
+    Example usage:
+        location_to_search = "New York"
+        result = find_location_match(location_to_search, worldcities_df)
+        if result:
+            print("Match found:", result)
+        else:
+            print("No match found.")
     """
     search_columns = ['city', 'city_ascii', 'country',
                       'iso2', 'iso3', 'admin_name']
@@ -918,18 +936,7 @@ def find_location_match(location, worldcities_df):
                 'country': match.iloc[0]['country']
             }
             return result
-
     return None  # Return None if no match is found
-
-# # Example usage:
-# # Assuming worldcities_df is already loaded
-# location_to_search = "New York"
-# result = find_location_match(location_to_search, worldcities_df)
-
-# if result:
-#     print("Match found:", result)
-# else:
-#     print("No match found.")
 
 
 if usegeoapi:
@@ -982,6 +989,24 @@ else:
         # change the location column to lowercase
         df_unique_locations['location'] = (
             df_unique_locations['location'].str.lower())
+        # update unique_locations country, state, city, latitude, longitude
+        # with the information from worldcities data
+        df_unique_locations['geolocation_info'] = (
+            df_unique_locations['location']
+            .apply(lambda x: find_location_match(x, worldcities_df))
+            )
+        # Extract latitude, longitude, and address
+        df_unique_locations['latitude'] = (
+            df_unique_locations['geolocation_info']
+            .apply(lambda x: x['latitude'] if x else None))
+        df_unique_locations['longitude'] = (
+            df_unique_locations['geolocation_info']
+            .apply(lambda x: x['longitude'] if x else None))
+        df_unique_locations['address'] = (
+            df_unique_locations['geolocation_info']
+            .apply(lambda x: x['matched_value'] if x else None))
+        # Extract continent, country, and state
+
         # merge the worldcities data with the unique
         # locations data on location to city
         # # Drop the temporary 'geolocation_info' and 'address' columns

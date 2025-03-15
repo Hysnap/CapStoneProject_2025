@@ -20,3 +20,5 @@ nltk
 scipy
 google-cloud-api-keys
 flashtext
+bcrypt
+flask

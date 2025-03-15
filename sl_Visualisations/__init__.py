@@ -1,4 +1,4 @@
-from utils.version import get_git_version
+from sl_utils.version import get_git_version
 import os
 
 MODULE_DIR = os.path.dirname(__file__)

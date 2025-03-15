@@ -1,7 +1,7 @@
 import streamlit as st
 import plotly.express as px
-from utils.logger import logger
-from utils.logger import log_function_call  # Import decorator
+from sl_utils.logger import logger
+from sl_utils.logger import log_function_call  # Import decorator
 
 
 def plot_custom_bar_chart(

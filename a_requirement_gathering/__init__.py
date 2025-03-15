@@ -5,4 +5,4 @@ MODULE_DIR = os.path.dirname(__file__)
 __version__ = get_git_version(MODULE_DIR)
 __author__ = "Paul Golder"
 __author_github__ = "https://github.com/Hysnap" 
-__description__ = "requirement gathering for the project."
+__description__ = "components for the project."

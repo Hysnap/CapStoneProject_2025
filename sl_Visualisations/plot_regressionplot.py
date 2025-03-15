@@ -1,8 +1,8 @@
 import streamlit as st
 import plotly.express as px
-from components.ColorMaps import political_colors
-from utils.logger import logger
-from utils.logger import log_function_call  # Import decorator
+from sl_components.ColorMaps import political_colors
+from sl_utils.logger import logger
+from sl_utils.logger import log_function_call  # Import decorator
 
 
 def plot_regressionplot(
