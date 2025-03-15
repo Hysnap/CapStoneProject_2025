@@ -17,182 +17,68 @@ perc_target = 0.5
 DIRECTORIES = {  # "directory_name": "directory_path"
     "BASE_DIR": Path(os.getcwd()),
     "data_dir": os.path.join("data"),
-    "output_dir": os.path.join("output"),
-    "logs_dir": os.path.join("logs"),
-    "reference_dir": os.path.join("reference_files"),
-    "components_dir": os.path.join("components"),
-    "app_pages_dir": os.path.join("app_pages"),
-    "utils_dir": os.path.join("utils"),
-    "source_dir": os.path.join("source"),
-    "tests_dir": os.path.join("tests"),
+    "requirements_dir": os.path.join("a_requirements_gathering"),
+    "source_dir": os.path.join("source_data"),
+    "data_extract_combined_dir": os.path.join("c_data_extract_combined"),
+    "transform_dir": os.path.join("d_transform"),
+    "nlp_data_processing_dir": os.path.join("e_nlp_data_processing"),
+    "dashboard_dir": os.path.join("f_dashboard"),
+    "future_work_dir": os.path.join("j_future_developments"),
+    "logs_dir": os.path.join("sl_logs"),
+    "app_pages_dir": os.path.join("sl_app_pages"),
+    "utils_dir": os.path.join("sl_utils"),
+    "components_dir": os.path.join("sl_components"),
+    "reference_dir": os.path.join("sl_reference_files"),
+    "visualisation_dir": os.path.join("sl_visualisation"),
 }
 
-DIRECTORIES_original = {  # "directory_name": "directory_path"
-    "BASE_DIR": Path(os.getcwd()),
-    "data_dir": os.path.join(BASE_DIR, "data"),
-    "output_dir": os.path.join(BASE_DIR, "output"),
-    "logs_dir": os.path.join(BASE_DIR, "logs"),
-    "reference_dir": os.path.join(BASE_DIR, "reference_files"),
-    "components_dir": os.path.join(BASE_DIR, "components"),
-    "app_pages_dir": os.path.join(BASE_DIR, "app_pages"),
-    "utils_dir": os.path.join(BASE_DIR, "utils"),
-    "source_dir": os.path.join(BASE_DIR, "source"),
-    "tests_dir": os.path.join(BASE_DIR, "tests"),
-}
+
 
 # File paths
 FILENAMES = {  # "directory" : {"file_name": "file_path"}
-    "reference_dir": {
-        "Donor_dedupe_cleaned_fname": "Donor_dedupe_cleaned_data.csv",
-        "ListofPoliticalPeople_fname": "ListOfPoliticalPeople.csv",
-        "mppartymemb_fname": "mppartymemb_pypd.csv",
-        "donor_map_fname": "PoliticalDonorsDeduped.csv",
-        "politician_party_fname": "ListOfPoliticalPeople_Final.csv",
-        "regentity_map_fname": "PoliticalEntityDeDuped.csv",
-        "original_data_fname": "original_data.csv",
-        "CREDENTIALS_FILE": "admin_credentials.json",
-        "TEXT_FILE": "admin_text.json",
-        "ELECTION_DATES": "elections.csv",
-        "LAST_MODIFIED_DATES": "last_modified_dates.json",
-    },
-    "output_dir": {
-        "cleaned_data_fname": "cleaned_data.csv",
-        "cleaned_donations_fname": "cleaned_donations.csv",
-        "cleaned_donorlist_fname": "cleaned_donorlist.csv",
-        "cleaned_regentity_fname": "cleaned_regentity.csv",
-        "party_summary_fname": "party_summary.csv",
-        "imported_raw_fname": "imported_raw.csv",
-    },
     "source_dir": {
-        "source_data_fname": "Donations_accepted_by_political_parties.csv"
+        "combined_misinfo_fname": "combined_misinfo.zip",
+        "countryContinent_fname": "countryContinent.csv",
+        "fake_news_sources_fname": "fake.csv.zip",
+        "true_news_sources_fname": "true.csv.zip",
+        "USstates_fname": "USstates.csv",
+        "worldcities_fname": "simplemaps_worldcities_basicv1.73.zip",
+    },
+    "data_dir": {
+        "combined_data_fname": "combined_data.zip",
+        "combined_data_cleaned_fname": "combined_data_cleaned.zip",
+        "combined_data_postnlp_fname": "combined_data_postnlp.zip",
+        "combined_data_step1_fname": "combined_data_step1.zip",
+        "combined_data_step2_fname": "combined_data_step2.zip",
+        "combined_pre_clean_fname": "combined_pre_clean.zip",
+        "locationsfromarticles_fname": "locationsfromarticles.zip",
+        "MachineLearning_results_fname": "MachineLearning_results.csv",
+        "unique_locations_fname": "unique_locations.csv",
+    },
+    "dashboard_dir": {
+        "dashboard_fname": "Real_or_Dubious_news.pbix"
     },
 }
 
-
-# Threshold for donations
-THRESHOLDS = {  # "threshold_range": "threshold_name"
-    (0, 0): "No Relevant Donations",
-    (1, 1): "Single Donation Entity",
-    (2, 5): "Very Small Entity",
-    (6, 15): "Small Entity",
-    (16, 100): "Small Medium Entity",
-    (101, 200): "Medium Entity",
-    (201, 500): "Medium Large Entity",
-    (501, 1000): "Large Entity",
-}
 
 # Data remappings
-DATA_REMAPPINGS = {
-    "NatureOfDonation": {  # "original_value": "new_value"
-        "IsBequest": "Is A Bequest",
-        "IsAggregation": "Aggregated Donation",
-        "IsSponsorship": "Sponsorship",
-        "Donation to nan": "Other",
-        "Other Payment": "Other",
-    },
-    # Mapping of party name to RegulatedEntityId
-    "PartyParents": {  # "party_name": "RegulatedEntityId"
-        "Conservatives": 52,
-        "Labour": 53,
-        "Liberal Democrats": 90,
-        "Scottish National Party": 102,
-        "Green Party": 63,
-        "Plaid Cymru": 77,
-        "UKIP": 85,
-        "Unknown": 0,
-    },
-}
+DATA_REMAPPINGS = {}
+
 
 # category filter definitions
 FILTER_DEF = {  # "filter_name": {"column_name": "value"}
-    "Sponsorships_ftr": {
-        "NatureOfDonation": "Sponsorship",
-        "IsSponsorshipInt": 1,
+    "locations_ftr": {
+        "ignore": 1
     },
-    "ReturnedDonations_ftr": {
-        "DonationAction": ["Returned", "Forfeited"],
-        "DubiousData": list(range(1, 11)),  # Fixed incorrect range syntax
+    "fake_news_ftr": {
+        "label": 1
     },
-    "DubiousDonors_ftr": {"DubiousDonor": list(range(1, 11))},
-    "DubiousDonations_ftr": {"DubiousData": list(range(1, 11))},
-    "AggregatedDonations_ftr": {
-        "IsAggregationInt": 1,
-        "NatureOfDonation": "Aggregated Donation",
-        "DonationType": "Aggregated Donation",
+    "true_news_ftr": {
+        "label": 0
     },
-    "SafeDonors_ftr": {
-        "DonorType": [
-            "Trade Union",
-            "Registered Political Party",
-            "Friendly Society",
-            "Public Fund",
-        ]
+    "validdates_ftr": {
+        "date": "> 2001-01-01"
     },
-    "DubiousDonationType_ftr": {
-        "NatureOfDonation": [
-            "Impermissible Donor",
-            "Unidentified Donor",
-            "Total value of donations not reported individually",
-            "Aggregated Donation",
-        ],
-        "DonorStatus": ["Impermissible Donor",
-                        "Unidentified Donor",
-                        "Unidentifiable Donor"
-                        ],
-    },
-    "BlankDate_ftr": {"ReceivedDate": ["PLACEHOLDER_DATE", None]},
-    "BlankDonor_ftr": {"DonorId": [1000001]},
-    "BlankRegEntity_ftr": {"RegulatedEntityId": [1000001]},
-    "DonatedVisits_ftr": {"DonationType": "Visit",
-                          "NatureOfDonation": "Visit"},
-    "Bequests_ftr": {"IsBequestInt": 1,
-                     "NatureOfDonation": "Bequest",
-                     "DonationType": "Bequest"},
-    "CorporateDonations_ftr": {
-        "DonorStatus": ["Company",
-                        "Partnership",
-                        "Limited Liability Partnership"]
-    },
-    "RegulatedEntity_ftr": {
-        "RegulatedEntityType": ["Political Party",
-                                "Regulated Donee",
-                                "Permitted Participant",
-                                "Third Party"
-                                ]},
-    "PoliticalParty_ftr": {"DonorStatus": "Registered Political Party"},
-    "CashDonations_ftr": {"DonationType": ["Cash", "Aggregate Donation"],
-                          "DonorStatus": ["Company",
-                                          "Limited Liability Partnership",
-                                          "Partnership",
-                                          "Trade Union",
-                                          "Friendly Society",
-                                          "Individual",
-                                          "Unincorporated Association",
-                                          "Other",
-                                          "Unknown",
-                                          "Impermissible Donor",
-                                          "Unidentified Donor",
-                                          "Unidentifiable Donor",
-                                          ]},
-    "PublicFundsDonations_ftr": {"DonationType": "Public Funds"},
-    "NonCashDonations_ftr": {"DonationType": ["Non Cash",
-                                              "Visit",
-                                              "Bequest",
-                                              "Sponsorship",],
-                             "DonorStatus": ["Company",
-                                             "Limited Liability Partnership",
-                                             "Partnership",
-                                             "Trade Union",
-                                             "Friendly Society",
-                                             "Individual",
-                                             "Unincorporated Association",
-                                             "Other",
-                                             "Unknown",
-                                             "Impermissible Donor",
-                                             "Unidentified Donor",
-                                             "Unidentifiable Donor",
-                                             ]},
-                             },
 
 SECURITY = {  # "security_variable": "security_value"
     "is_admin": False,
