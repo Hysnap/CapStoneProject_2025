@@ -65,6 +65,11 @@ def mp3_datapre():
 
 
 @log_function_call(logger)
+def mp4_datapre():
+    display_page("Data Date Analysis")
+
+
+@log_function_call(logger)
 def interactive_map():
     display_maps()
 

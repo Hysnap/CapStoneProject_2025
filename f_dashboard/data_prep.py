@@ -4,6 +4,7 @@ from sl_utils.logger import log_function_call, datapipeline_logger as logger
 
 @log_function_call(logger)
 def mapdata():
+    # load combined_data.zip file
     df = pd.read_csv(
         "data//combined_data.zip",
         usecols={
@@ -27,13 +28,13 @@ def mapdata():
                 'article_id': 'int64',
                 },
         compression='zip')
-    print("The shape of the data is: ", df.shape)
-    print(df.info())
+    logger.debug("The shape of the data is: ", df.shape)
+    logger.debug(df.info())
     df.head()
     # filter out rows with dates earlier than 2014-01-01
     df['date'] = pd.to_datetime(df['date_clean'])
     df = df[df['date'] >= '2014-01-01']
-    print("The shape of the data is: ", df.shape)
+    logger.debug("The shape of the data is: ", df.shape)
     df.head()
 
     # load locationsfromarticle.zip file
@@ -49,7 +50,7 @@ def mapdata():
                     },
                     compression='zip')
                     )
-    print(locationsfromarticle.info())
+    logger.debug(locationsfromarticle.info())
     locationsfromarticle.head()
     # load unique_locations.csv file
     locations = pd.read_csv("data//unique_locations.csv",
@@ -64,7 +65,7 @@ def mapdata():
                                 'ignore': 'int64'
                                 },
                             )
-    print(locations.info())
+    logger.debug(locations.info())
     locations.head()
 
     # set all null subcontinent values to continent value
@@ -84,7 +85,7 @@ def mapdata():
         locationsfromarticle['location'].str.lower())
     locationsmerged = (
         locations.merge(locationsfromarticle, on='location', how='left'))
-    print(locationsmerged.info())
+    logger.debug(locationsmerged.info())
     locationsmerged.head()
     del locations, locationsfromarticle
 
@@ -96,7 +97,7 @@ def mapdata():
 
     # merge locationsmerged with df only keep rows with a match
     locationgraphdf = df.merge(locationsmerged, on='article_id', how='left')
-    print(locationgraphdf.info())
+    logger.debug(locationgraphdf.info())
     locationgraphdf.head()
 
     # create a new dataframe with the number of fake articles
@@ -184,8 +185,6 @@ def dashboarddata():
                      # Ensure date_clean is imported as a date
                      parse_dates=['date_clean']
                      )
-    print("The shape of the data is: ", df.shape)
-
     logger.debug("The shape of the data is: ", df.shape)
     logger.debug(df.head())
 
