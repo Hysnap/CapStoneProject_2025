@@ -3,12 +3,12 @@ Configuration file for the package.
 """
 import os
 import streamlit as st
-from sl_utils.logger import logger, log_function_call
+from sl_utils.logger import log_function_call, streamlit_logger as logger
 from sl_utils.version import get_git_version
 from sl_utils.global_variables import initialize_session_state
 
 
-@log_function_call
+@log_function_call(logger)
 def setup_package():
     """
     Function to setup the package.
@@ -60,7 +60,10 @@ def setup_package():
         "Operating System :: OS Independent",
     ]
     # Define the package keywords
-    packagekeywords = ["data", "cleaning", "deduplication", "Real or Dubious News analysis"]
+    packagekeywords = ["data",
+                       "cleaning",
+                       "deduplication",
+                       "Real or Dubious News analysis"]
     # Define the package URL
     packageurl = ""
     # initialize variables

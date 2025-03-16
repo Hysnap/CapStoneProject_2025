@@ -1,6 +1,6 @@
 import streamlit as st
 from sl_utils.version import get_git_version as get_git_version
-from sl_utils.logger import logger  # Import the logger
+from sl_utils.logger import streamlit_logger as logger  # Import the logger
 
 # Define a class for managing multiple pages in a Streamlit app
 

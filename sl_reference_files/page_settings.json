@@ -1,72 +1,170 @@
-{    
-    "Introductory Page": {
-        "page_settings": {
-        "title": "Title",
-        "description": "Description",
-        "icon": "Icon",
-        "color": "Color",
-        "filter_key": "Filter Key",
-        "target_label": "Target Label",
-        "data": "Data",
+{
+  "Introductory Page": {
+    "required_elements": {
+      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2.display_maps"
+    },
+    "page_settings": {
+      "title": "Title",
+      "description": "Description",
+      "icon": "Icon",
+      "color": "Color",
+      "filter_key": "Filter Key",
+      "target_label": "Target Label",
+      "data": "Data"
+    },
+    "tab_contents": {
+      "tab1": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab2": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab3": {
+        "Header": {
+          "type": "header",
+          "content": "Location Mentions in Articles"
         },
-        "tab_contents": {
-        "tab1": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Upper_left", "Upper_left",
-                 "Lower_left", "lower_left"],
-        "tab2": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Upper_right", "Upper_right",
-                 "Lower_right", "Lower_right"],
-        "tab3": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Visualizations", "Visualizations"],
+        "Upper": {
+          "type": "text",
+          "content": "This visualization displays the number of times a location is mentioned in articles."
+        },
+        "Visualizations": {
+          "type": "visualization",
+          "content": "map_visualisation_v2.display_maps"
         }
+      }
+    }
+  },
+  "Data Exploration": {
+    "required_elements": {
+      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2.display_maps"
+    },
+    "page_settings": {
+      "title": "Title",
+      "description": "Description",
+      "icon": "Icon",
+      "color": "Color",
+      "filter_key": "Filter Key",
+      "target_label": "Target Label",
+      "data": "Data"
+    },
+    "tab_contents": {
+      "tab1": {
+        "Header": { "type": "header", "content": "Tab1 Header" },
+        "Upper": { "type": "header", "content": "Tab1 upper" },
+        "Upper_left": { "type": "header", "content": "tab1 upperleft" },
+        "Lower_left": { "type": "header", "content": "tab1 lowerleft" }
+      },
+      "tab2": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab3": {
+        "Header": {
+          "type": "header",
+          "content": "Location Mentions in Articles"
         },
-    "Data Exploration": {
-        "page_settings":{
-        "title": "Title",
-        "description": "Description",
-        "icon": "Icon",
-        "color": "Color",
-        "filter_key": "Filter Key",
-        "target_label": "Target Label",
-        "data": "Data",
+        "Upper": {
+          "type": "text",
+          "content": "This visualization displays the number of times a location is mentioned in articles."
         },
-        "tab_contents": {
-        "tab1": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Upper_left", "Upper_left",
-                 "Lower_left", "lower_left"],
-        "tab2": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Upper_right", "Upper_right",
-                 "Lower_right", "Lower_right"],
-        "tab3": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Visualizations", "Visualizations"],
-        }},
-    "Machine Learning": {
-        "page_settings":{
-        "title": "Title",
-        "description": "Description",
-        "icon": "Icon",
-        "color": "Color",
-        "filter_key": "Filter Key",
-        "target_label": "Target Label",
-        "data": "Data",
+        "Visualizations": {
+          "type": "visualization",
+          "content": "map_visualisation_v2.display_maps"
+        }
+      }
+    }
+  },
+  "Data Preprocessing": {
+    "required_elements": {
+      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2"
+    },
+    "page_settings": {
+      "title": "Title",
+      "description": "Description",
+      "icon": "Icon",
+      "color": "Color",
+      "filter_key": "Filter Key",
+      "target_label": "Target Label",
+      "data": "Data"
+    },
+    "tab_contents": {
+      "tab1": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab2": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab3": {
+        "Header": {
+          "type": "header",
+          "content": "Location Mentions in Articles"
         },
-        "tab_contents": {
-        "tab1": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Upper_left", "Upper_left",
-                 "Lower_left", "lower_left"],
-        "tab2": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Upper_right", "Upper_right",
-                 "Lower_right", "Lower_right"],
-        "tab3": ["Header" : "Header",
-                 "Upper": "Upper",
-                 "Visualizations", "Visualizations"],
-        }},
+        "Upper": {
+          "type": "text",
+          "content": "This visualization displays the number of times a location is mentioned in articles."
+        },
+        "Visualizations": {
+          "type": "visualization",
+          "content": "map_visualisation_v2.display_maps"
+        }
+      }
+    }
+  },
+  "Machine Learning": {
+    "required_elements": {
+      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2"
+    },
+    "page_settings": {
+      "title": "Title",
+      "description": "Description",
+      "icon": "Icon",
+      "color": "Color",
+      "filter_key": "Filter Key",
+      "target_label": "Target Label",
+      "data": "Data"
+    },
+    "tab_contents": {
+      "tab1": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab2": {
+        "Header": { "type": "header", "content": "content" },
+        "Upper": { "type": "header", "content": "content" },
+        "Upper_left": { "type": "header", "content": "content" },
+        "Lower_left": { "type": "header", "content": "content" }
+      },
+      "tab3": {
+        "Header": {
+          "type": "header",
+          "content": "Location Mentions in Articles"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "This visualization displays the number of times a location is mentioned in articles."
+        },
+        "Visualizations": {
+          "type": "visualization",
+          "content": "map_visualisation_v2.display_maps"
+        }
+      }
+    }
+  }
 }
