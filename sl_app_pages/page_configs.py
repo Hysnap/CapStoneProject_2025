@@ -5,7 +5,6 @@
 import json
 import streamlit as st
 from sl_utils.logger import log_function_call, streamlit_logger as logger
-import pkgutil
 import importlib
 
 @log_function_call(logger)
@@ -46,51 +45,102 @@ def execute_element_call(element_settings, imported_objects):
     content = element_settings.get("content", "")
 
     # Interactive Debug Mode: Show debug info in Streamlit UI
-    if "debug_mode" in st.session_state and st.session_state.debug_mode:
+    if st.session_state.get("debug_mode", False):
         st.write(f"🛠️ **Debug Mode Active** → `{element_type}`: `{content}`")
 
     logger.debug(f"Executing element: {element_type} | Content: {content}")
 
     if not content:
         logger.warning(f"Skipping empty element of type {element_type}.")
-        if st.session_state.debug_mode:
+        if st.session_state.get("debug_mode", False):
             st.warning(f"⚠️ Skipping empty `{element_type}` element.")
         return
 
     if element_type == "header":
         st.header(content)
         logger.info(f"Displayed header: {content}")
+
+    elif element_type == "subheader":
+        st.subheader(content)
+        logger.info(f"Displayed subheader: {content}")
+
+    elif element_type == "function":
+        try:
+            function_to_call = getattr(imported_objects, content)
+            function_to_call()
+            logger.info(f"✅ Successfully executed function: {content}")
+        except AttributeError:
+            logger.error(f"❌ Function `{content}` not found in required elements.")
+            if st.session_state.get("debug_mode", False):
+                st.error(f"❌ Function `{content}` not found.")
+
     elif element_type == "text":
         st.write(content)
         logger.info(f"Displayed text: {content}")
+
     elif element_type == "visualization":
         try:
-            module_name, function_name = content.split(".", 1)
-
-            # debug: log the module that is being searched
-            logger.info(f"Searching for module: {module_name}.{function_name}")
-            
-            if module_name in imported_objects:
-                function_to_call = getattr(imported_objects[module_name],
-                                           function_name)
-                function_to_call()
-                logger.info(f"Successfully Executed visualization function: {content}")
-            else:
-                logger.error(f"Module `{module_name}` not found"
-                             " in required elements.")
-                try:
-                    import importlib
-                    module = importlib.import_module(module_name)
-                    function_to_call = getattr(module, function_name)
-                    function_to_call()  # Execute visualization
-                    logger.info(f"✅ Successfully executed via fallback: {content}")
-                except ImportError as imp_err:
-                    logger.error(f"❌ ImportError: Could not load `{module_name}`. Error: {imp_err}")
-                    if st.session_state.debug_mode:
-                        st.error(f"❌ ImportError: {module_name} not found. {imp_err}")
+            execute_visualization(content)  # Use the centralized function
+            logger.info(f"✅ Successfully executed visualization: {content}")
         except Exception as e:
-            logger.error(f"Execution error for `{content}`: {e}")
-            if st.session_state.debug_mode:
+            logger.error(f"❌ Execution error for visualization `{content}`: {e}")
+            if st.session_state.get("debug_mode", False):
                 st.error(f"❌ Failed to execute `{content}`: {e}")
+
+@log_function_call(logger)
+def execute_visualization(content):
+    """
+    Dynamically executes a visualization function based on the given 
+    `references.folder.module_name.function_name` format.
+
+    Example:
+        - "components.visualizations.plot_article_vs_title_polarity"
+        - "modules.graphs.display_maps"
+
+    Parameters:
+        content (str): Full function path in the format 
+                      "folder.module_name.function_name"
+
+    Returns:
+        None (Executes the visualization function in Streamlit)
+    """
+    try:
+        # Extract folder, module, and function
+        parts = content.split(".", 2)
+        if len(parts) != 3:
+            raise ValueError("Invalid format! Use folder.module_name.function_name")
+
+        folder, module_name, function_name = parts
+        full_module_path = f"{folder}.{module_name}"
+
+        logger.info(f"🔍 Attempting to execute visualization: {full_module_path}.{function_name}")
+
+        # Try to access the function if the module is already imported
+        if module_name in globals():
+            function_to_call = getattr(globals()[module_name], function_name)
+            function_to_call()  # Execute
+            logger.info(f"✅ Successfully executed visualization from global context: {content}")
+            return
+
+        # Import module dynamically
+        try:
+            module = importlib.import_module(full_module_path)
+            function_to_call = getattr(module, function_name)
+            function_to_call()  # Execute visualization
+            logger.info(f"✅ Successfully executed visualization: {content}")
+        except ImportError as imp_err:
+            logger.error(f"❌ ImportError: Could not load `{full_module_path}`. Error: {imp_err}")
+            if st.session_state.get("debug_mode", False):
+                st.error(f"❌ ImportError: {full_module_path} not found. {imp_err}")
+        except AttributeError:
+            logger.error(f"❌ Function `{function_name}` not found in `{full_module_path}`.")
+            if st.session_state.get("debug_mode", False):
+                st.error(f"❌ Function `{function_name}` not found in `{full_module_path}`.")
+
+    except Exception as e:
+        logger.error(f"❌ Execution error for `{content}`: {e}")
+        if st.session_state.get("debug_mode", False):
+            st.error(f"❌ Failed to execute `{content}`: {e}")
+
 # Path: sl_app_pages/page_configs.py
 # end of page_configs.py

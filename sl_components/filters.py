@@ -1,5 +1,5 @@
 import numpy as np
-from sl_utils.logger import logger
+from sl_utils.logger import streamlit_logger as logger
 from sl_utils.logger import log_function_call  # Import decorator
 
 
@@ -8,6 +8,7 @@ def filter_by_date(df, start_date, end_date, date_column="ReceivedDate"):
     return df[(df[date_column] >= start_date) & (df[date_column] <= end_date)]
 
 
+@log_function_call(logger)
 def apply_filters(df, providedfilters=None, logical_operator="or"):
     """
     Apply filtering conditions to the DataFrame.
