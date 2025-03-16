@@ -5,7 +5,8 @@
 import json
 import streamlit as st
 from sl_utils.logger import log_function_call, streamlit_logger as logger
-
+import pkgutil
+import importlib
 
 @log_function_call(logger)
 def load_page_settings(page_name):
@@ -65,17 +66,28 @@ def execute_element_call(element_settings, imported_objects):
     elif element_type == "visualization":
         try:
             module_name, function_name = content.split(".", 1)
+
+            # debug: log the module that is being searched
+            logger.info(f"Searching for module: {module_name}.{function_name}")
+            
             if module_name in imported_objects:
                 function_to_call = getattr(imported_objects[module_name],
                                            function_name)
                 function_to_call()
-                logger.info(f"Executed visualization function: {content}")
+                logger.info(f"Successfully Executed visualization function: {content}")
             else:
                 logger.error(f"Module `{module_name}` not found"
                              " in required elements.")
-                if st.session_state.debug_mode:
-                    st.error(f"❌ Module `{module_name}` not found"
-                             " in required elements.")
+                try:
+                    import importlib
+                    module = importlib.import_module(module_name)
+                    function_to_call = getattr(module, function_name)
+                    function_to_call()  # Execute visualization
+                    logger.info(f"✅ Successfully executed via fallback: {content}")
+                except ImportError as imp_err:
+                    logger.error(f"❌ ImportError: Could not load `{module_name}`. Error: {imp_err}")
+                    if st.session_state.debug_mode:
+                        st.error(f"❌ ImportError: {module_name} not found. {imp_err}")
         except Exception as e:
             logger.error(f"Execution error for `{content}`: {e}")
             if st.session_state.debug_mode:

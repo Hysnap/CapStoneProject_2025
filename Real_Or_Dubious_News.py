@@ -6,8 +6,13 @@ Run this file first to start the app
 import streamlit as st
 import os
 # Set the page config at the very beginning of the script
-st.set_page_config(page_title="Political Party Analysis",
+st.set_page_config(page_title="Real or Dubious News",
                    layout="wide")
+
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.getcwd())) 
 
 # import local modules
 try:

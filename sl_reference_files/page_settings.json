@@ -1,7 +1,7 @@
 {
   "Introductory Page": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2.display_maps"
+      "Dashboard": "sl_visualisations.map_visualisation.display_maps"
     },
     "page_settings": {
       "title": "Title",
@@ -36,14 +36,14 @@
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": "sl_visualisations.map_visualisation.display_maps"
         }
       }
     }
   },
   "Data Exploration": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2.display_maps"
+      "Dashboard": ""
     },
     "page_settings": {
       "title": "Title",
@@ -78,14 +78,14 @@
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": ""
         }
       }
     }
   },
   "Data Preprocessing": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2"
+      "ROD_Dashboard": ""
     },
     "page_settings": {
       "title": "Title",
@@ -120,14 +120,14 @@
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": ""
         }
       }
     }
   },
   "Machine Learning": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2"
+      "ROD_Dashboard": "sl_visualisations.map_visualisation.display_maps"
     },
     "page_settings": {
       "title": "Title",
@@ -162,7 +162,7 @@
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": "sl_visualisations.map_visualisation.display_maps"
         }
       }
     }

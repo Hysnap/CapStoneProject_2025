@@ -2530,3 +2530,1251 @@
 2025/03/16 12:30 DEBUG:last_modified already exists in session state
 2025/03/16 12:30 DEBUG:admin_text already exists in session state
 2025/03/16 12:30 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:09 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:09 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:09 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:09 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:09 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:09 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:09 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:09 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:09 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:09 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:09 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:09 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:09 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:09 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:09 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:09 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:09 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:09 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:09 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:09 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:09 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:09 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:09 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:09 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:09 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:09 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:09 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:09 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:09 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:09 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:09 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:09 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:09 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:09 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:09 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:09 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:09 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:09 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:09 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:09 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:09 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:09 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:09 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:09 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:09 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:09 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:09 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:09 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:09 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:09 DEBUG:filenames already exists in session state
+2025/03/16 01:09 DEBUG:data_remappings already exists in session state
+2025/03/16 01:09 DEBUG:filter_def already exists in session state
+2025/03/16 01:09 DEBUG:security already exists in session state
+2025/03/16 01:09 DEBUG:directories already exists in session state
+2025/03/16 01:09 DEBUG:data_dir already exists in session state
+2025/03/16 01:09 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:09 DEBUG:source_dir already exists in session state
+2025/03/16 01:09 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:09 DEBUG:transform_dir already exists in session state
+2025/03/16 01:09 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:09 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:09 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:09 DEBUG:logs_dir already exists in session state
+2025/03/16 01:09 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:09 DEBUG:utils_dir already exists in session state
+2025/03/16 01:09 DEBUG:components_dir already exists in session state
+2025/03/16 01:09 DEBUG:reference_dir already exists in session state
+2025/03/16 01:09 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:09 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:09 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:09 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:09 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:09 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:09 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:09 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:09 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:09 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:09 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:09 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:09 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:09 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:09 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:09 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:09 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:09 DEBUG:log_fname already exists in session state
+2025/03/16 01:09 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:09 DEBUG:page_settings already exists in session state
+2025/03/16 01:09 DEBUG:last_modified already exists in session state
+2025/03/16 01:09 DEBUG:admin_text already exists in session state
+2025/03/16 01:09 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:09 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:09 DEBUG:filenames already exists in session state
+2025/03/16 01:09 DEBUG:data_remappings already exists in session state
+2025/03/16 01:09 DEBUG:filter_def already exists in session state
+2025/03/16 01:09 DEBUG:security already exists in session state
+2025/03/16 01:09 DEBUG:directories already exists in session state
+2025/03/16 01:09 DEBUG:data_dir already exists in session state
+2025/03/16 01:09 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:09 DEBUG:source_dir already exists in session state
+2025/03/16 01:09 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:09 DEBUG:transform_dir already exists in session state
+2025/03/16 01:09 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:09 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:09 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:09 DEBUG:logs_dir already exists in session state
+2025/03/16 01:09 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:09 DEBUG:utils_dir already exists in session state
+2025/03/16 01:09 DEBUG:components_dir already exists in session state
+2025/03/16 01:09 DEBUG:reference_dir already exists in session state
+2025/03/16 01:09 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:09 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:09 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:09 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:09 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:09 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:09 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:09 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:09 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:09 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:09 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:09 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:09 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:09 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:09 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:09 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:09 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:09 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:09 DEBUG:log_fname already exists in session state
+2025/03/16 01:09 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:09 DEBUG:page_settings already exists in session state
+2025/03/16 01:09 DEBUG:last_modified already exists in session state
+2025/03/16 01:09 DEBUG:admin_text already exists in session state
+2025/03/16 01:09 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:16 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:16 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:16 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:16 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:16 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:16 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:16 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:16 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:16 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:16 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:16 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:16 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:16 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:16 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:16 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:16 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:16 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:16 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:16 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:16 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:16 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:16 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:16 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:16 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:16 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:16 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:16 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:16 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:16 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:16 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:16 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:16 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:16 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:16 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:16 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:16 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:16 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:16 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:16 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:16 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:16 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:16 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:16 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:16 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:16 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:16 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:16 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:16 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:16 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:16 DEBUG:filenames already exists in session state
+2025/03/16 01:16 DEBUG:data_remappings already exists in session state
+2025/03/16 01:16 DEBUG:filter_def already exists in session state
+2025/03/16 01:16 DEBUG:security already exists in session state
+2025/03/16 01:16 DEBUG:directories already exists in session state
+2025/03/16 01:16 DEBUG:data_dir already exists in session state
+2025/03/16 01:16 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:16 DEBUG:source_dir already exists in session state
+2025/03/16 01:16 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:16 DEBUG:transform_dir already exists in session state
+2025/03/16 01:16 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:16 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:16 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:16 DEBUG:logs_dir already exists in session state
+2025/03/16 01:16 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:16 DEBUG:utils_dir already exists in session state
+2025/03/16 01:16 DEBUG:components_dir already exists in session state
+2025/03/16 01:16 DEBUG:reference_dir already exists in session state
+2025/03/16 01:16 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:16 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:16 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:16 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:16 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:16 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:16 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:16 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:16 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:16 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:16 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:16 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:16 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:16 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:16 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:16 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:16 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:16 DEBUG:log_fname already exists in session state
+2025/03/16 01:16 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:16 DEBUG:page_settings already exists in session state
+2025/03/16 01:16 DEBUG:last_modified already exists in session state
+2025/03/16 01:16 DEBUG:admin_text already exists in session state
+2025/03/16 01:16 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:16 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:16 DEBUG:filenames already exists in session state
+2025/03/16 01:16 DEBUG:data_remappings already exists in session state
+2025/03/16 01:16 DEBUG:filter_def already exists in session state
+2025/03/16 01:16 DEBUG:security already exists in session state
+2025/03/16 01:16 DEBUG:directories already exists in session state
+2025/03/16 01:16 DEBUG:data_dir already exists in session state
+2025/03/16 01:16 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:16 DEBUG:source_dir already exists in session state
+2025/03/16 01:16 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:16 DEBUG:transform_dir already exists in session state
+2025/03/16 01:16 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:16 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:16 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:16 DEBUG:logs_dir already exists in session state
+2025/03/16 01:16 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:16 DEBUG:utils_dir already exists in session state
+2025/03/16 01:16 DEBUG:components_dir already exists in session state
+2025/03/16 01:16 DEBUG:reference_dir already exists in session state
+2025/03/16 01:16 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:16 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:16 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:16 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:16 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:16 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:16 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:16 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:16 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:16 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:16 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:16 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:16 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:16 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:16 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:16 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:16 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:16 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:16 DEBUG:log_fname already exists in session state
+2025/03/16 01:16 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:16 DEBUG:page_settings already exists in session state
+2025/03/16 01:16 DEBUG:last_modified already exists in session state
+2025/03/16 01:16 DEBUG:admin_text already exists in session state
+2025/03/16 01:16 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:20 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:20 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:20 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:20 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:20 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:20 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:20 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:20 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:20 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:20 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:20 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:20 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:20 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:20 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:20 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:20 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:20 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:20 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:20 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:20 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:20 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:20 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:20 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:20 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:20 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:20 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:20 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:20 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:20 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:20 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:20 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:20 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:20 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:20 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:20 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:20 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:20 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:20 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:20 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:20 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:20 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:20 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:20 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:20 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:20 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:20 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:20 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:20 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:20 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:20 DEBUG:filenames already exists in session state
+2025/03/16 01:20 DEBUG:data_remappings already exists in session state
+2025/03/16 01:20 DEBUG:filter_def already exists in session state
+2025/03/16 01:20 DEBUG:security already exists in session state
+2025/03/16 01:20 DEBUG:directories already exists in session state
+2025/03/16 01:20 DEBUG:data_dir already exists in session state
+2025/03/16 01:20 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:20 DEBUG:source_dir already exists in session state
+2025/03/16 01:20 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:20 DEBUG:transform_dir already exists in session state
+2025/03/16 01:20 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:20 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:20 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:20 DEBUG:logs_dir already exists in session state
+2025/03/16 01:20 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:20 DEBUG:utils_dir already exists in session state
+2025/03/16 01:20 DEBUG:components_dir already exists in session state
+2025/03/16 01:20 DEBUG:reference_dir already exists in session state
+2025/03/16 01:20 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:20 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:20 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:20 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:20 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:20 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:20 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:20 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:20 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:20 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:20 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:20 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:20 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:20 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:20 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:20 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:20 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:20 DEBUG:log_fname already exists in session state
+2025/03/16 01:20 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:20 DEBUG:page_settings already exists in session state
+2025/03/16 01:20 DEBUG:last_modified already exists in session state
+2025/03/16 01:20 DEBUG:admin_text already exists in session state
+2025/03/16 01:20 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:20 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:20 DEBUG:filenames already exists in session state
+2025/03/16 01:20 DEBUG:data_remappings already exists in session state
+2025/03/16 01:20 DEBUG:filter_def already exists in session state
+2025/03/16 01:20 DEBUG:security already exists in session state
+2025/03/16 01:20 DEBUG:directories already exists in session state
+2025/03/16 01:20 DEBUG:data_dir already exists in session state
+2025/03/16 01:20 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:20 DEBUG:source_dir already exists in session state
+2025/03/16 01:20 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:20 DEBUG:transform_dir already exists in session state
+2025/03/16 01:20 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:20 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:20 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:20 DEBUG:logs_dir already exists in session state
+2025/03/16 01:20 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:20 DEBUG:utils_dir already exists in session state
+2025/03/16 01:20 DEBUG:components_dir already exists in session state
+2025/03/16 01:20 DEBUG:reference_dir already exists in session state
+2025/03/16 01:20 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:20 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:20 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:20 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:20 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:20 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:20 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:20 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:20 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:20 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:20 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:20 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:20 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:20 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:20 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:20 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:20 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:20 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:20 DEBUG:log_fname already exists in session state
+2025/03/16 01:20 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:20 DEBUG:page_settings already exists in session state
+2025/03/16 01:20 DEBUG:last_modified already exists in session state
+2025/03/16 01:20 DEBUG:admin_text already exists in session state
+2025/03/16 01:20 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:23 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:23 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:23 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:23 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:23 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:23 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:23 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:23 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:23 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:23 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:23 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:23 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:23 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:23 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:23 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:23 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:23 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:23 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:23 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:23 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:23 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:23 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:23 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:23 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:23 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:23 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:23 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:23 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:23 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:23 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:23 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:23 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:23 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:23 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:23 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:23 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:23 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:23 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:23 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:23 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:23 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:23 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:23 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:23 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:23 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:23 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:23 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:23 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:23 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:23 DEBUG:filenames already exists in session state
+2025/03/16 01:23 DEBUG:data_remappings already exists in session state
+2025/03/16 01:23 DEBUG:filter_def already exists in session state
+2025/03/16 01:23 DEBUG:security already exists in session state
+2025/03/16 01:23 DEBUG:directories already exists in session state
+2025/03/16 01:23 DEBUG:data_dir already exists in session state
+2025/03/16 01:23 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:23 DEBUG:source_dir already exists in session state
+2025/03/16 01:23 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:23 DEBUG:transform_dir already exists in session state
+2025/03/16 01:23 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:23 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:23 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:23 DEBUG:logs_dir already exists in session state
+2025/03/16 01:23 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:23 DEBUG:utils_dir already exists in session state
+2025/03/16 01:23 DEBUG:components_dir already exists in session state
+2025/03/16 01:23 DEBUG:reference_dir already exists in session state
+2025/03/16 01:23 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:23 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:23 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:23 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:23 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:23 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:23 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:23 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:23 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:23 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:23 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:23 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:23 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:23 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:23 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:23 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:23 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:23 DEBUG:log_fname already exists in session state
+2025/03/16 01:23 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:23 DEBUG:page_settings already exists in session state
+2025/03/16 01:23 DEBUG:last_modified already exists in session state
+2025/03/16 01:23 DEBUG:admin_text already exists in session state
+2025/03/16 01:23 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:23 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:23 DEBUG:filenames already exists in session state
+2025/03/16 01:23 DEBUG:data_remappings already exists in session state
+2025/03/16 01:23 DEBUG:filter_def already exists in session state
+2025/03/16 01:23 DEBUG:security already exists in session state
+2025/03/16 01:23 DEBUG:directories already exists in session state
+2025/03/16 01:23 DEBUG:data_dir already exists in session state
+2025/03/16 01:23 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:23 DEBUG:source_dir already exists in session state
+2025/03/16 01:23 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:23 DEBUG:transform_dir already exists in session state
+2025/03/16 01:23 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:23 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:23 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:23 DEBUG:logs_dir already exists in session state
+2025/03/16 01:23 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:23 DEBUG:utils_dir already exists in session state
+2025/03/16 01:23 DEBUG:components_dir already exists in session state
+2025/03/16 01:23 DEBUG:reference_dir already exists in session state
+2025/03/16 01:23 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:23 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:23 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:23 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:23 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:23 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:23 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:23 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:23 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:23 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:23 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:23 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:23 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:23 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:23 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:23 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:23 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:23 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:23 DEBUG:log_fname already exists in session state
+2025/03/16 01:23 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:23 DEBUG:page_settings already exists in session state
+2025/03/16 01:23 DEBUG:last_modified already exists in session state
+2025/03/16 01:23 DEBUG:admin_text already exists in session state
+2025/03/16 01:23 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:24 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:24 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:24 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:24 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:24 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:24 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:24 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:24 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:24 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:24 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:24 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:24 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:24 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:24 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:24 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:24 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:24 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:24 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:24 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:24 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:24 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:24 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:24 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:24 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:24 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:24 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:24 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:24 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:24 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:24 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:24 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:24 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:24 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:24 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:24 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:24 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:24 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:24 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:24 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:24 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:24 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:24 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:24 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:24 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:24 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:24 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:24 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:24 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:24 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:24 DEBUG:filenames already exists in session state
+2025/03/16 01:24 DEBUG:data_remappings already exists in session state
+2025/03/16 01:24 DEBUG:filter_def already exists in session state
+2025/03/16 01:24 DEBUG:security already exists in session state
+2025/03/16 01:24 DEBUG:directories already exists in session state
+2025/03/16 01:24 DEBUG:data_dir already exists in session state
+2025/03/16 01:24 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:24 DEBUG:source_dir already exists in session state
+2025/03/16 01:24 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:24 DEBUG:transform_dir already exists in session state
+2025/03/16 01:24 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:24 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:24 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:24 DEBUG:logs_dir already exists in session state
+2025/03/16 01:24 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:24 DEBUG:utils_dir already exists in session state
+2025/03/16 01:24 DEBUG:components_dir already exists in session state
+2025/03/16 01:24 DEBUG:reference_dir already exists in session state
+2025/03/16 01:24 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:24 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:24 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:24 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:24 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:24 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:24 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:24 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:24 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:24 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:24 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:24 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:24 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:24 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:24 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:24 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:24 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:24 DEBUG:log_fname already exists in session state
+2025/03/16 01:24 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:24 DEBUG:page_settings already exists in session state
+2025/03/16 01:24 DEBUG:last_modified already exists in session state
+2025/03/16 01:24 DEBUG:admin_text already exists in session state
+2025/03/16 01:24 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:24 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:24 DEBUG:filenames already exists in session state
+2025/03/16 01:24 DEBUG:data_remappings already exists in session state
+2025/03/16 01:24 DEBUG:filter_def already exists in session state
+2025/03/16 01:24 DEBUG:security already exists in session state
+2025/03/16 01:24 DEBUG:directories already exists in session state
+2025/03/16 01:24 DEBUG:data_dir already exists in session state
+2025/03/16 01:24 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:24 DEBUG:source_dir already exists in session state
+2025/03/16 01:24 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:24 DEBUG:transform_dir already exists in session state
+2025/03/16 01:24 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:24 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:24 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:24 DEBUG:logs_dir already exists in session state
+2025/03/16 01:24 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:24 DEBUG:utils_dir already exists in session state
+2025/03/16 01:24 DEBUG:components_dir already exists in session state
+2025/03/16 01:24 DEBUG:reference_dir already exists in session state
+2025/03/16 01:24 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:24 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:24 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:24 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:24 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:24 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:24 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:24 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:24 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:24 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:24 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:24 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:24 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:24 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:24 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:24 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:24 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:24 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:24 DEBUG:log_fname already exists in session state
+2025/03/16 01:24 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:24 DEBUG:page_settings already exists in session state
+2025/03/16 01:24 DEBUG:last_modified already exists in session state
+2025/03/16 01:24 DEBUG:admin_text already exists in session state
+2025/03/16 01:24 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:32 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:32 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:32 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:32 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:32 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:32 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:32 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:32 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:32 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:32 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:32 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:32 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:32 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:32 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:32 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:32 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:32 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:32 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:32 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:32 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:32 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:32 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:32 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:32 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:32 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:32 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:32 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:32 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:32 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:32 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:32 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:32 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:32 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:32 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:32 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:32 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:32 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:32 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:32 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:32 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:32 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:32 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:32 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:32 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:32 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:32 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:32 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:32 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:32 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:32 DEBUG:filenames already exists in session state
+2025/03/16 01:32 DEBUG:data_remappings already exists in session state
+2025/03/16 01:32 DEBUG:filter_def already exists in session state
+2025/03/16 01:32 DEBUG:security already exists in session state
+2025/03/16 01:32 DEBUG:directories already exists in session state
+2025/03/16 01:32 DEBUG:data_dir already exists in session state
+2025/03/16 01:32 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:32 DEBUG:source_dir already exists in session state
+2025/03/16 01:32 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:32 DEBUG:transform_dir already exists in session state
+2025/03/16 01:32 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:32 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:32 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:32 DEBUG:logs_dir already exists in session state
+2025/03/16 01:32 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:32 DEBUG:utils_dir already exists in session state
+2025/03/16 01:32 DEBUG:components_dir already exists in session state
+2025/03/16 01:32 DEBUG:reference_dir already exists in session state
+2025/03/16 01:32 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:32 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:32 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:32 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:32 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:32 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:32 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:32 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:32 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:32 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:32 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:32 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:32 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:32 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:32 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:32 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:32 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:32 DEBUG:log_fname already exists in session state
+2025/03/16 01:32 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:32 DEBUG:page_settings already exists in session state
+2025/03/16 01:32 DEBUG:last_modified already exists in session state
+2025/03/16 01:32 DEBUG:admin_text already exists in session state
+2025/03/16 01:32 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:32 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:32 DEBUG:filenames already exists in session state
+2025/03/16 01:32 DEBUG:data_remappings already exists in session state
+2025/03/16 01:32 DEBUG:filter_def already exists in session state
+2025/03/16 01:32 DEBUG:security already exists in session state
+2025/03/16 01:32 DEBUG:directories already exists in session state
+2025/03/16 01:32 DEBUG:data_dir already exists in session state
+2025/03/16 01:32 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:32 DEBUG:source_dir already exists in session state
+2025/03/16 01:32 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:32 DEBUG:transform_dir already exists in session state
+2025/03/16 01:32 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:32 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:32 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:32 DEBUG:logs_dir already exists in session state
+2025/03/16 01:32 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:32 DEBUG:utils_dir already exists in session state
+2025/03/16 01:32 DEBUG:components_dir already exists in session state
+2025/03/16 01:32 DEBUG:reference_dir already exists in session state
+2025/03/16 01:32 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:32 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:32 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:32 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:32 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:32 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:32 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:32 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:32 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:32 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:32 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:32 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:32 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:32 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:32 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:32 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:32 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:32 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:32 DEBUG:log_fname already exists in session state
+2025/03/16 01:32 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:32 DEBUG:page_settings already exists in session state
+2025/03/16 01:32 DEBUG:last_modified already exists in session state
+2025/03/16 01:32 DEBUG:admin_text already exists in session state
+2025/03/16 01:32 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:37 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:37 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:37 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:37 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:37 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:37 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:37 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:37 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:37 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:37 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:37 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:37 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:37 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:37 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:37 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:37 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:37 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:37 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:37 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:37 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:37 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:37 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:37 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:37 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:37 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:37 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:37 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:37 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:37 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:37 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:37 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:37 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:37 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:37 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:37 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:37 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:37 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:37 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:37 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:37 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:37 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:37 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:37 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:37 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:37 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:37 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:37 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:37 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:37 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:37 DEBUG:filenames already exists in session state
+2025/03/16 01:37 DEBUG:data_remappings already exists in session state
+2025/03/16 01:37 DEBUG:filter_def already exists in session state
+2025/03/16 01:37 DEBUG:security already exists in session state
+2025/03/16 01:37 DEBUG:directories already exists in session state
+2025/03/16 01:37 DEBUG:data_dir already exists in session state
+2025/03/16 01:37 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:37 DEBUG:source_dir already exists in session state
+2025/03/16 01:37 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:37 DEBUG:transform_dir already exists in session state
+2025/03/16 01:37 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:37 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:37 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:37 DEBUG:logs_dir already exists in session state
+2025/03/16 01:37 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:37 DEBUG:utils_dir already exists in session state
+2025/03/16 01:37 DEBUG:components_dir already exists in session state
+2025/03/16 01:37 DEBUG:reference_dir already exists in session state
+2025/03/16 01:37 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:37 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:37 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:37 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:37 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:37 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:37 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:37 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:37 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:37 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:37 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:37 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:37 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:37 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:37 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:37 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:37 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:37 DEBUG:log_fname already exists in session state
+2025/03/16 01:37 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:37 DEBUG:page_settings already exists in session state
+2025/03/16 01:37 DEBUG:last_modified already exists in session state
+2025/03/16 01:37 DEBUG:admin_text already exists in session state
+2025/03/16 01:37 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:37 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:37 DEBUG:filenames already exists in session state
+2025/03/16 01:37 DEBUG:data_remappings already exists in session state
+2025/03/16 01:37 DEBUG:filter_def already exists in session state
+2025/03/16 01:37 DEBUG:security already exists in session state
+2025/03/16 01:37 DEBUG:directories already exists in session state
+2025/03/16 01:37 DEBUG:data_dir already exists in session state
+2025/03/16 01:37 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:37 DEBUG:source_dir already exists in session state
+2025/03/16 01:37 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:37 DEBUG:transform_dir already exists in session state
+2025/03/16 01:37 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:37 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:37 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:37 DEBUG:logs_dir already exists in session state
+2025/03/16 01:37 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:37 DEBUG:utils_dir already exists in session state
+2025/03/16 01:37 DEBUG:components_dir already exists in session state
+2025/03/16 01:37 DEBUG:reference_dir already exists in session state
+2025/03/16 01:37 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:37 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:37 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:37 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:37 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:37 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:37 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:37 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:37 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:37 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:37 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:37 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:37 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:37 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:37 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:37 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:37 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:37 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:37 DEBUG:log_fname already exists in session state
+2025/03/16 01:37 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:37 DEBUG:page_settings already exists in session state
+2025/03/16 01:37 DEBUG:last_modified already exists in session state
+2025/03/16 01:37 DEBUG:admin_text already exists in session state
+2025/03/16 01:37 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:43 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:43 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:43 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:43 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:43 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:43 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:43 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:43 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:43 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:43 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:43 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:43 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:43 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:43 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:43 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:43 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:43 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:43 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:43 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:43 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:43 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:43 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:43 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:43 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:43 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:43 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:43 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:43 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:43 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:43 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:43 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:43 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:43 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:43 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:43 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:43 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:43 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:43 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:43 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:43 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:43 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:43 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:43 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:43 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:43 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:43 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:43 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:43 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:43 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:43 DEBUG:filenames already exists in session state
+2025/03/16 01:43 DEBUG:data_remappings already exists in session state
+2025/03/16 01:43 DEBUG:filter_def already exists in session state
+2025/03/16 01:43 DEBUG:security already exists in session state
+2025/03/16 01:43 DEBUG:directories already exists in session state
+2025/03/16 01:43 DEBUG:data_dir already exists in session state
+2025/03/16 01:43 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:43 DEBUG:source_dir already exists in session state
+2025/03/16 01:43 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:43 DEBUG:transform_dir already exists in session state
+2025/03/16 01:43 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:43 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:43 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:43 DEBUG:logs_dir already exists in session state
+2025/03/16 01:43 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:43 DEBUG:utils_dir already exists in session state
+2025/03/16 01:43 DEBUG:components_dir already exists in session state
+2025/03/16 01:43 DEBUG:reference_dir already exists in session state
+2025/03/16 01:43 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:43 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:43 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:43 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:43 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:43 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:43 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:43 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:43 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:43 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:43 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:43 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:43 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:43 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:43 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:43 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:43 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:43 DEBUG:log_fname already exists in session state
+2025/03/16 01:43 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:43 DEBUG:page_settings already exists in session state
+2025/03/16 01:43 DEBUG:last_modified already exists in session state
+2025/03/16 01:43 DEBUG:admin_text already exists in session state
+2025/03/16 01:43 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:43 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:43 DEBUG:filenames already exists in session state
+2025/03/16 01:43 DEBUG:data_remappings already exists in session state
+2025/03/16 01:43 DEBUG:filter_def already exists in session state
+2025/03/16 01:43 DEBUG:security already exists in session state
+2025/03/16 01:43 DEBUG:directories already exists in session state
+2025/03/16 01:43 DEBUG:data_dir already exists in session state
+2025/03/16 01:43 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:43 DEBUG:source_dir already exists in session state
+2025/03/16 01:43 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:43 DEBUG:transform_dir already exists in session state
+2025/03/16 01:43 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:43 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:43 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:43 DEBUG:logs_dir already exists in session state
+2025/03/16 01:43 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:43 DEBUG:utils_dir already exists in session state
+2025/03/16 01:43 DEBUG:components_dir already exists in session state
+2025/03/16 01:43 DEBUG:reference_dir already exists in session state
+2025/03/16 01:43 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:43 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:43 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:43 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:43 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:43 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:43 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:43 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:43 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:43 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:43 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:43 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:43 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:43 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:43 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:43 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:43 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:43 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:43 DEBUG:log_fname already exists in session state
+2025/03/16 01:43 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:43 DEBUG:page_settings already exists in session state
+2025/03/16 01:43 DEBUG:last_modified already exists in session state
+2025/03/16 01:43 DEBUG:admin_text already exists in session state
+2025/03/16 01:43 DEBUG:admin_credentials already exists in session state
+2025/03/16 01:47 DEBUG:Initialised BASE_DIR with value: H:\VScode\CapStoneProject_2025-1
+2025/03/16 01:47 DEBUG:Initialised filenames with value: {'source_dir': {'combined_misinfo_fname': 'combined_misinfo.zip', 'countryContinent_fname': 'countryContinent.csv', 'fake_news_sources_fname': 'fake.csv.zip', 'true_news_sources_fname': 'true.csv.zip', 'USstates_fname': 'USstates.csv', 'worldcities_fname': 'simplemaps_worldcities_basicv1.73.zip'}, 'data_dir': {'combined_data_fname': 'combined_data.zip', 'combined_data_cleaned_fname': 'combined_data_cleaned.zip', 'combined_data_postnlp_fname': 'combined_data_postnlp.zip', 'combined_data_step1_fname': 'combined_data_step1.zip', 'combined_data_step2_fname': 'combined_data_step2.zip', 'combined_pre_clean_fname': 'combined_pre_clean.zip', 'locationsfromarticles_fname': 'locationsfromarticles.zip', 'MachineLearning_results_fname': 'MachineLearning_results.csv', 'unique_locations_fname': 'unique_locations.csv', 'article_locations_fname': 'articleformapc.csv'}, 'dashboard_dir': {'dashboard_fname': 'Real_or_Dubious_news.pbix'}, 'transform_dir': {'ML_model_fname': 'ML_models.py'}, 'reference_dir': {'page_settings_fname': 'page_settings.json', 'last_modified_fname': 'last_modified_dates.json', 'admin_text_fname': 'admin_text.json', 'admin_credentials_fname': 'admin_credentials.json'}, 'sl_logs_dir': {'log_fname': 'sl_app.log'}, 'pl_logs_dir': {'datapipeline_log_fname': 'data_pipeline.log'}}
+2025/03/16 01:47 DEBUG:Initialised data_remappings with value: {'label_remapping': {0: 'True News', 1: 'Fake News'}}
+2025/03/16 01:47 DEBUG:Initialised filter_def with value: {'locations_ftr': {'ignore': 1}, 'fake_news_ftr': {'label': 1}, 'true_news_ftr': {'label': 0}, 'validdates_ftr': {'date': '> 2001-01-01'}}
+2025/03/16 01:47 DEBUG:Initialised security with value: {'is_admin': False, 'is_authenticated': False, 'username': '', 'password': ''}
+2025/03/16 01:47 DEBUG:Initialised directories with value: {'BASE_DIR': WindowsPath('H:/VScode/CapStoneProject_2025-1'), 'data_dir': 'data', 'requirements_dir': 'a_requirement_gathering', 'source_dir': 'b_source_data', 'data_extract_combined_dir': 'c_data_extract_combine', 'transform_dir': 'd_transform', 'nlp_data_processing_dir': 'e_nlp_data_processing', 'dashboard_dir': 'f_dashboard', 'future_work_dir': 'j_future_developments', 'sl_logs_dir': 'sl_logs', 'pl_logs_dir': 'z_logs', 'app_pages_dir': 'sl_app_pages', 'utils_dir': 'sl_utils', 'components_dir': 'sl_components', 'reference_dir': 'sl_reference_files', 'visualisation_dir': 'sl_visualisations'}
+2025/03/16 01:47 DEBUG:Initialised data_dir with value: data
+2025/03/16 01:47 DEBUG:Initialised requirements_dir with value: a_requirement_gathering
+2025/03/16 01:47 DEBUG:Initialised source_dir with value: b_source_data
+2025/03/16 01:47 DEBUG:Initialised data_extract_combined_dir with value: c_data_extract_combine
+2025/03/16 01:47 DEBUG:Initialised transform_dir with value: d_transform
+2025/03/16 01:47 DEBUG:Initialised nlp_data_processing_dir with value: e_nlp_data_processing
+2025/03/16 01:47 DEBUG:Initialised dashboard_dir with value: f_dashboard
+2025/03/16 01:47 DEBUG:Initialised future_work_dir with value: j_future_developments
+2025/03/16 01:47 DEBUG:Initialised logs_dir with value: None
+2025/03/16 01:47 DEBUG:Initialised app_pages_dir with value: sl_app_pages
+2025/03/16 01:47 DEBUG:Initialised utils_dir with value: sl_utils
+2025/03/16 01:47 DEBUG:Initialised components_dir with value: sl_components
+2025/03/16 01:47 DEBUG:Initialised reference_dir with value: sl_reference_files
+2025/03/16 01:47 DEBUG:Initialised visualisation_dir with value: sl_visualisations
+2025/03/16 01:47 DEBUG:Initialised combined_misinfo_fname with value: b_source_data\combined_misinfo.zip
+2025/03/16 01:47 DEBUG:Initialised countryContinent_fname with value: b_source_data\countryContinent.csv
+2025/03/16 01:47 DEBUG:Initialised fake_news_sources_fname with value: b_source_data\fake.csv.zip
+2025/03/16 01:47 DEBUG:Initialised true_news_sources_fname with value: b_source_data\true.csv.zip
+2025/03/16 01:47 DEBUG:Initialised USstates_fname with value: b_source_data\USstates.csv
+2025/03/16 01:47 DEBUG:Initialised worldcities_fname with value: b_source_data\simplemaps_worldcities_basicv1.73.zip
+2025/03/16 01:47 DEBUG:Initialised combined_data_fname with value: data\combined_data.zip
+2025/03/16 01:47 DEBUG:Initialised combined_data_cleaned_fname with value: data\combined_data_cleaned.zip
+2025/03/16 01:47 DEBUG:Initialised combined_data_postnlp_fname with value: data\combined_data_postnlp.zip
+2025/03/16 01:47 DEBUG:Initialised combined_data_step1_fname with value: data\combined_data_step1.zip
+2025/03/16 01:47 DEBUG:Initialised combined_data_step2_fname with value: data\combined_data_step2.zip
+2025/03/16 01:47 DEBUG:Initialised combined_pre_clean_fname with value: data\combined_pre_clean.zip
+2025/03/16 01:47 DEBUG:Initialised locationsfromarticles_fname with value: data\locationsfromarticles.zip
+2025/03/16 01:47 DEBUG:Initialised MachineLearning_results_fname with value: data\MachineLearning_results.csv
+2025/03/16 01:47 DEBUG:Initialised unique_locations_fname with value: data\unique_locations.csv
+2025/03/16 01:47 DEBUG:Initialised article_locations_fname with value: data\articleformapc.csv
+2025/03/16 01:47 DEBUG:Initialised dashboard_fname with value: f_dashboard\Real_or_Dubious_news.pbix
+2025/03/16 01:47 DEBUG:Initialised ML_model_fname with value: d_transform\ML_models.py
+2025/03/16 01:47 DEBUG:Initialised page_settings_fname with value: sl_reference_files\page_settings.json
+2025/03/16 01:47 DEBUG:Initialised last_modified_fname with value: sl_reference_files\last_modified_dates.json
+2025/03/16 01:47 DEBUG:Initialised admin_text_fname with value: sl_reference_files\admin_text.json
+2025/03/16 01:47 DEBUG:Initialised admin_credentials_fname with value: sl_reference_files\admin_credentials.json
+2025/03/16 01:47 DEBUG:Initialised log_fname with value: sl_logs\sl_app.log
+2025/03/16 01:47 DEBUG:Initialised datapipeline_log_fname with value: z_logs\data_pipeline.log
+2025/03/16 01:47 DEBUG:Initialised page_settings with value: page_settings.json
+2025/03/16 01:47 DEBUG:Initialised last_modified with value: last_modified_dates.json
+2025/03/16 01:47 DEBUG:Initialised admin_text with value: admin_text.json
+2025/03/16 01:47 DEBUG:Initialised admin_credentials with value: admin_credentials.json
+2025/03/16 01:47 DEBUG:BASE_DIR already exists in session state
+2025/03/16 01:47 DEBUG:filenames already exists in session state
+2025/03/16 01:47 DEBUG:data_remappings already exists in session state
+2025/03/16 01:47 DEBUG:filter_def already exists in session state
+2025/03/16 01:47 DEBUG:security already exists in session state
+2025/03/16 01:47 DEBUG:directories already exists in session state
+2025/03/16 01:47 DEBUG:data_dir already exists in session state
+2025/03/16 01:47 DEBUG:requirements_dir already exists in session state
+2025/03/16 01:47 DEBUG:source_dir already exists in session state
+2025/03/16 01:47 DEBUG:data_extract_combined_dir already exists in session state
+2025/03/16 01:47 DEBUG:transform_dir already exists in session state
+2025/03/16 01:47 DEBUG:nlp_data_processing_dir already exists in session state
+2025/03/16 01:47 DEBUG:dashboard_dir already exists in session state
+2025/03/16 01:47 DEBUG:future_work_dir already exists in session state
+2025/03/16 01:47 DEBUG:logs_dir already exists in session state
+2025/03/16 01:47 DEBUG:app_pages_dir already exists in session state
+2025/03/16 01:47 DEBUG:utils_dir already exists in session state
+2025/03/16 01:47 DEBUG:components_dir already exists in session state
+2025/03/16 01:47 DEBUG:reference_dir already exists in session state
+2025/03/16 01:47 DEBUG:visualisation_dir already exists in session state
+2025/03/16 01:47 DEBUG:combined_misinfo_fname already exists in session state
+2025/03/16 01:47 DEBUG:countryContinent_fname already exists in session state
+2025/03/16 01:47 DEBUG:fake_news_sources_fname already exists in session state
+2025/03/16 01:47 DEBUG:true_news_sources_fname already exists in session state
+2025/03/16 01:47 DEBUG:USstates_fname already exists in session state
+2025/03/16 01:47 DEBUG:worldcities_fname already exists in session state
+2025/03/16 01:47 DEBUG:combined_data_fname already exists in session state
+2025/03/16 01:47 DEBUG:combined_data_cleaned_fname already exists in session state
+2025/03/16 01:47 DEBUG:combined_data_postnlp_fname already exists in session state
+2025/03/16 01:47 DEBUG:combined_data_step1_fname already exists in session state
+2025/03/16 01:47 DEBUG:combined_data_step2_fname already exists in session state
+2025/03/16 01:47 DEBUG:combined_pre_clean_fname already exists in session state
+2025/03/16 01:47 DEBUG:locationsfromarticles_fname already exists in session state
+2025/03/16 01:47 DEBUG:MachineLearning_results_fname already exists in session state
+2025/03/16 01:47 DEBUG:unique_locations_fname already exists in session state
+2025/03/16 01:47 DEBUG:article_locations_fname already exists in session state
+2025/03/16 01:47 DEBUG:dashboard_fname already exists in session state
+2025/03/16 01:47 DEBUG:ML_model_fname already exists in session state
+2025/03/16 01:47 DEBUG:page_settings_fname already exists in session state
+2025/03/16 01:47 DEBUG:last_modified_fname already exists in session state
+2025/03/16 01:47 DEBUG:admin_text_fname already exists in session state
+2025/03/16 01:47 DEBUG:admin_credentials_fname already exists in session state
+2025/03/16 01:47 DEBUG:log_fname already exists in session state
+2025/03/16 01:47 DEBUG:datapipeline_log_fname already exists in session state
+2025/03/16 01:47 DEBUG:page_settings already exists in session state
+2025/03/16 01:47 DEBUG:last_modified already exists in session state
+2025/03/16 01:47 DEBUG:admin_text already exists in session state
+2025/03/16 01:47 DEBUG:admin_credentials already exists in session state
