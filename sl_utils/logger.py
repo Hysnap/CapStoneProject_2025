@@ -14,8 +14,8 @@ import streamlit as st
 
 
 # Allow dynamic control of log level via environment variable or config file
-LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG").upper()
-# LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
+# LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG").upper()
+LOG_LEVEL = os.getenv("LOG_LEVEL", "ERROR").upper()
 # Ensure logs directory exists
 
 os.makedirs("sl_logs", exist_ok=True)

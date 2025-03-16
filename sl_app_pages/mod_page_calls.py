@@ -1,8 +1,10 @@
 import streamlit as st
-from sl_components.text_management import check_password
+from unrequired.text_management import check_password
 from sl_utils.logger import streamlit_logger as logger  # Import the logger
 from sl_utils.logger import log_function_call  # Import decorator
 from sl_app_pages.modular_page import display_page
+from sl_app_pages.datacleanliness import visualize_data_cleanliness
+from sl_visualisations.map_visualisation import display_maps
 
 
 # login
@@ -47,8 +49,6 @@ def logoutpage():
 
 
 # modular page calls
-
-
 @log_function_call(logger)
 def mp1_intro():
     display_page("Introductory Page")
@@ -60,7 +60,35 @@ def mp2_dataex():
 
 
 @log_function_call(logger)
-def mp3_ml():
-    display_page("Machine Learning")
+def mp3_datapre():
+    display_page("Data Preprocessing")
+
+
+@log_function_call(logger)
+def mp4_datapre():
+    display_page("Data Date Analysis")
+
+
+@log_function_call(logger)
+def interactive_map():
+    display_maps()
+
+
+@log_function_call(logger)
+def dcl_fakecsv():
+    datafile = "fake_news_sources_fname"
+    visualize_data_cleanliness(datafile)
+
+
+@log_function_call(logger)
+def dcl_truecsv():
+    datafile = "true_news_sources_fname"
+    visualize_data_cleanliness(datafile)
+
+
+@log_function_call(logger)
+def dcl_combinedcsv():
+    datafile = "combined_misinfo_fname"
+    visualize_data_cleanliness(datafile)
 
 # End of mod_page_calls.py

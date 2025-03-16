@@ -5,15 +5,20 @@ Run this file first to start the app
 # import necessary modules
 import streamlit as st
 import os
+import sys
 # Set the page config at the very beginning of the script
-st.set_page_config(page_title="Political Party Analysis",
+st.set_page_config(page_title="Real or Dubious News",
                    layout="wide")
+
+sys.path.append(os.path.abspath(os.getcwd())) 
 
 # import local modules
 try:
     import setup
     import ROD_menu
-    from sl_utils.logger import log_function_call, streamlit_logger as logger
+    from sl_utils.logger import streamlit_logger as logger
+    from f_dashboard.data_prep import dashboarddata
+    from f_dashboard.data_prep import mapdata
 except ImportError as e:
     raise SystemExit(f"Error: Failed to import modules - {e}")
 
@@ -38,7 +43,26 @@ logger.info("Setup completed successfully.")
 #     st.error(f"App setup failed. Please check logs. {__name__}")
 #     raise SystemExit("App setup failed. Exiting.")
 
-# run political party analysis
+# Run the first load function
+try:
+    with st.spinner('Please wait while the data sets are being calculated...'):
+        @st.cache_data
+        def load_mapdata():
+            return mapdata()
+
+        @st.cache_data
+        def load_dashboard_data():
+            return dashboarddata()
+        
+        # Store data in session state
+        st.session_state['data_for_map'] = load_mapdata()
+        st.session_state['data_clean'] = load_dashboard_data()
+except Exception as e:
+    logger.critical(f"First load crashed: {e}", exc_info=True)
+    st.error(f"Data loading failed. Please check logs. {e}")
+    raise SystemExit("Data loading failed. Exiting.")
+
+
 try:
     logger.info("Running Menu setup...")
     ROD_menu.pagesetup()
@@ -48,25 +72,6 @@ except Exception as e:
     st.error(f"Menu setup failed. Please check logs. {__name__}")
     raise SystemExit("Menu setup failed. Exiting.")
 
-
-# Run the first load function
-# try:
-#     # Create a loading message
-#     loading_message = st.empty()
-#     # Display a loading message
-#     loading_message.markdown(
-#         "<h3 style='text-align: center; color: blue;'>"
-#         "Please wait while the data sets are being "
-#         "calculated...</h3>",
-#         unsafe_allow_html=True,
-#     )
-#     initialise_data()  # Load the data
-#     # Clear the loading message
-#     loading_message.empty()
-# except Exception as e:
-#     logger.critical(f"First load crashed: {e}", exc_info=True)
-#     st.error(f"Data loading failed. Please check logs. {e}")
-#     raise SystemExit("Data loading failed. Exiting.")
 
 logger.info("App is fully loaded and ready!")
 # The app is now ready to be run.

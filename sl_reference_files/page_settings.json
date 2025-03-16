@@ -1,7 +1,7 @@
 {
   "Introductory Page": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2.display_maps"
+      "Dashboard": "Nothing.nothing"
     },
     "page_settings": {
       "title": "Title",
@@ -15,9 +15,9 @@
     "tab_contents": {
       "tab1": {
         "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Upper": { "type": "subheader", "content": "content" },
+        "Upper_left": { "type": "text", "content": "content" },
+        "Lower_left": { "type": "text", "content": "content" }
       },
       "tab2": {
         "Header": { "type": "header", "content": "content" },
@@ -27,87 +27,259 @@
       },
       "tab3": {
         "Header": {
-          "type": "header",
-          "content": "Location Mentions in Articles"
+          "type": "sub header",
+          "content": ""
         },
         "Upper": {
           "type": "text",
-          "content": "This visualization displays the number of times a location is mentioned in articles."
+          "content": ""
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": "empty"
         }
       }
     }
   },
   "Data Exploration": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2.display_maps"
+      "Dashboard": "sl_visualisations.visualisations.plot_article_vs_title_polarity",
+      "vis1": "sl_visualisations.visualisations.plot_article_count_by_subject",
+      "vis2": "sl_visualisations.visualisations.plot_article_count_by_source",
+      "vis3": "sl_visualisations.visualisations.plot_article_vs_title_characters",
+      "vis4": "sl_visualisations.visualisations.plot_article_count_by_media",
+      "vis5": "sl_visualisations.visualisations.plot_article_count_by_day"
     },
     "page_settings": {
-      "title": "Title",
-      "description": "Description",
+      "title": "Data Exploration",
+      "description": "Page to show output of the EDA process.",
       "icon": "Icon",
-      "color": "Color",
+      "color": "green",
       "filter_key": "Filter Key",
-      "target_label": "Target Label",
-      "data": "Data"
+      "target_label": "EDA_output",
+      "data": "data_clean"
     },
     "tab_contents": {
       "tab1": {
-        "Header": { "type": "header", "content": "Tab1 Header" },
-        "Upper": { "type": "header", "content": "Tab1 upper" },
-        "Upper_left": { "type": "header", "content": "tab1 upperleft" },
-        "Lower_left": { "type": "header", "content": "tab1 lowerleft" }
+        "Header": { "type": "header", "content": "Topline Observations" },
+        "Upper": {
+          "type": "text",
+          "content": "During the EDA it was noticed that, several of the data columns available were biased. That is how they had been set meant that it was possible to identify Real or Dubious news solely by their content. The two main offenders of this were the Source Name - only Real articles had identified sources, and the category. Although the category appeared neutral at first glance, analysis showed that in fact Real articles received different categorization than Dubious news stories"
+        },
+        "Lower_left": {
+          "type": "text",
+          "content": "Now it is probably not surprising that Articles which quote their source, are almost always Real, especially if the source is a recognised agency.  The data alas has limited variation in the sources identified and as such potentially this should be an item for future investigation."
+        },
+        "Upper_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_count_by_source"
+        },
+        "Lower_right": {
+          "type": "text",
+          "content": "As can be seen, there is a definite bias in the data.  With Dubious and Real news articles being classified differently."
+        },
+        "Upper_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_count_by_subject"
+        }
       },
       "tab2": {
-        "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Header": {
+          "type": "sub header",
+          "content": "Character Counts and Media Types"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "The first analysis undertaken after a look at the neutrality of the data, was to see if the number of characters in the Title or Article could be an indicator of how Real an article was.  This did provide some interesting results."
+        },
+        "Upper_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_vs_title_characters"
+        },
+        "Lower_left": {
+          "type": "text",
+          "content": "It is evident that Real news articles have a char length between X and Y, and the further the count is from this the greater the chance that the article is not real."
+        },
+        "Upper_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_count_by_media"
+        },
+        "Lower_right": {
+          "type": "text",
+          "content": "Articles that mention videos or pictures especially in the title, are more likely to be Dubious news.  The data was from 2014-2017, and as such also articles which referenced the key Social Media outlets is shown to be more likely Real.  It would be interesting to see how this has changed since several of these organisations have decreased on site fact checking."
+        }
       },
       "tab3": {
         "Header": {
           "type": "header",
-          "content": "Location Mentions in Articles"
+          "content": "Number of Articles in the DataSet over time"
         },
         "Upper": {
           "type": "text",
-          "content": "This visualization displays the number of times a location is mentioned in articles."
+          "content": "This visualisation enables us to see the spread of articles in the dataset over time and the split between Real and Dubious articles."
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": "sl_visualisations.visualisations.plot_article_count_by_day"
         }
       }
     }
   },
   "Data Preprocessing": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2"
+      "T1C1Vis": "sl_visualisations.visualisations.plot_article_vs_title_polarity",
+      "T1C2Vis": "sl_visualisations.visualisations.plot_article_vs_title_subjectivity",
+      "T2C1V1": "sl_visualisations.visualisations.plot_title_subjectivity_vs_polarity",
+      "T2C1V2": "sl_visualisations.visualisations.plot_article_subjectivity_vs_polarity",
+      "T2C2V1": "sl_visualisations.visualisations.plot_polarity_contrad_variations",
+      "T2C2V2": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations",
+      "T3C1V1": "sl_visualisations.visualisations.plot_polarity_subjectivity_boxplots"
     },
     "page_settings": {
-      "title": "Title",
-      "description": "Description",
+      "title": "Data PreProcessing",
+      "description": "Data manipulations post ETL and pre modelling.",
       "icon": "Icon",
       "color": "Color",
-      "filter_key": "Filter Key",
-      "target_label": "Target Label",
-      "data": "Data"
+      "filter_key": "postETL",
+      "target_label": "PostETL",
+      "data": "Data_Clean"
     },
     "tab_contents": {
       "tab1": {
-        "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Header": {
+          "type": "sub header",
+          "content": "Polarity and Subjectivity"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "After extracting the data, dealing with missing data and duplicates, several new measures were created to support understanding.  Two of these were Polarity and Subjectivity - these are two measures calculated using TextBlob's data analytics models.  Polarity measures how Postive or Negative a section of text is ranging from -1 very negative to 1 very positive.  The polarity score for the title and text of each article were calculated and then compared.  Subjectivity is a measure of how objective (evidence based) or subjective (emotion based) a piece of text is.  It is represented as a score between 0 very objective to 1 very subjective, again the scores for both the title and text were calculated and analysed.  Then the difference/contradictiveness of sentiments between the title and text were compared as well as the degree of variance between their relative polarities and subjectivities."
+        },
+        "Upper_left": {
+          "type": "text",
+          "content": "The visualisation below compared the polarity of the Title of an article to that of the main text and distinguishes articles that are Real or Dubious."
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_vs_title_polarity"
+        },
+        "Upper_right": {
+          "type": "text",
+          "content": "sl_The visualisation below does the same for Subjectivity."
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_vs_title_subjectivity"
+        }
       },
       "tab2": {
-        "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Header": {
+          "type": "sub header",
+          "content": "Contradictions and Variations"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "For reference on the left are the comparisons of the Titles Polarity vs Titles Subjectivity and the same for articles.  Then on the right we have a look at the contradictions in subjectivity vs polarity and the variances."
+        },
+        "Upper_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_title_subjectivity_vs_polarity"
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_subjectivity_vs_polarity"
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_polarity_contrad_variations"
+        },
+        "Upper_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations"
+        }
+      },
+      "tab3": {
+        "Header": {
+          "type": "sub header",
+          "content": "Box Plots to look at distribution of Polarity and Subjectivity"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "These box plots show the distribution of Polarity and Subjectivity scores for both the Title and the Article.  The Title is shown in blue and the Article in orange.  The box plots show the median, the interquartile range and the outliers.  The Title is generally more positive and less subjective than the Article.  The Article has a wider range of scores and more outliers.  The Title has a higher median score than the Article for both Polarity and Subjectivity."
+        },
+        "Visualizations": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_polarity_subjectivity_boxplots"
+        }
+      }
+    }
+  },
+  "Data Date Analysis": {
+    "required_elements": {
+      "T1C1Vis": "sl_visualisations.visualisations.plot_article_count_by_day_label",
+      "T1C2Vis": "sl_visualisations.visualisations.plot_article_count_by_day",
+      "T2C1V1": "sl_visualisations.visualisations.plot_article_count_by_location"
+    },
+    "page_settings": {
+      "title": "Data PreProcessing",
+      "description": "Data manipulations post ETL and pre modelling.",
+      "icon": "Icon",
+      "color": "Color",
+      "filter_key": "postETL",
+      "target_label": "PostETL",
+      "data": "Data_Clean"
+    },
+    "tab_contents": {
+      "tab1": {
+        "Header": {
+          "type": "sub header",
+          "content": "Analysis by Date and Day"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "There are some visible trends when we look at the number of Dubious and Real articles by day.  Here I have created a label that identifies 'special' days or just allocates the day of the week."
+        },
+        "Upper_left": {
+          "type": "text",
+          "content": ""
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": ""
+        },
+        "Upper_right": {
+          "type": "text",
+          "content": "sl_The visualisation below does the same for Subjectivity."
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": ""
+        }
+      },
+      "tab2": {
+        "Header": {
+          "type": "sub header",
+          "content": "Contradictions and Variations"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "For reference on the left are the comparisons of the Titles Polarity vs Titles Subjectivity and the same for articles.  Then on the right we have a look at the contradictions in subjectivity vs polarity and the variances."
+        },
+        "Upper_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_title_subjectivity_vs_polarity"
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_subjectivity_vs_polarity"
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_polarity_contrad_variations"
+        },
+        "Upper_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations"
+        }
       },
       "tab3": {
         "Header": {
@@ -120,14 +292,14 @@
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": ""
         }
       }
     }
   },
   "Machine Learning": {
     "required_elements": {
-      "ROD_Dashboard": "sl_visualisations.map_visualisation_v2"
+      "ROD_Dashboard": "sl_visualisations.map_visualisation.display_maps"
     },
     "page_settings": {
       "title": "Title",
@@ -162,7 +334,7 @@
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "map_visualisation_v2.display_maps"
+          "content": "sl_visualisations.map_visualisation.display_maps"
         }
       }
     }
