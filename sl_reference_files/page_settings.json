@@ -1,7 +1,7 @@
 {
   "Introductory Page": {
     "required_elements": {
-      "Dashboard": "sl_visualisations.map_visualisation.display_maps"
+      "Dashboard": "Nothing.nothing"
     },
     "page_settings": {
       "title": "Title",
@@ -15,9 +15,9 @@
     "tab_contents": {
       "tab1": {
         "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Upper": { "type": "subheader", "content": "content" },
+        "Upper_left": { "type": "text", "content": "content" },
+        "Lower_left": { "type": "text", "content": "content" }
       },
       "tab2": {
         "Header": { "type": "header", "content": "content" },
@@ -27,54 +27,91 @@
       },
       "tab3": {
         "Header": {
-          "type": "header",
-          "content": "Location Mentions in Articles"
+          "type": "sub header",
+          "content": ""
         },
         "Upper": {
           "type": "text",
-          "content": "This visualization displays the number of times a location is mentioned in articles."
+          "content": ""
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "sl_visualisations.map_visualisation.display_maps"
+          "content": "empty"
         }
       }
     }
   },
   "Data Exploration": {
     "required_elements": {
-      "Dashboard": ""
+      "Dashboard": "sl_visualisations.visualisations.plot_article_vs_title_polarity",
+      "vis1": "sl_visualisations.visualisations.plot_article_count_by_subject",
+      "vis2": "sl_visualisations.visualisations.plot_article_count_by_source",
+      "vis3": "sl_visualisations.visualisations.plot_article_vs_title_characters"
     },
     "page_settings": {
-      "title": "Title",
-      "description": "Description",
+      "title": "Data Exploration",
+      "description": "Page to show output of the EDA process.",
       "icon": "Icon",
-      "color": "Color",
+      "color": "green",
       "filter_key": "Filter Key",
-      "target_label": "Target Label",
-      "data": "Data"
+      "target_label": "EDA_output",
+      "data": "data_clean"
     },
     "tab_contents": {
       "tab1": {
-        "Header": { "type": "header", "content": "Tab1 Header" },
-        "Upper": { "type": "header", "content": "Tab1 upper" },
-        "Upper_left": { "type": "header", "content": "tab1 upperleft" },
-        "Lower_left": { "type": "header", "content": "tab1 lowerleft" }
+        "Header": { "type": "header", "content": "Topline Observations" },
+        "Upper": {
+          "type": "text",
+          "content": "During the EDA it was noticed that, several of the data columns available were biased. That is how they had been set meant that it was possible to identify Real or Dubious news solely by their content. The two main offenders of this were the Source Name - only Real articles had identified sources, and the category. Although the category appeared neutral at first glance, analysis showed that in fact Real articles received different categorization than Dubious news stories"
+        },
+        "Upper_left": {
+          "type": "sub header",
+          "content": "Analysis of the Source Name"
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_count_by_source"
+        },
+        "Upper_right": {
+          "type": "sub header",
+          "content": "Analysis of the Subject"
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_count_by_subject"
+        }
       },
       "tab2": {
-        "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Header": { "type": "sub header", "content": "Character Counts" },
+        "Upper": {
+          "type": "text",
+          "content": "The first analysis undertaken after a look at the neutrality of the data, was to see if the number of characters in the Title or Article could be an indicator of how Real an article was.  This did provide some interesting results."
+        },
+        "Upper_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_vs_title_characters"
+        },
+        "Lower_left": {
+          "type": "text",
+          "content": "It is evident that Real news articles have a char length between X and Y, and the further the count is from this the greater the chance that the article is not real."
+        },
+        "Upper_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_vs_title_characters"
+        },
+        "Lower_right": {
+          "type": "text",
+          "content": "As with the titles, there is a core size of article into which Real articles fit, and again as the number characters moves further from this core the level of trust shoule decrease."
+        }
       },
       "tab3": {
         "Header": {
           "type": "header",
-          "content": "Location Mentions in Articles"
+          "content": "Initial Data Cleanliness"
         },
         "Upper": {
           "type": "text",
-          "content": "This visualization displays the number of times a location is mentioned in articles."
+          "content": ""
         },
         "Visualizations": {
           "type": "visualization",

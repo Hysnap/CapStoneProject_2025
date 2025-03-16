@@ -1,31 +1,32 @@
 import pandas as pd
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
-import time
+from sl_utils.logger import log_function_call, datapipeline_logger as logger
 
+
+@log_function_call(logger)
 def mapdata():
-    df = pd.read_csv("data//combined_data.zip",
-                    usecols={
-        'index',
-        'title',
-        'label',
-        'month',
-        'day',
-        'year',
-        'date_clean',
-        'article_id',
-                    },  
-                    dtype = {
-        'index': 'int64',
-        'title': 'object',
-        'label': 'int64',
-        'month': 'float64',
-        'day': 'float64',
-        'year': 'int64',
-        'date': 'object',
-        'article_id': 'int64',
-        },
-                    compression='zip')
+    df = pd.read_csv(
+        "data//combined_data.zip",
+        usecols={
+                'index',
+                'title',
+                'label',
+                'month',
+                'day',
+                'year',
+                'date_clean',
+                'article_id',
+                            },
+        dtype={
+                'index': 'int64',
+                'title': 'object',
+                'label': 'int64',
+                'month': 'float64',
+                'day': 'float64',
+                'year': 'int64',
+                'date': 'object',
+                'article_id': 'int64',
+                },
+        compression='zip')
     print("The shape of the data is: ", df.shape)
     print(df.info())
     df.head()
@@ -62,26 +63,27 @@ def mapdata():
                                 'subcontinent': 'object',
                                 'ignore': 'int64'
                                 },
-                                )
-    print(locations.info())
-    locations.head()
-
-    # rename Continent to continent and Sub Continent to subcontinent
-    # locations = locations.rename(columns={'Continent': 'continent', 'Sub Continent': 'subcontinent'}, inplace=True)
+                            )
     print(locations.info())
     locations.head()
 
     # set all null subcontinent values to continent value
-    locations['subcontinent'] = locations['subcontinent'].fillna(locations['continent'])
+    locations['subcontinent'] = (
+        locations['subcontinent'].fillna(locations['continent']))
     # set null country values to subcontinent value
-    locations['country'] = locations['country'].fillna(locations['subcontinent'])
+    locations['country'] = (
+        locations['country'].fillna(locations['subcontinent']))
     # set null state values to country value
-    locations['state'] = locations['state'].fillna(locations['country'])
+    locations['state'] = (
+        locations['state'].fillna(locations['country']))
 
     # match locations to locationsfromarticle
-    locations['location'] = locations['location'].str.lower()
-    locationsfromarticle['location'] = locationsfromarticle['location'].str.lower()
-    locationsmerged = locations.merge(locationsfromarticle, on='location', how='left')
+    locations['location'] = (
+        locations['location'].str.lower())
+    locationsfromarticle['location'] = (
+        locationsfromarticle['location'].str.lower())
+    locationsmerged = (
+        locations.merge(locationsfromarticle, on='location', how='left'))
     print(locationsmerged.info())
     locationsmerged.head()
     del locations, locationsfromarticle
@@ -97,17 +99,26 @@ def mapdata():
     print(locationgraphdf.info())
     locationgraphdf.head()
 
-    # create a new dataframe with the number of fake articles per country, continent, and subcontinent
+    # create a new dataframe with the number of fake articles
+    # per country, continent, and subcontinent
     fakearticles = locationgraphdf[locationgraphdf['label'] == 1]
-    fakearticles = fakearticles.groupby(['year', 'month', 'day','date',
-                                         'state', 'country', 'continent',
-                                         'subcontinent']).size().reset_index(name='fake_count')
+    fakearticles = fakearticles.groupby([
+        'year',
+        'month',
+        'day',
+        'date',
+        'state',
+        'country',
+        'continent',
+        'subcontinent']).size().reset_index(name='fake_count')
 
-    # create a new dataframe with the number of real articles per country, continent, and subcontinent
+    # create a new dataframe with the number of real articles
+    # per country, continent, and subcontinent
     realarticles = locationgraphdf[locationgraphdf['label'] == 0]
-    realarticles = realarticles.groupby(['year', 'month', 'day','date',
-                                         'state', 'country', 'continent',
-                                         'subcontinent']).size().reset_index(name='real_count')
+    realarticles = realarticles.groupby([
+        'year', 'month', 'day', 'date',
+        'state', 'country', 'continent',
+        'subcontinent']).size().reset_index(name='real_count')
 
     # merge fake and real articles dataframes
     articles = pd.merge(fakearticles, realarticles, on=['year', 'month', 'day',
@@ -126,11 +137,60 @@ def mapdata():
                                         'subcontinent'])
     articles.head()
 
-    # save aticles dataframe as data//articlesformap.csv
+    # save articles dataframe as data//articlesformap.csv
     articles.to_csv("data//articlesformap.csv", index=False)
 
     return articles
 
-# code to run page if called directly
-if __name__ == '__main__':
-    mapdata()
+
+@log_function_call(logger)
+def dashboarddata():
+    df = pd.read_csv("data//dashboard_data.csv",
+                     usecols=None,  # Import all columns
+                     dtype={
+                        'index': int,
+                        'title': str,
+                        'subject': str,
+                        'label': int,
+                        'media_type': str,
+                        'month': float,
+                        'day': float,
+                        'year': int,
+                        'day_of_week': str,
+                        'week_of_year': float,
+                        'is_weekend': int,
+                        'is_weekday': int,
+                        'holiday': int,
+                        'day_label': str,
+                        'article_id': int,
+                        'source_name': str,
+                        'title_length': int,
+                        'text_length': int,
+                        'article_polarity': float,
+                        'article_subjectivity': float,
+                        'title_polarity': float,
+                        'title_subjectivity': float,
+                        'overall_polarity': float,
+                        'overall_subjectivity': float,
+                        'contradiction_polarity': float,
+                        'contradiction_subjectivity': float,
+                        'polarity_variations': float,
+                        'subjectivity_variations': float,
+                        'sentiment_article': str,
+                        'sentiment_title': str,
+                        'sentiment_overall': str,
+                        'unique_location_count': int
+                     },
+                     # Ensure date_clean is imported as a date
+                     parse_dates=['date_clean']
+                     )
+    print("The shape of the data is: ", df.shape)
+
+    logger.debug("The shape of the data is: ", df.shape)
+    logger.debug(df.head())
+
+    # load data in to data_clean st.session_state
+    return df
+
+# Path: f_dashboard/data_prep.py
+# end of file

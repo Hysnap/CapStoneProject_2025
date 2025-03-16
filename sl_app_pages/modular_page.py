@@ -67,7 +67,7 @@ def display_page(functionname):
     with tab1:
         Tab1Header = st.container()
         Tab1Upper = st.container()
-        col1, col2 = st.columns([1, 2])
+        col1, col2 = st.columns(2)
         with col1:
             tab1column1header = st.container()
             tab1Upper_left = st.container()
@@ -81,7 +81,7 @@ def display_page(functionname):
     with tab2:
         tab2Header = st.container()
         tab2Upper = st.container()
-        col1, col2 = st.columns([1, 2])
+        col1, col2 = st.columns(2)
         with col1:
             tab2column1header = st.container()
             tab2Upper_left = st.container()
