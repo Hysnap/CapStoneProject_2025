@@ -1,5 +1,4 @@
 
-
 from sl_utils.logger import log_function_call
 
 
@@ -9,9 +8,13 @@ def pagesetup():
     # from app_pages import introduction
     from sl_app_pages.multi_page import MultiPage
     from sl_app_pages.introduction import introduction_body
+    from sl_app_pages.ROD_dashboard import main
     # from app_pages.headlinefigures import hlf_body
     from sl_app_pages.notesondataprep import notesondataprep_body
     from sl_app_pages.mod_page_calls import (
+         mp1_intro,
+         mp2_dataex,
+         mp3_ml,
          loginpage,
          logoutpage,)
 
@@ -20,6 +23,10 @@ def pagesetup():
 
     # Add your app pages here using .add_page()
     app.add_page("Introduction", introduction_body)
+    app.add_page("ROD Dashboard", main)
+    app.add_page("Analysis Introduction", mp1_intro)
+    app.add_page("Data Exploration", mp2_dataex)
+    app.add_page("Machine Learning", mp3_ml)
     app.add_page("Login", loginpage)
     app.add_page("Notes on Data and Manipulations", notesondataprep_body)
     app.add_page("Logout", logoutpage)
