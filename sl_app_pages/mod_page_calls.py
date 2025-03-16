@@ -1,9 +1,10 @@
 import streamlit as st
-from sl_components.text_management import check_password  # , load_page_text
+from sl_components.text_management import check_password
 from sl_utils.logger import logger  # Import the logger
 from sl_utils.logger import log_function_call  # Import decorator
+from sl_app_pages.modular_page import display_page
 
-# Example usage for different pages
+
 # login
 @log_function_call
 def loginpage():
@@ -43,3 +44,23 @@ def logoutpage():
         if st.button("Logout"):
             st.session_state.security["is_admin"] = False
             st.success("Logout successful!")
+
+
+# modular page calls
+
+
+@log_function_call
+def mp1_intro():
+    display_page("Introductory Page")
+
+
+@log_function_call
+def mp2_dataex():
+    display_page("Data Exploration")
+
+
+@log_function_call
+def mp3_ml():
+    display_page("Machine Learning")
+
+# End of mod_page_calls.py

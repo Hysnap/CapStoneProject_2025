@@ -217,3 +217,128 @@ Traceback (most recent call last):
   File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 14, in pagesetup
     from sl_app_pages.mod_page_calls import (
 ImportError: cannot import name 'loginpage' from 'sl_app_pages.mod_page_calls' (H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py)
+2025/03/16 08:32 ERROR:Error in load_page_settings: st.session_state has no attribute "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+Traceback (most recent call last):
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 455, in __getitem__
+    return self._getitem(widget_id, key)
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 500, in _getitem
+    raise KeyError
+KeyError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 129, in __getattr__
+    return self[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 100, in __getitem__
+    return get_session_state()[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\safe_session_state.py", line 94, in __getitem__
+    return self._state[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 457, in __getitem__
+    raise KeyError(_missing_key_error_message(key))
+KeyError: 'st.session_state has no key "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\page_configs.py", line 14, in load_page_settings
+    page_settings = st.session_state.page_settings
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 131, in __getattr__
+    raise AttributeError(_missing_attr_error_message(key))
+AttributeError: st.session_state has no attribute "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2025/03/16 08:32 CRITICAL:Menu setup crashed: st.session_state has no attribute "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+Traceback (most recent call last):
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 455, in __getitem__
+    return self._getitem(widget_id, key)
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 500, in _getitem
+    raise KeyError
+KeyError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 129, in __getattr__
+    return self[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 100, in __getitem__
+    return get_session_state()[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\safe_session_state.py", line 94, in __getitem__
+    return self._state[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 457, in __getitem__
+    raise KeyError(_missing_key_error_message(key))
+KeyError: 'st.session_state has no key "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 35, in pagesetup
+    app.run()  # Run the  app
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\multi_page.py", line 47, in run
+    page["function"]()  # Run the selected page's function
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py", line 54, in mp1_intro
+    display_page("Introductory Page")
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\modular_page.py", line 14, in display_page
+    page_settings = load_page_settings(page)
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\page_configs.py", line 14, in load_page_settings
+    page_settings = st.session_state.page_settings
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 131, in __getattr__
+    raise AttributeError(_missing_attr_error_message(key))
+AttributeError: st.session_state has no attribute "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2025/03/16 08:32 CRITICAL:Menu setup crashed: st.session_state has no attribute "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+Traceback (most recent call last):
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 455, in __getitem__
+    return self._getitem(widget_id, key)
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 500, in _getitem
+    raise KeyError
+KeyError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 129, in __getattr__
+    return self[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 100, in __getitem__
+    return get_session_state()[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\safe_session_state.py", line 94, in __getitem__
+    return self._state[key]
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state.py", line 457, in __getitem__
+    raise KeyError(_missing_key_error_message(key))
+KeyError: 'st.session_state has no key "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\Real_Or_Dubious_News.py", line 44, in <module>
+    ROD_menu.pagesetup()
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\ROD_menu.py", line 35, in pagesetup
+    app.run()  # Run the  app
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\multi_page.py", line 47, in run
+    page["function"]()  # Run the selected page's function
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\mod_page_calls.py", line 59, in mp2_dataex
+    display_page("Data Exploration")
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\modular_page.py", line 14, in display_page
+    page_settings = load_page_settings(page)
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 41, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\sl_app_pages\page_configs.py", line 14, in load_page_settings
+    page_settings = st.session_state.page_settings
+  File "H:\python310\lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 131, in __getattr__
+    raise AttributeError(_missing_attr_error_message(key))
+AttributeError: st.session_state has no attribute "page_settings". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization

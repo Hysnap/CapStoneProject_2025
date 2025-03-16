@@ -52,7 +52,17 @@ FILENAMES = {  # "directory" : {"file_name": "file_path"}
         "dashboard_fname": "Real_or_Dubious_news.pbix"
     },
     "transform_dir": {
-        "ML_model_fname": "ML_models.py",}
+        "ML_model_fname": "ML_models.py"},
+    "reference_dir": {
+        "page_settings_fname": "page_settings.json",
+        "last_modified_fname": "last_modified_dates.json",
+        "admin_text_fname": "admin_text.json",
+        "admin_credentials_fname": "admin_credentials.json",
+    },
+    "logs_dir": {
+        "log_fname": "sl_app.log",
+        "data_pipeline_fname": "data_pipeline.log",
+    },
 }
 
 
