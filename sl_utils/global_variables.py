@@ -2,8 +2,9 @@
 import streamlit as st
 from pathlib import Path
 from sl_utils.logger import (log_function_call,
-                             logger,
-                             init_state_var)
+                             init_state_var,
+                             streamlit_logger as logger,
+                             )
 import config as config  # Import the config file
 import os
 
@@ -20,7 +21,7 @@ import os
 """
 
 
-@log_function_call
+@log_function_call(logger)
 def initialize_session_state():
     BASE_DIR = Path(os.getcwd())
     logger.info(f"BASE_DIR: {BASE_DIR}")
@@ -36,7 +37,7 @@ def initialize_session_state():
 
     # Initialize directories
     init_state_var("directories", config.DIRECTORIES)
-
+    
     # Ensure directories exist
     for key, path in config.DIRECTORIES.items():
         os.makedirs(path, exist_ok=True)  # Creates if not exists
@@ -74,6 +75,18 @@ def initialize_session_state():
     for key, value in st.session_state.items():
         logger.debug(f"{key}: {value}")
 
+    init_state_var("page_settings",
+                   config.FILENAMES.get("reference_dir",
+                                        {}).get("page_settings_fname"))
+    init_state_var("last_modified",
+                   config.FILENAMES.get("reference_dir",
+                                        {}).get("last_modified_fname"))
+    init_state_var("admin_text",
+                   config.FILENAMES.get("reference_dir",
+                                        {}).get("admin_text_fname"))
+    init_state_var("admin_credentials",
+                   config.FILENAMES.get("reference_dir",
+                                        {}).get("admin_credentials_fname"))
     return logger.info("Session state Setup complete")
 # End of function initialize_session_state
 # End of file

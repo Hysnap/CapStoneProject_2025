@@ -1,11 +1,8 @@
 # config.py - Stores global constants
-
 import os
-import pandas as pd
 from pathlib import Path
 # Base directory
 BASE_DIR = Path(os.getcwd())
-
 
 # Placeholder values
 DIRECTORIES = {  # "directory_name": "directory_path"
@@ -18,7 +15,8 @@ DIRECTORIES = {  # "directory_name": "directory_path"
     "nlp_data_processing_dir": os.path.join("e_nlp_data_processing"),
     "dashboard_dir": os.path.join("f_dashboard"),
     "future_work_dir": os.path.join("j_future_developments"),
-    "logs_dir": os.path.join("sl_logs"),
+    "sl_logs_dir": os.path.join("sl_logs"),
+    "pl_logs_dir": os.path.join("z_logs"),
     "app_pages_dir": os.path.join("sl_app_pages"),
     "utils_dir": os.path.join("sl_utils"),
     "components_dir": os.path.join("sl_components"),
@@ -59,9 +57,11 @@ FILENAMES = {  # "directory" : {"file_name": "file_path"}
         "admin_text_fname": "admin_text.json",
         "admin_credentials_fname": "admin_credentials.json",
     },
-    "logs_dir": {
+    "sl_logs_dir": {
         "log_fname": "sl_app.log",
-        "data_pipeline_fname": "data_pipeline.log",
+    },
+    "pl_logs_dir": {
+        "datapipeline_log_fname": "data_pipeline.log",
     },
 }
 
@@ -83,7 +83,7 @@ FILTER_DEF = {  # "filter_name": {"column_name": "value"}
     },
     "validdates_ftr": {
         "date": "> 2001-01-01"
-    },}
+    }, }
 
 SECURITY = {  # "security_variable": "security_value"
     "is_admin": False,
