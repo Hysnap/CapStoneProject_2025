@@ -22,11 +22,20 @@ def visualize_data_cleanliness(datafile):
     except Exception as e:
         st.error(f"Error loading dataset: {e}")
 
+    df["text_length"] = df["text"].apply(len)
+    df["title_length"] = df["title"].apply(len)
+    df["title_word_count"] = df["title"].apply(lambda x: len(x.split()))
+    df["text_word_count"] = df["text"].apply(lambda x: len(x.split()))
+
+    #if there is a date column, convert it to datetime
+    if "date" in df.columns:
+        df["date"] = pd.to_datetime(df["date"])
+
     col1, col2 = st.columns(2)
     with col1: # Display first 5 rows
         st.write("### First 5 Rows")
         st.write(df.head())
-        
+
         # Missing values heatmap
         st.write("### Missing Values Heatmap")
         fig, ax = plt.subplots(figsize=(4, 2))

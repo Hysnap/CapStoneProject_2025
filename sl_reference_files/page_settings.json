@@ -47,7 +47,8 @@
       "vis1": "sl_visualisations.visualisations.plot_article_count_by_subject",
       "vis2": "sl_visualisations.visualisations.plot_article_count_by_source",
       "vis3": "sl_visualisations.visualisations.plot_article_vs_title_characters",
-      "vis4": "sl_visualisations.visualisations.plot_article_count_by_media"
+      "vis4": "sl_visualisations.visualisations.plot_article_count_by_media",
+      "vis5": "sl_visualisations.visualisations.plot_article_count_by_day"
     },
     "page_settings": {
       "title": "Data Exploration",
@@ -111,15 +112,15 @@
       "tab3": {
         "Header": {
           "type": "header",
-          "content": "Initial Data Cleanliness"
+          "content": "Number of Articles in the DataSet over time"
         },
         "Upper": {
           "type": "text",
-          "content": ""
+          "content": "This visualisation enables us to see the spread of articles in the dataset over time and the split between Real and Dubious articles."
         },
         "Visualizations": {
           "type": "visualization",
-          "content": ""
+          "content": "sl_visualisations.visualisations.plot_article_count_by_day"
         }
       }
     }
@@ -131,7 +132,8 @@
       "T2C1V1": "sl_visualisations.visualisations.plot_title_subjectivity_vs_polarity",
       "T2C1V2": "sl_visualisations.visualisations.plot_article_subjectivity_vs_polarity",
       "T2C2V1": "sl_visualisations.visualisations.plot_polarity_contrad_variations",
-      "T2C2V2": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations"
+      "T2C2V2": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations",
+      "T3C1V1": "sl_visualisations.visualisations.plot_polarity_subjectivity_boxplots"
     },
     "page_settings": {
       "title": "Data PreProcessing",
@@ -167,6 +169,90 @@
         "Lower_right": {
           "type": "visualization",
           "content": "sl_visualisations.visualisations.plot_article_vs_title_subjectivity"
+        }
+      },
+      "tab2": {
+        "Header": {
+          "type": "sub header",
+          "content": "Contradictions and Variations"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "For reference on the left are the comparisons of the Titles Polarity vs Titles Subjectivity and the same for articles.  Then on the right we have a look at the contradictions in subjectivity vs polarity and the variances."
+        },
+        "Upper_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_title_subjectivity_vs_polarity"
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_article_subjectivity_vs_polarity"
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_polarity_contrad_variations"
+        },
+        "Upper_right": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations"
+        }
+      },
+      "tab3": {
+        "Header": {
+          "type": "sub header",
+          "content": "Box Plots to look at distribution of Polarity and Subjectivity"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "These box plots show the distribution of Polarity and Subjectivity scores for both the Title and the Article.  The Title is shown in blue and the Article in orange.  The box plots show the median, the interquartile range and the outliers.  The Title is generally more positive and less subjective than the Article.  The Article has a wider range of scores and more outliers.  The Title has a higher median score than the Article for both Polarity and Subjectivity."
+        },
+        "Visualizations": {
+          "type": "visualization",
+          "content": "sl_visualisations.visualisations.plot_polarity_subjectivity_boxplots"
+        }
+      }
+    }
+  },
+  "Data Date Analysis": {
+    "required_elements": {
+      "T1C1Vis": "sl_visualisations.visualisations.plot_article_count_by_day_label",
+      "T1C2Vis": "sl_visualisations.visualisations.plot_article_count_by_day",
+      "T2C1V1": "sl_visualisations.visualisations.plot_article_count_by_location"
+    },
+    "page_settings": {
+      "title": "Data PreProcessing",
+      "description": "Data manipulations post ETL and pre modelling.",
+      "icon": "Icon",
+      "color": "Color",
+      "filter_key": "postETL",
+      "target_label": "PostETL",
+      "data": "Data_Clean"
+    },
+    "tab_contents": {
+      "tab1": {
+        "Header": {
+          "type": "sub header",
+          "content": "Analysis by Date and Day"
+        },
+        "Upper": {
+          "type": "text",
+          "content": "There are some visible trends when we look at the number of Dubious and Real articles by day.  Here I have created a label that identifies 'special' days or just allocates the day of the week."
+        },
+        "Upper_left": {
+          "type": "text",
+          "content": ""
+        },
+        "Lower_left": {
+          "type": "visualization",
+          "content": ""
+        },
+        "Upper_right": {
+          "type": "text",
+          "content": "sl_The visualisation below does the same for Subjectivity."
+        },
+        "Lower_right": {
+          "type": "visualization",
+          "content": ""
         }
       },
       "tab2": {
