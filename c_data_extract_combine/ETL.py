@@ -21,7 +21,7 @@ import os
 import tqdm
 from flashtext import KeywordProcessor
 from sl_utils.logger import datapipeline_logger as logger
-from s1_utils.logger import log_function_call
+from sl_utils.logger import log_function_call
 from sl_utils.utils import (
     checkdirectory,
     save_dataframe_to_zip,
@@ -35,7 +35,7 @@ from sl_utils.utils import (
     extract_geolocation_details,
     extract_locations,
                             )
-from s1_utils.classify_combine import classify_and_combine
+from c_data_extract_combine.TRANSFORM import classify_and_combine
 
 
 # attach tqdm to pandas
@@ -257,8 +257,9 @@ def data_pipeline(useprecombineddata=False, usepostnlpdata=False):
 
     logger.info("Extracting locations from articles...")
     combined_df['locationsfromarticle'] = (
-        combined_df['nlp_textloc'].progressapply(extract_locations(keyword_processor,
-                                                                   nlp)))
+        combined_df['nlp_textloc']
+        .progressapply(extract_locations(keyword_processor,
+                                         nlp)))
 
     logger.info("Saving combined data post location to CSV...")
     save_dataframe_to_zip(combined_df,
@@ -278,7 +279,7 @@ def data_pipeline(useprecombineddata=False, usepostnlpdata=False):
     logger.info("Dropping rows with empty cleaned_text...")
     combined_df = combined_df.dropna(subset=['cleaned_text'])
     logger.info("Number of rows in combined dataframe"
-                 f" after dropping empty cleaned_text: {combined_df.shape[0]}")
+                f" after dropping empty cleaned_text: {combined_df.shape[0]}")
 
     logger.info("Saving combined data to CSV...")
     save_dataframe_to_zip(combined_df,

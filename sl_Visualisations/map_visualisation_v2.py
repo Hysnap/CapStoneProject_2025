@@ -4,19 +4,20 @@ import plotly.graph_objects as go
 from sl_utils.logger import streamlit_logger
 from sl_utils.logger import log_function_call
 
+
 @log_function_call(streamlit_logger)
 def display_maps():
     # Load dataset
     with st.spinner('Loading data...'):
         articles = pd.read_csv("data/articlesformap.csv",
-                            dtype={"country": str,
-                                    "continent": str,
-                                    "subcontinent": str,
-                                    "year": int,
-                                    "month": int,
-                                    "day": int,
-                                    "fake_count": int,
-                                    "real_count": int}, parse_dates=["date"])
+                               dtype={"country": str,
+                                      "continent": str,
+                                      "subcontinent": str,
+                                      "year": int,
+                                      "month": int,
+                                      "day": int,
+                                      "fake_count": int,
+                                      "real_count": int}, parse_dates=["date"])
     if articles is None or articles.empty:
         st.error("Failed to load data. Check ETL process.")
         streamlit_logger.error("Failed to load data. Check ETL process.")
@@ -75,8 +76,8 @@ def display_maps():
     else:  # State Level
         # Use "ISO-3166-2" for international state codes
         group_col = "state"
-        location_mode = "USA-states" 
-        map_countries = False 
+        location_mode = "USA-states"
+        map_countries = False
 
     # **Aggregate Data by Country (Summing Fake and Real Articles)**
     aggregated_data = filtered_data.groupby([group_col]).agg(
@@ -92,7 +93,8 @@ def display_maps():
         aggregated_data["fake_count"] + aggregated_data["real_count"]
     )
     aggregated_data["fake_percentage"] = ((
-        aggregated_data["fake_count"] / aggregated_data["total_articles"]) * 100
+        aggregated_data["fake_count"] /
+        aggregated_data["total_articles"]) * 100
     ).fillna(0)  # Fill NaN with 0 if division fails
 
     # Generate a blended color value:
@@ -108,7 +110,10 @@ def display_maps():
     # **Option to Switch Between Absolute Count, Percentage, and Merged**
     display_mode = st.radio(
         "Select Display Mode:",
-        options=["Fake Articles", "Real Articles", "All Articles", "% Fake of Total"],
+        options=["Fake Articles",
+                 "Real Articles",
+                 "All Articles",
+                 "% Fake of Total"],
         index=0
     )
 
@@ -155,7 +160,8 @@ def display_maps():
             locations=aggregated_data[location_column],
             z=aggregated_data["merged_scale"],
             locationmode=location_mode,
-            colorscale=[(0, "blue"), (0.5, "purple"), (1, "red")],  # Blue (Real) → Purple (Mix) → Red (Fake)
+            # Blue (Real) → Purple (Mix) → Red (Fake)
+            colorscale=[(0, "blue"), (0.5, "purple"), (1, "red")],
             colorbar=dict(title="Fake-Real Mix", x=1.05),
             text=aggregated_data[['fake_count', 'real_count',
                                   'fake_percentage']],
@@ -183,12 +189,14 @@ def display_maps():
             name="% Fake Articles"
         ))
 
-
     # **Update Layout**
     fig.update_layout(
         title_text=(f'Article Mentions ({geo_level} level)'
-        f' (From {start_date.strftime("%Y-%m")} to {end_date.strftime("%Y-%m")})'),
-        geo=dict(showframe=True, showcoastlines=True, projection_type='equirectangular'),
+                    f' (From {start_date.strftime("%Y-%m")} '
+                    f'to {end_date.strftime("%Y-%m")})'),
+        geo=dict(showframe=True,
+                 showcoastlines=True,
+                 projection_type='equirectangular'),
         showlegend=False
     )
 

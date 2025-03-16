@@ -19,7 +19,7 @@ def setup_package():
     MODULE_DIR = os.path.dirname(__file__)
     logger.info(f"Module directory: {MODULE_DIR}")
     # Define the name of the package
-    packagename = "Real Or Dubious Analysis Dashboard"
+    # packagename = "Real Or Dubious Analysis Dashboard"
     # Define the version of the package
     try:
         version = get_git_version(MODULE_DIR)
@@ -29,43 +29,43 @@ def setup_package():
         st.error(f"App setup failed. Please check logs. {e}")
         raise SystemExit("App setup failed. Exiting.")
     # Define the description of the package
-    packagedescription = "A package to clean and dedupe data"
+    # packagedescription = "A package to clean and dedupe data"
     # Define the author of the package
-    author = "Paul Golder"
+    # author = "Paul Golder"
     # Define the email address of the package author
-    author_email = "PGOLDER1972@gmail.com"
+    # author_email = "PGOLDER1972@gmail.com"
     # Define the dependencies of the package
-    requirements = [
-        "setuptools",
-        "numpy",
-        "scipy",
-        "pandas",
-        "matplotlib",
-        "seaborn",
-        "plotly",
-        "patsy",
-        "statsmodels",
-        "streamlit",
-        "pytest",
-        "bcrypt"
-    ]
+    # requirements = [
+    #     "setuptools",
+    #     "numpy",
+    #     "scipy",
+    #     "pandas",
+    #     "matplotlib",
+    #     "seaborn",
+    #     "plotly",
+    #     "patsy",
+    #     "statsmodels",
+    #     "streamlit",
+    #     "pytest",
+    #     "bcrypt"
+    # ]
     # Define the entry points of the package
-    packageentry_points = {"Real_Or_Dubioys_Dashboard": ["main = main:main"]}
+    # packageentry_points = {"Real_Or_Dubioys_Dashboard": ["main = main:main"]}
     # Define the package data
-    package_data = {"data": ["data/ROD_Streamlit_Data.csv"]}
+    # package_data = {"data": ["data/ROD_Streamlit_Data.csv"]}
     # Define the package classifiers
-    classifiers = [
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ]
+    # classifiers = [
+    #     "Programming Language :: Python :: 3",
+    #     "License :: OSI Approved :: MIT License",
+    #     "Operating System :: OS Independent",
+    # ]
     # Define the package keywords
-    packagekeywords = ["data",
-                       "cleaning",
-                       "deduplication",
-                       "Real or Dubious News analysis"]
+    # packagekeywords = ["data",
+    #                    "cleaning",
+    #                    "deduplication",
+    #                    "Real or Dubious News analysis"]
     # Define the package URL
-    packageurl = ""
+    # packageurl = ""
     # initialize variables
     try:
         initialize_session_state()
