@@ -12,7 +12,7 @@ def pagesetup():
     from sl_app_pages.mod_page_calls import (
          mp1_intro,
          mp2_dataex,
-         mp3_ml,
+         mp3_datapre,
          interactive_map,
          loginpage,
          logoutpage,
@@ -28,7 +28,7 @@ def pagesetup():
     app.add_page("Analysis Introduction", mp1_intro)
     app.add_page("Interactive Map", interactive_map)
     app.add_page("Data Exploration", mp2_dataex)
-    app.add_page("Machine Learning", mp3_ml)
+    app.add_page("Data Preprocessing", mp3_datapre)
     app.add_page("Login", loginpage)
     app.add_page("Notes on Data and Manipulations", notesondataprep_body)
     app.add_page("Fake News Data cleanliness", dcl_fakecsv)
