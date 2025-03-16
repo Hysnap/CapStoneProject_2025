@@ -8,42 +8,35 @@ def introduction_body():
 
     # format text
     st.write('### Introduction')
-    st.write("* This dashboard is a simple tool to provide insights into "
-             "Political donations in the United Kingdom.")
-    st.write("* The first section of this dashboard provides an overview of "
-             "the whole dataset.")
-    st.write("* The Second section provides details of a subset of the data "
-             "focusing on the Cash donations to Politcal Parties, excluding"
-             " donations by the parties to other political actors and "
-             " campaigns.  It also summarises the data to focus on the top "
-             " parties creating summary groups for the rest.")
-    st.write("* The Third section provides a summary of the Non Cash donations"
-             " made to Political Parties.  These cover donations of goods, services"
-             " and other non-monetary donations.")
-    st.write("* The Fourth section provides a summary of funds provided to "
-             "Political Parties from Public Funds.")
-    st.write("* The Fifth section provides a summary of the funds provided to"
-             " Political Parties due to Bequests.")
-    st.write("* The Sixth section provides a summary of the donations made to"
-             " Political Enties from Companies and other Corporate entities.")
-    st.write("* The Seventh section provides a summary of sponsorships made "
-             "to Political Partys.")
-    st.write("* The Eighth section provides a look at the paid visits donated"
-             " to Political Parties.")
-    st.write("* The Ninth section provides a look at the donations made from"
-             " donors of dubious origin, as defined by the regulator.")
-    st.write("* The Tenth section provides information of donations that are "
-             "considered dubious.  This includes donations with missing dates,"
-             " missing donor names and donations that are considered to be "
-             "from dubious donors or where the donor is not identifiable. ")
-    st.write("* The Eleventh section provides a look at the activity levels of"
-             " donors to Political Parties, and offers a way to look at"
-             " the activity levels of particular donors to different parties.")
-    st.write("* The Twelth section provides details on the data sources used"
-             " how it was cleaned and prepared for analysis/visualization."
-             " It also provides a link to the original data source,"
-             " and outlines any assumptions made in the data preparation "
-             " and analysis.")
+    st.write("* This dashboard is designed to share learnings from analysis "
+             "undertaken on identifying Real or Dubious News")
+    st.write("* The data used in this analysis is sourced from the "
+             "[Fake News Corpus](https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset).")
+    st.write("* The analysis is based on a dataset that contains news"
+             " articles from various sources.")
+    st.write("* The dataset was then enhanced with further records from the "
+             "[Fake News Corpus](https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset).")
+    st.write("* For more details on the data, please see the "
+             "Notes on Data Preparation page.")
+    st.write("* This dashboard was created as a Capstone project"
+             " for the Data Analytics and AI bootcamp provided by Code Institute."
+             "  The course was funded by the West Midlands Combined Authority")
+    st.write("---")
+    st.write("The analysis is divided into the following sections:")
+    st.write("1. Objective")
+    st.write("2. Data Evaluation")
+    st.write("3. Exploratory Data Analysis")
+    st.write("### Objective")
+    st.write("* The objective of this analysis is to identify patterns that "
+             "can help distinguish between real and fake news.")
+    st.write("* The analysis includes the following steps:")
+    st.write("    * Data Preparation")
+    st.write("    * Exploratory Data Analysis")
+    st.write("    * Feature Engineering")
+    st.write("    * Model Building")
+    st.write("    * Model Evaluation")
+    st.write("    * Model Deployment")
+    st.write("---")
     st.write("* The login and logout are for admin purposes only.")
     st.write("* You should be able to access the code through the github link"
              " at the top of the page.")
