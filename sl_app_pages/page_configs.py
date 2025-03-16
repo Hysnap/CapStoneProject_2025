@@ -4,50 +4,77 @@
 # Import necessary libraries
 import json
 import streamlit as st
-from sl_utils.logger import log_function_call
+from sl_utils.logger import log_function_call, streamlit_logger as logger
 
 
-@log_function_call
-def load_page_settings(page):
-    """Load page settings from a JSON file."""
-    # page_settings filename load from st.session_state
-    page_settings = st.session_state.page_settings  
-    # Load the page settings
-    with open(page_settings, "r") as file:
-        settings = json.load(file)
-    return settings.get(page, {})
+@log_function_call(logger)
+def load_page_settings(page_name):
+    try:
+        # set json file path from session_state
+        page_settings_path = st.session_state.page_settings_fname
+
+        with open(page_settings_path, "r") as f:  # ✅ Ensure correct filename
+            config_data = json.load(f)
+
+        if st.session_state.debug_mode:
+            st.write("📜 **Loaded JSON Data:**", config_data)  # ✅ Debug print in UI
+
+        if page_name not in config_data:
+            logger.warning(f"⚠️ `{page_name}` not found in JSON.")
+            st.error(f"❌ Page `{page_name}` not found in `page_settings.json`.")
+            return {}
+
+        return config_data.get(page_name, {})
+    except FileNotFoundError:
+        st.error("❌ JSON file not found.")
+        logger.error("❌ JSON file not found.")
+        return {}
+    except json.JSONDecodeError as e:
+        st.error(f"❌ JSON Decode Error: {e}")
+        logger.error(f"❌ JSON Decode Error: {e}")
+        return {}
 
 
-# def load_tabe_settings(page):
-#     """
-#     Load tab settings from the config file
-#     """
-#     # Load the tab settings
-#     tab_settings = {
-#         "tab1": "Summary Statistics",
-#         "tab2": "Textual Insights",
-#         "tab3": "Visualizations",
-#     }
-#     return tab_settings
+@log_function_call(logger)
+def execute_element_call(element_settings, imported_objects):
+    """
+    Executes the appropriate Streamlit function based on a flag in the JSON.
+    """
+    element_type = element_settings.get("type", "text")  
+    content = element_settings.get("content", "")
 
-# def load_tab_contents(page):
-#     """
-#     Load tab contents from the config file
-#     """
-#     # Load the tab contents
-#     tab_contents = {
-#         "tab1": ["Header", "Upper", "Upper_left", "Lower_left"],
-#         "tab2": ["Header", "Upper", "Upper_right", "Lower_right"],
-#         "tab3": ["Header", "Upper", "Visualizations"],
-#     }
-#     return tab_contents
+    # Interactive Debug Mode: Show debug info in Streamlit UI
+    if "debug_mode" in st.session_state and st.session_state.debug_mode:
+        st.write(f"🛠️ **Debug Mode Active** → `{element_type}`: `{content}`")
 
-# def load_column_settings(page):
-#     """
-#     Load column settings from the config file
-#     """
-#     # Load the column settings
-#     column_settings = {
-#         "col1": ["Header", "Upper_left", "Lower_left"],
-#         "col2": ["Header", "Upper_right", "Lower_right"],
-#     }
+    logger.debug(f"Executing element: {element_type} | Content: {content}")
+
+    if not content:
+        logger.warning(f"Skipping empty element of type {element_type}.")
+        if st.session_state.debug_mode:
+            st.warning(f"⚠️ Skipping empty `{element_type}` element.")
+        return  
+
+    if element_type == "header":
+        st.header(content)
+        logger.info(f"Displayed header: {content}")
+    elif element_type == "text":
+        st.write(content)
+        logger.info(f"Displayed text: {content}")
+    elif element_type == "visualization":
+        try:
+            module_name, function_name = content.split(".", 1)
+            if module_name in imported_objects:
+                function_to_call = getattr(imported_objects[module_name], function_name)
+                function_to_call()
+                logger.info(f"Executed visualization function: {content}")
+            else:
+                logger.error(f"Module `{module_name}` not found in required elements.")
+                if st.session_state.debug_mode:
+                    st.error(f"❌ Module `{module_name}` not found in required elements.")
+        except Exception as e:
+            logger.error(f"Execution error for `{content}`: {e}")
+            if st.session_state.debug_mode:
+                st.error(f"❌ Failed to execute `{content}`: {e}")
+# Path: sl_app_pages/page_configs.py
+# end of page_configs.py

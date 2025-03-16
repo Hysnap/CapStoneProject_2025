@@ -13,7 +13,7 @@ st.set_page_config(page_title="Political Party Analysis",
 try:
     import setup
     import ROD_menu
-    from sl_utils.logger import logger
+    from sl_utils.logger import log_function_call, streamlit_logger as logger
 except ImportError as e:
     raise SystemExit(f"Error: Failed to import modules - {e}")
 

@@ -1,19 +1,26 @@
 import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
+from sl_utils.logger import streamlit_logger
+from sl_utils.logger import log_function_call
 
-
+@log_function_call(streamlit_logger)
 def display_maps():
     # Load dataset
-    articles = pd.read_csv("data/articlesformap.csv",
-                           dtype={"country": str,
-                                  "continent": str,
-                                  "subcontinent": str,
-                                  "year": int,
-                                  "month": int,
-                                  "day": int,
-                                  "fake_count": int,
-                                  "real_count": int}, parse_dates=["date"])
+    with st.spinner('Loading data...'):
+        articles = pd.read_csv("data/articlesformap.csv",
+                            dtype={"country": str,
+                                    "continent": str,
+                                    "subcontinent": str,
+                                    "year": int,
+                                    "month": int,
+                                    "day": int,
+                                    "fake_count": int,
+                                    "real_count": int}, parse_dates=["date"])
+    if articles is None or articles.empty:
+        st.error("Failed to load data. Check ETL process.")
+        streamlit_logger.error("Failed to load data. Check ETL process.")
+        return
     # **Ensure 'date' column is in proper datetime format**
     if "date" not in articles or articles["date"].isnull().all():
         # **Fallback: Construct date from year, month, day**
@@ -87,7 +94,7 @@ def display_maps():
     aggregated_data["fake_percentage"] = ((
         aggregated_data["fake_count"] / aggregated_data["total_articles"]) * 100
     ).fillna(0)  # Fill NaN with 0 if division fails
-    
+
     # Generate a blended color value:
     # - Red = Fake-heavy
     # - Blue = Real-heavy
@@ -131,7 +138,7 @@ def display_maps():
         fig.add_trace(go.Choropleth(
             locations=aggregated_data[location_column],
             z=aggregated_data["real_count"],
-            locationmode='location_mode',
+            locationmode=location_mode,
             colorscale='Blues',
             colorbar=dict(title="Real Articles", x=1.05),
 
