@@ -314,7 +314,7 @@ def extract_locations(text, keyword_processor, nlp):
     matched_locations = (
         set(keyword_processor.extract_keywords(text.lower())))
     logger.debug("Matched Locations"
-                    f" from Predefined List: {matched_locations}")
+                 f" from Predefined List: {matched_locations}")
 
     # Return matched locations if found; otherwise,
     # return NLP-extracted ones

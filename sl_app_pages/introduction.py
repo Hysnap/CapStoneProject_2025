@@ -5,8 +5,12 @@ def introduction_body():
     """
     This function displays the content of Page one.
     """
-    dataset1 = "https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset"
-    dataset2 = "https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset"
+    dataset1 = (
+        "https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset"
+    )
+    dataset2 = (
+        "https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset"
+    )
 
     # format text
     st.write('### Introduction')

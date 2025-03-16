@@ -13,15 +13,16 @@ def load_page_settings(page_name):
         # set json file path from session_state
         page_settings_path = st.session_state.page_settings_fname
 
-        with open(page_settings_path, "r") as f:  # ✅ Ensure correct filename
+        with open(page_settings_path, "r") as f:
             config_data = json.load(f)
 
         if st.session_state.debug_mode:
-            st.write("📜 **Loaded JSON Data:**", config_data)  # ✅ Debug print in UI
+            st.write("📜 **Loaded JSON Data:**", config_data)
 
         if page_name not in config_data:
             logger.warning(f"⚠️ `{page_name}` not found in JSON.")
-            st.error(f"❌ Page `{page_name}` not found in `page_settings.json`.")
+            st.error(f"❌ Page `{page_name}` not found"
+                     " in `page_settings.json`.")
             return {}
 
         return config_data.get(page_name, {})
@@ -40,7 +41,7 @@ def execute_element_call(element_settings, imported_objects):
     """
     Executes the appropriate Streamlit function based on a flag in the JSON.
     """
-    element_type = element_settings.get("type", "text")  
+    element_type = element_settings.get("type", "text")
     content = element_settings.get("content", "")
 
     # Interactive Debug Mode: Show debug info in Streamlit UI
@@ -53,7 +54,7 @@ def execute_element_call(element_settings, imported_objects):
         logger.warning(f"Skipping empty element of type {element_type}.")
         if st.session_state.debug_mode:
             st.warning(f"⚠️ Skipping empty `{element_type}` element.")
-        return  
+        return
 
     if element_type == "header":
         st.header(content)
@@ -65,13 +66,16 @@ def execute_element_call(element_settings, imported_objects):
         try:
             module_name, function_name = content.split(".", 1)
             if module_name in imported_objects:
-                function_to_call = getattr(imported_objects[module_name], function_name)
+                function_to_call = getattr(imported_objects[module_name],
+                                           function_name)
                 function_to_call()
                 logger.info(f"Executed visualization function: {content}")
             else:
-                logger.error(f"Module `{module_name}` not found in required elements.")
+                logger.error(f"Module `{module_name}` not found"
+                             " in required elements.")
                 if st.session_state.debug_mode:
-                    st.error(f"❌ Module `{module_name}` not found in required elements.")
+                    st.error(f"❌ Module `{module_name}` not found"
+                             " in required elements.")
         except Exception as e:
             logger.error(f"Execution error for `{content}`: {e}")
             if st.session_state.debug_mode:
