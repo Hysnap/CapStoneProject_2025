@@ -60,8 +60,8 @@ def mp2_dataex():
 
 
 @log_function_call(logger)
-def mp3_ml():
-    display_page("Machine Learning")
+def mp3_datapre():
+    display_page("Data Preprocessing")
 
 
 @log_function_call(logger)
@@ -71,19 +71,19 @@ def interactive_map():
 
 @log_function_call(logger)
 def dcl_fakecsv():
-    datafile = "source_data//fake.csv.zip"
+    datafile = "fake_news_sources_fname"
     visualize_data_cleanliness(datafile)
 
 
 @log_function_call(logger)
 def dcl_truecsv():
-    datafile = "source_data//true.csv.zip"
+    datafile = "true_news_sources_fname"
     visualize_data_cleanliness(datafile)
 
 
 @log_function_call(logger)
 def dcl_combinedcsv():
-    datafile = "data//combined_misinfo.zip"
+    datafile = "combined_misinfo_fname"
     visualize_data_cleanliness(datafile)
 
 # End of mod_page_calls.py
