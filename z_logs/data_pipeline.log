@@ -14964,3 +14964,258 @@ zipfile.BadZipFile: File is not a zip file
 2025/03/16 05:16 DEBUG:admin_credentials already exists in session state
 2025/03/16 05:16 DEBUG:admin_credentials already exists in session state
 2025/03/16 05:16 DEBUG:admin_credentials already exists in session state
+2025/03/17 01:25 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'data//combined_data.zip'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 8, in mapdata
+    df = pd.read_csv(
+         ^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+             ^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pgold\AppData\Local\Programs\Python\Python312\Lib\zipfile\__init__.py", line 1323, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data//combined_data.zip'
+2025/03/17 01:26 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'data//locationsfromarticle.zip'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 40, in mapdata
+    pd.read_csv("data//locationsfromarticle.zip",
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+             ^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pgold\AppData\Local\Programs\Python\Python312\Lib\zipfile\__init__.py", line 1323, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data//locationsfromarticle.zip'
+2025/03/17 01:26 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'data//locationsfromarticle.zip'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 40, in mapdata
+    pd.read_csv("data//locationsfromarticle.zip",
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+             ^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pgold\AppData\Local\Programs\Python\Python312\Lib\zipfile\__init__.py", line 1323, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data//locationsfromarticle.zip'
+2025/03/17 01:34 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'sl_data_for_dashboard//locationsfromarticle.zip'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 40, in mapdata
+    pd.read_csv("sl_data_for_dashboard//locationsfromarticle.zip",
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+             ^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pgold\AppData\Local\Programs\Python\Python312\Lib\zipfile\__init__.py", line 1323, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'sl_data_for_dashboard//locationsfromarticle.zip'
+2025/03/17 01:34 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'sl_data_for_dashboard//locationsfromarticle.zip'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 40, in mapdata
+    pd.read_csv("sl_data_for_dashboard//locationsfromarticle.zip",
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+             ^^^^^^^^^^^^^^
+  File "h:\VScode\CapStoneProject_2025-1\.venv\Lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pgold\AppData\Local\Programs\Python\Python312\Lib\zipfile\__init__.py", line 1323, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'sl_data_for_dashboard//locationsfromarticle.zip'
+2025/03/17 02:21 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'sl_data_for_dashboard//dasboard_data.zip'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 8, in mapdata
+    df = pd.read_csv(
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+  File "H:\python310\lib\zipfile.py", line 1251, in __init__
+    self.fp = io.open(file, filemode)
+FileNotFoundError: [Errno 2] No such file or directory: 'sl_data_for_dashboard//dasboard_data.zip'
+2025/03/17 02:22 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'sl_data_for_dashboard//dasboard_data.csv'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 8, in mapdata
+    df = pd.read_csv(
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+  File "H:\python310\lib\zipfile.py", line 1251, in __init__
+    self.fp = io.open(file, filemode)
+FileNotFoundError: [Errno 2] No such file or directory: 'sl_data_for_dashboard//dasboard_data.csv'
+2025/03/17 02:22 ERROR:Error in mapdata: [Errno 2] No such file or directory: 'sl_data_for_dashboard//dasboard_data.csv'
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 8, in mapdata
+    df = pd.read_csv(
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+  File "H:\python310\lib\zipfile.py", line 1251, in __init__
+    self.fp = io.open(file, filemode)
+FileNotFoundError: [Errno 2] No such file or directory: 'sl_data_for_dashboard//dasboard_data.csv'
+2025/03/17 02:23 ERROR:Error in mapdata: File is not a zip file
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 8, in mapdata
+    df = pd.read_csv(
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+  File "H:\python310\lib\zipfile.py", line 1269, in __init__
+    self._RealGetContents()
+  File "H:\python310\lib\zipfile.py", line 1336, in _RealGetContents
+    raise BadZipFile("File is not a zip file")
+zipfile.BadZipFile: File is not a zip file
+2025/03/17 02:23 ERROR:Error in mapdata: File is not a zip file
+Traceback (most recent call last):
+  File "H:\VScode\CapStoneProject_2025-1\sl_utils\logger.py", line 64, in wrapper
+    result = func(*args, **kwargs)
+  File "H:\VScode\CapStoneProject_2025-1\f_dashboard\data_prep.py", line 8, in mapdata
+    df = pd.read_csv(
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "H:\python310\lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 784, in get_handle
+    handle = _BytesZipFile(
+  File "H:\python310\lib\site-packages\pandas\io\common.py", line 1027, in __init__
+    self.buffer: zipfile.ZipFile = zipfile.ZipFile(  # type: ignore[assignment]
+  File "H:\python310\lib\zipfile.py", line 1269, in __init__
+    self._RealGetContents()
+  File "H:\python310\lib\zipfile.py", line 1336, in _RealGetContents
+    raise BadZipFile("File is not a zip file")
+zipfile.BadZipFile: File is not a zip file

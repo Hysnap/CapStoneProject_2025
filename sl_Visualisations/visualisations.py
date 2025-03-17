@@ -54,7 +54,7 @@ def plot_article_vs_title_polarity(target_label="Article vs Title Polarity",
         st.warning("No data available for the selected date range.")
         return
 
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
 
@@ -126,7 +126,7 @@ def plot_article_count_by_subject(target_label="Article Count by Subject",
     else:
         y_value = "count"
         y_label = "Count of Articles"
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create bar plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.barplot(
@@ -139,8 +139,10 @@ def plot_article_count_by_subject(target_label="Article Count by Subject",
     )
 
     ax.set_title("Article Count by Subject (Real vs Dubious)", fontsize=10)
-    ax.set_xlabel("Subject", fontsize=8)
-    ax.set_ylabel(y_label, fontsize=8)
+    ax.set_xlabel("Subject", fontsize=6)
+    ax.set_ylabel(y_label, fontsize=6)
+    ax.tick_params(axis='x', labelsize=6)
+    ax.tick_params(axis='y', labelsize=6)
     handles, _ = ax.get_legend_handles_labels()
     ax.legend(handles=handles,
               title="Label",
@@ -196,7 +198,7 @@ def plot_article_count_by_source(target_label="Article Count by Source",
     else:
         y_value = "count"
         y_label = "Count of Articles"
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create bar plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.barplot(
@@ -212,8 +214,8 @@ def plot_article_count_by_source(target_label="Article Count by Source",
     ax.set_xlabel("Source", fontsize=8)
     ax.set_ylabel(y_label, fontsize=8)
     handles, _ = ax.get_legend_handles_labels()
-    ax.tick_params(axis='x', labelsize=8)
-    ax.tick_params(axis='y', labelsize=8)
+    ax.tick_params(axis='x', labelsize=6)
+    ax.tick_params(axis='y', labelsize=6)
     ax.legend(handles=handles, title="Label",
               labels=["Dubious (0)", "Real (1)"], fontsize=8)
     plt.xticks(rotation=45)
@@ -272,7 +274,7 @@ def plot_article_vs_title_characters(
         st.warning("No data available for the selected date range.")
         return
 
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
@@ -340,7 +342,7 @@ def plot_article_count_by_media(target_label="Article Count by media",
     else:
         y_value = "count"
         y_label = "Count of Articles"
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {1: "green", 0: "red"}
     # Create bar plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.barplot(
@@ -414,7 +416,7 @@ def plot_article_vs_title_polarity(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create scatter plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
@@ -484,8 +486,7 @@ def plot_article_vs_title_subjectivity(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
-
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
@@ -507,6 +508,85 @@ def plot_article_vs_title_subjectivity(
     ax.legend(title="Label",
                 labels=["Dubious (0)", "Real (1)"],
                 fontsize=10)
+
+    # Display visualization in Streamlit
+    st.pyplot(fig)
+
+
+@log_function_call(streamlit_logger)
+def plot_article_subjectivity_vs_polarity(
+    target_label="Article Subjectivity vs Polarity",
+    pageref_label="Article_S_V_P_scatter"):
+    """
+    Plots scatter graph of polarity vs article subjectivity scores
+    with label color coding and date filtering.
+    """
+
+    # Load dataset from session state
+    df = st.session_state.get("data_clean", None)
+
+    if df is None:
+        st.error("No data found. Please upload a dataset.")
+        return
+
+    # Ensure the date column is in datetime format
+    df["date_clean"] = pd.to_datetime(df["date_clean"])
+
+    # Retrieve min/max date for filtering
+    min_date = df["date_clean"].min().date()
+    max_date = df["date_clean"].max().date()
+
+    # Date selection slider
+    # Option to show/hide date slide
+    show_slider = st.checkbox("Show Date Slider",
+                              value=False,
+                              key=f"{pageref_label}_slider")
+
+    if show_slider:
+        start_date, end_date = st.slider(
+            "Select Date Range",
+            min_value=min_date,
+            max_value=max_date,
+            value=(min_date, max_date),
+            format="YYYY-MM-DD",
+            key=pageref_label
+        )
+    else:
+       start_date, end_date = min_date, max_date
+
+    # Filter data using the existing filter method
+    filtered_df = filter_by_date(df,
+                                 pd.to_datetime(start_date),
+                                 pd.to_datetime(end_date),
+                                 "date_clean")
+
+    if filtered_df.empty:
+        st.warning("No data available for the selected date range.")
+        return
+
+    my_pal = {0: "green", 1: "red"}
+    # Create plot
+    fig, ax = plt.subplots(figsize=(3, 3))
+
+    sns.scatterplot(
+        data=filtered_df,
+        y="article_subjectivity",
+        x="article_polarity",
+        hue="label",
+        palette=my_pal,
+        alpha=0.7,
+        ax=ax
+    )
+
+    ax.set_title("Scatter Plot of Article Subjectivity vs Polarity",
+                 fontsize=10)
+    ax.set_ylabel("Article Subjectivity",
+                  fontsize=8)
+    ax.set_xlabel("Article Polarity",
+                  fontsize=8)
+    ax.legend(title="Label",
+              labels=["Dubious (0)", "Real (1)"],
+              fontsize=10)
 
     # Display visualization in Streamlit
     st.pyplot(fig)
@@ -563,15 +643,7 @@ def plot_title_subjectivity_vs_polarity(
         st.warning("No data available for the selected date range.")
         return
 
-    # User option to select plot type
-    plot_type = st.radio(
-        "Select Plot Type",
-        options=["Scatter", "Hexplot"],
-        index=1,
-        key=f"{pageref_label}_plot_type"
-        )
-
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
 
@@ -665,7 +737,7 @@ def plot_article_vs_title_subjectivity_scat(
                        how="all", inplace=True)
 
     # Define color palette for labels
-    my_pal = {"0": "r", "1": "g"}  
+    my_pal = {0: "green", 1: "red"}
 
     # Create plot
     fig, ax = plt.subplots(figsize=(6, 6))
@@ -739,7 +811,7 @@ def plot_subjectivity_contrad_variations(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create scatter plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
@@ -784,16 +856,22 @@ def plot_polarity_contrad_variations(
     min_date = df["date_clean"].min().date()
     max_date = df["date_clean"].max().date()
 
-    # Date selection slider
-    start_date, end_date = st.slider(
-        "Select Date Range",
-        min_value=min_date,
-        max_value=max_date,
-        value=(min_date, max_date),
-        format="YYYY-MM-DD",
-        key=pageref_label
-        )
+    show_slider = st.checkbox("Show Date Slider",
+                              value=False,
+                              key=f"{pageref_label}_slider")
 
+    if show_slider:
+        start_date, end_date = st.slider(
+            "Select Date Range",
+            min_value=min_date,
+            max_value=max_date,
+            value=(min_date, max_date),
+            format="YYYY-MM-DD",
+            key=pageref_label
+        )
+    else:
+        start_date, end_date = min_date, max_date
+        
     # Filter data using the existing filter method
     filtered_df = filter_by_date(df,
                                  pd.to_datetime(start_date),
@@ -803,7 +881,7 @@ def plot_polarity_contrad_variations(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = { 0: "red", 1: "green"}
     # Create scatter plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
@@ -842,8 +920,8 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
         return
 
     # Check if required columns exist
-    if "source_name" not in df.columns or "label" not in df.columns:
-        st.error("Dataset missing required columns: 'source_name' or 'label'.")
+    if "day_label" not in df.columns or "label" not in df.columns:
+        st.error("Dataset missing required columns: 'day_label' or 'label'.")
         return
 
     # User option to select display type
@@ -854,7 +932,7 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
         key=pageref_label
     )
 
-    # Aggregate count of articles per source split by label
+    # Aggregate count of articles per day_label split by label
     article_counts = df.groupby(["day_label",
                                  "label"]).size().reset_index(name="count")
 
@@ -869,7 +947,7 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
     else:
         y_value = "count"
         y_label = "Count of Articles"
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create bar plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.barplot(
@@ -878,11 +956,12 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
         y=y_value,
         hue="label",
         palette=my_pal,
-        alpha=0.7
+        alpha=0.7,
+        order=article_counts["day_label"].unique()[::-1]
     )
 
     ax.set_title("Article Count by Day (Real vs Dubious)", fontsize=10)
-    ax.set_xlabel("Source", fontsize=8)
+    ax.set_xlabel("Day Label", fontsize=8)
     ax.set_ylabel(y_label, fontsize=8)
     handles, _ = ax.get_legend_handles_labels()
     ax.tick_params(axis='x', labelsize=8)
@@ -893,6 +972,11 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
               fontsize=8)
     plt.xticks(rotation=45)
 
+    # Split y-axis
+    ax.set_yscale('log')
+    ax.set_yticks([10000, 22000, 30000, 50000])
+    ax.get_yaxis().set_major_formatter(plt.ScalarFormatter())
+
     # Display visualization in Streamlit
     st.pyplot(fig)
 
@@ -900,7 +984,7 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
 # graph using data_clean to show count of Real and Dubious articles by day
 @log_function_call(streamlit_logger)
 def plot_article_count_by_day(target_label="Article Count by Day",
-                              pageref_label="article_day_count"):
+                              pageref_label="article_day_count2"):
     """
     Plots a line graph of the count of articles by day,
     split by Label (Real=1, Dubious=0), with color coding.
@@ -942,7 +1026,7 @@ def plot_article_count_by_day(target_label="Article Count by Day",
     else:
         y_value = "count"
         y_label = "Count of Articles"
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create line plot
     fig, ax = plt.subplots(figsize=(12, 3))
     sns.lineplot(
@@ -1017,7 +1101,7 @@ def plot_article_count_by_location(target_label="Article Count by Location",
     else:
         y_value = "count"
         y_label = "Count of Articles"
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
+    my_pal = {0: "green", 1: "red"}
     # Create bar plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.barplot(
@@ -1486,7 +1570,7 @@ def plot_hex_charcounts():
     filtered_df["label"] = filtered_df["label"].astype(int)
 
     # Handle null and near-null values
-    threshold = 0.1
+    threshold = 10
     filtered_df.loc[filtered_df["title_length"].abs() < threshold,
                     "title_length"] = None
     filtered_df.loc[filtered_df["text_length"].abs() < threshold,
@@ -1494,6 +1578,10 @@ def plot_hex_charcounts():
     filtered_df.dropna(subset=["title_length",
                                "text_length"],
                        how="all", inplace=True)
+
+    # Filter lengths
+    filtered_df = filtered_df[(filtered_df["title_length"] < 1000) &
+                              (filtered_df["text_length"] < 25000)]
 
     # Create figure
     fig = plt.figure(figsize=(8, 8))
@@ -1503,11 +1591,10 @@ def plot_hex_charcounts():
         y="title_length",
         kind="hex",
         cmap="coolwarm",
-        gridsize=50,
+        gridsize=10,
         marginal_ticks=True
     )
-    grid.ax_joint.set_xlim(0, 1000)
-    grid.ax_joint.set_ylim(0, 25000)
+
 
     # Calculate weights for each hexbin (percent of Real articles)
     x = filtered_df["text_length"]
@@ -1522,29 +1609,30 @@ def plot_hex_charcounts():
     # Color bar
     cbar = fig.colorbar(hexbin,
                         ax=grid.ax_joint,
-                        orientation="vertical")
+                        orientation="horizontal")
     cbar.set_label("Proportion of Real Articles",
                    fontsize=10)
 
     # Side histograms (volume distributions)
-    sns.histplot(x, bins=20,
+    sns.histplot(x, bins=25,
                  ax=grid.ax_marg_x,
                  color="gray",
                  kde=True)
-    sns.histplot(y, bins=20,
+    sns.histplot(y, bins=25,
                  ax=grid.ax_marg_y,
                  color="gray",
                  kde=True)
-    grid.ax_joint.set_ylim(0, 1000)
-    grid.ax_joint.set_xlim(0, 50000)
+
 
     # Titles and labels
     grid.ax_joint.set_title("Weighted Percentage of Real vs. Fake Articles",
-                            fontsize=12)
+                            fontsize=8)
     grid.ax_joint.set_xlabel("Article Size in Chars",
-                             fontsize=10)
+                             fontsize=6)
     grid.ax_joint.set_ylabel("Title Size in Chars",
-                             fontsize=10)
+                             fontsize=6)
+    grid.ax_joint.set_ylim(0, 1000)
+    grid.ax_joint.set_xlim(0, 25000)
 
     # Display
     st.pyplot(grid.fig)

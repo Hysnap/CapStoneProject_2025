@@ -17,9 +17,10 @@ def pagesetup():
          interactive_map,
          loginpage,
          logoutpage,
-         dcl_combinedcsv,
-         dcl_fakecsv,
-         dcl_truecsv,)
+        #  dcl_combinedcsv,
+        #  dcl_fakecsv,
+        #  dcl_truecsv,
+        )
 
     # Create an instance of the MultiPage class
     app = MultiPage(app_name="UK Political Donations")  # Create an instance
@@ -31,11 +32,12 @@ def pagesetup():
     app.add_page("Data Exploration", mp2_dataex)
     app.add_page("Data Preprocessing", mp3_datapre)
     app.add_page("Data Further Analysis", mp4_datapre)
+    # app.add_page("Machine Learning", machinelearning)
     app.add_page("Interactive Map", interactive_map)
     app.add_page("Notes on Data and Manipulations", notesondataprep_body)
-    app.add_page("Fake News Data cleanliness", dcl_fakecsv)
-    app.add_page("True News Data cleanliness", dcl_truecsv)
-    app.add_page("Combined Data cleanliness", dcl_combinedcsv)
+    # app.add_page("Fake News Data cleanliness", dcl_fakecsv)
+    # app.add_page("True News Data cleanliness", dcl_truecsv)
+    # app.add_page("Combined Data cleanliness", dcl_combinedcsv)
     app.add_page("Login", loginpage)
     app.add_page("Logout", logoutpage)
 

@@ -6,7 +6,7 @@ from sl_utils.logger import log_function_call, datapipeline_logger as logger
 def mapdata():
     # load combined_data.zip file
     df = pd.read_csv(
-        "data//combined_data.zip",
+        "sl_data_for_dashboard//dashboard_data.zip",
         usecols={
                 'index',
                 'title',
@@ -37,7 +37,7 @@ def mapdata():
 
     # load locationsfromarticle.zip file
     locationsfromarticle = (
-        pd.read_csv("data//locationsfromarticle.zip",
+        pd.read_csv("sl_data_for_dashboard//locationsfromarticle.zip",
                     usecols={
                         'article_id',
                         'location',
@@ -50,7 +50,7 @@ def mapdata():
                     )
     logger.debug(locationsfromarticle.info())
     # load unique_locations.csv file
-    locations = pd.read_csv("data//unique_locations.csv",
+    locations = pd.read_csv("sl_data_for_dashboard//unique_locations.csv",
                             dtype={
                                 'location': 'object',
                                 'latitude': 'float64',
@@ -140,7 +140,7 @@ def mapdata():
 
 @log_function_call(logger)
 def dashboarddata():
-    df = pd.read_csv("data//dashboard_data.csv",
+    df = pd.read_csv("sl_data_for_dashboard//dashboard_data.zip",
                      usecols=None,  # Import all columns
                      dtype={
                         'index': int,
@@ -176,6 +176,7 @@ def dashboarddata():
                         'sentiment_overall': str,
                         'unique_location_count': int
                      },
+        compression='zip',
                      # Ensure date_clean is imported as a date
                      parse_dates=['date_clean']
                      )
