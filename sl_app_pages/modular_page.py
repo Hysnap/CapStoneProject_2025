@@ -11,7 +11,7 @@ def display_page(functionname):
     with Debug Mode and Containers.
     """
 
-    # ✅ Add Debug Mode Toggle in Sidebar
+    # Add Debug Mode Toggle in Sidebar
     if "debug_mode" not in st.session_state:
         st.session_state.debug_mode = False
 
@@ -24,7 +24,7 @@ def display_page(functionname):
 
     st.write(f"### 🔄 Loading `{functionname}`...")  # Debugging visual cue
 
-    # ✅ Load Page Settings
+    # Load Page Settings
     page_settings = load_page_settings(functionname)
     if not page_settings:
         st.error("❌ Page settings not found.")
@@ -38,32 +38,32 @@ def display_page(functionname):
                  f" for `{functionname}`.")
         return
 
-    # ✅ Dynamically Import Required Elements
+    # Dynamically Import Required Elements
     imported_objects = {}
     for var_name, import_path in required_elements.items():
         try:
             module_path, function_name = import_path.rsplit(".", 1)
             module = importlib.import_module(module_path)
             imported_objects[var_name] = getattr(module, function_name)
-            logger.info(f"✅ Successfully imported {function_name}"
+            logger.info(f"Successfully imported {function_name}"
                         f" from {module_path}")
         except (ImportError, AttributeError) as e:
-            logger.error(f"❌ Failed to import {import_path}: {e}")
+            logger.error(f"Failed to import {import_path}: {e}")
             if st.session_state.debug_mode:
                 st.error(f"❌ Failed to import `{import_path}`: {e}")
 
-    # ✅ Create Streamlit Tabs
+    # Create Streamlit Tabs
     tab1, tab2, tab3 = st.tabs([
         tab_contents.get("tab1", {}).get("Header", {}).get("content", "Tab 1"),
         tab_contents.get("tab2", {}).get("Header", {}).get("content", "Tab 2"),
         tab_contents.get("tab3", {}).get("Header", {}).get("content", "Tab 3")
     ])
 
-    # ✅ Define Global Containers
+    # Define Global Containers
     Header = st.container()
     Upper = st.container()
 
-    # ✅ Process Tab 1
+    # Process Tab 1
     with tab1:
         Tab1Header = st.container()
         Tab1Upper = st.container()
@@ -77,7 +77,7 @@ def display_page(functionname):
             tab1Upper_right = st.container()
             tab1Lower_right = st.container()
 
-    # ✅ Process Tab 2
+    # Process Tab 2
     with tab2:
         tab2Header = st.container()
         tab2Upper = st.container()
@@ -91,20 +91,20 @@ def display_page(functionname):
             tab2Upper_right = st.container()
             tab2Lower_right = st.container()
 
-    # ✅ Process Tab 3
+    # Process Tab 3
     with tab3:
         tab3Header = st.container()
         tab3Upper = st.container()
         Visualizations = st.container()
 
-    # ✅ Execute Element Calls
-    # 🔹 Global Containers
+    # Execute Element Calls
+    # Global Containers
     with Header:
         execute_element_call(page_settings.get("Header", {}), imported_objects)
     with Upper:
         execute_element_call(page_settings.get("Upper", {}), imported_objects)
 
-    # 🔹 Tab 1
+    # Tab 1
     with Tab1Header:
         execute_element_call(tab_contents.get("tab1", {}).get("Header", {}),
                              imported_objects)
@@ -136,7 +136,7 @@ def display_page(functionname):
                                               {}).get("Lower_right", {}),
                              imported_objects)
 
-    # 🔹 Tab 2
+    # Tab 2
     with tab2Header:
         execute_element_call(tab_contents.get("tab2",
                                               {}).get("Header", {}),
@@ -170,7 +170,7 @@ def display_page(functionname):
                                               {}).get("Lower_right", {}),
                              imported_objects)
 
-    # 🔹 Tab 3
+    # Tab 3
     with tab3Header:
         execute_element_call(tab_contents.get("tab3",
                                               {}).get("Header", {}),
@@ -185,7 +185,7 @@ def display_page(functionname):
                                                       {}),
                              imported_objects)
 
-    # ✅ Show Debug Logs if Debug Mode is Active
+    # Show Debug Logs if Debug Mode is Active
     if st.session_state.debug_mode:
         with st.expander("📝 Debug Log Output"):
             loglocation = st.session_state.get("log_fname", "app_debug.log")

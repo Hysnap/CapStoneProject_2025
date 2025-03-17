@@ -51,7 +51,7 @@ def logoutpage():
 # modular page calls
 @log_function_call(logger)
 def mp1_intro():
-    display_page("Introductory Page")
+    display_page("Objective")
 
 
 @log_function_call(logger)
@@ -91,4 +91,9 @@ def dcl_combinedcsv():
     datafile = "combined_misinfo_fname"
     visualize_data_cleanliness(datafile)
 
+
+@log_function_call(logger)
+def dcl_combinedcsv():
+    datafile = "combined_misinfo_fname"
+    visualize_data_cleanliness(datafile)
 # End of mod_page_calls.py
