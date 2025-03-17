@@ -1,10 +1,11 @@
 import streamlit as st
-from unrequired.text_management import check_password
+from sl_reference_files.text_management import check_password
 from sl_utils.logger import streamlit_logger as logger  # Import the logger
 from sl_utils.logger import log_function_call  # Import decorator
 from sl_app_pages.modular_page import display_page
 from sl_app_pages.datacleanliness import visualize_data_cleanliness
 from sl_visualisations.map_visualisation import display_maps
+# from sl_app_pages.ML_page import load_model
 
 
 # login
@@ -93,7 +94,8 @@ def dcl_combinedcsv():
 
 
 @log_function_call(logger)
-def dcl_combinedcsv():
-    datafile = "combined_misinfo_fname"
-    visualize_data_cleanliness(datafile)
+def machinelearning():
+    # load_model()
+    return
+
 # End of mod_page_calls.py
