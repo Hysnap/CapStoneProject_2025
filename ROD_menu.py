@@ -25,17 +25,18 @@ def pagesetup():
     app = MultiPage(app_name="UK Political Donations")  # Create an instance
 
     # Add your app pages here using .add_page()
+
     app.add_page("Introduction", introduction_body)
-    app.add_page("Analysis Introduction", mp1_intro)
-    app.add_page("Interactive Map", interactive_map)
+    app.add_page("Objective and Requirements", mp1_intro)
     app.add_page("Data Exploration", mp2_dataex)
     app.add_page("Data Preprocessing", mp3_datapre)
     app.add_page("Data Further Analysis", mp4_datapre)
-    app.add_page("Login", loginpage)
+    app.add_page("Interactive Map", interactive_map)
     app.add_page("Notes on Data and Manipulations", notesondataprep_body)
     app.add_page("Fake News Data cleanliness", dcl_fakecsv)
     app.add_page("True News Data cleanliness", dcl_truecsv)
     app.add_page("Combined Data cleanliness", dcl_combinedcsv)
+    app.add_page("Login", loginpage)
     app.add_page("Logout", logoutpage)
 
     # app.add_page("Regulated Entities", regulatedentitypage_body)

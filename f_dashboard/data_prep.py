@@ -30,12 +30,10 @@ def mapdata():
         compression='zip')
     logger.debug("The shape of the data is: ", df.shape)
     logger.debug(df.info())
-    df.head()
     # filter out rows with dates earlier than 2014-01-01
     df['date'] = pd.to_datetime(df['date_clean'])
     df = df[df['date'] >= '2014-01-01']
     logger.debug("The shape of the data is: ", df.shape)
-    df.head()
 
     # load locationsfromarticle.zip file
     locationsfromarticle = (
@@ -51,7 +49,6 @@ def mapdata():
                     compression='zip')
                     )
     logger.debug(locationsfromarticle.info())
-    locationsfromarticle.head()
     # load unique_locations.csv file
     locations = pd.read_csv("data//unique_locations.csv",
                             dtype={
@@ -66,8 +63,6 @@ def mapdata():
                                 },
                             )
     logger.debug(locations.info())
-    locations.head()
-
     # set all null subcontinent values to continent value
     locations['subcontinent'] = (
         locations['subcontinent'].fillna(locations['continent']))
@@ -86,19 +81,18 @@ def mapdata():
     locationsmerged = (
         locations.merge(locationsfromarticle, on='location', how='left'))
     logger.debug(locationsmerged.info())
-    locationsmerged.head()
     del locations, locationsfromarticle
 
     # drop all rows with ignore = 1
     locationsmerged = locationsmerged[locationsmerged['ignore'] != 1]
     locationsmerged = locationsmerged.drop(columns=['ignore'])
-    locationsmerged.head()
-    locationsmerged.info()
+    logger.debug(locationsmerged.head())
+    logger.debug(locationsmerged.info())
 
     # merge locationsmerged with df only keep rows with a match
     locationgraphdf = df.merge(locationsmerged, on='article_id', how='left')
     logger.debug(locationgraphdf.info())
-    locationgraphdf.head()
+    logger.debug(locationgraphdf.head())
 
     # create a new dataframe with the number of fake articles
     # per country, continent, and subcontinent
@@ -136,7 +130,7 @@ def mapdata():
                                         'country',
                                         'continent',
                                         'subcontinent'])
-    articles.head()
+    logger.debug(articles.head())
 
     # save articles dataframe as data//articlesformap.csv
     articles.to_csv("data//articlesformap.csv", index=False)

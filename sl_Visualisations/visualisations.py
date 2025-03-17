@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -52,27 +53,30 @@ def plot_article_vs_title_polarity(target_label="Article vs Title Polarity",
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
+
     my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
-    # Create scatter plot
+    # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
+
     sns.scatterplot(
         data=filtered_df,
         x="title_polarity",
         y="article_polarity",
         hue="label",  # Color by label (Real = 1, Dubious = 0)
         palette=my_pal,
-        alpha=0.7
-    )
+        alpha=0.7,
+        ax=ax
+        )
 
-    ax.set_title("Scatter Plot of Article Polarity vs Title Polarity",
+    ax.set_title("Plot of Article Polarity vs Title Polarity",
                  fontsize=10)
     ax.set_xlabel("Title Polarity",
                   fontsize=8)
     ax.set_ylabel("Article Polarity",
                   fontsize=8)
     ax.legend(title="Label",
-              labels=["Dubious (0)", "Real (1)"],
-              fontsize=10)
+                labels=["Dubious (0)", "Real (1)"],
+                fontsize=10)
 
     # Display visualization in Streamlit
     st.pyplot(fig)
@@ -219,8 +223,9 @@ def plot_article_count_by_source(target_label="Article Count by Source",
 
 
 @log_function_call(streamlit_logger)
-def plot_article_vs_title_characters(target_label="Article vs Title character",
-                                     pageref_label="char_scatter"):
+def plot_article_vs_title_characters(
+    target_label="Article vs Title character",
+        pageref_label="char_scatter"):
     """
     Plots scatter graph of text_length vs title_length
     with label color coding and date filtering.
@@ -242,7 +247,8 @@ def plot_article_vs_title_characters(target_label="Article vs Title character",
 
     # Date selection slider
     show_slider = st.checkbox("Show Date Slider",
-                              value=False, key=f"{pageref_label}_slider")
+                              value=False,
+                              key=f"{pageref_label}_slider")
 
     if show_slider:
         start_date, end_date = st.slider(
@@ -265,8 +271,9 @@ def plot_article_vs_title_characters(target_label="Article vs Title character",
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
+
     my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
-    # Create scatter plot
+    # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
         data=filtered_df,
@@ -274,8 +281,9 @@ def plot_article_vs_title_characters(target_label="Article vs Title character",
         x="text_length",
         hue="label",
         palette=my_pal,
-        alpha=0.7
-    )
+        alpha=0.7,
+        ax=ax
+        )
     ax.set_ylim(0, 2000)
 
     ax.set_title("Scatter Plot of Character Counts Articles vs Titles",
@@ -358,7 +366,7 @@ def plot_article_count_by_media(target_label="Article Count by media",
 
 
 @log_function_call(streamlit_logger)
-def plot_article_vs_title_polarity_scat(
+def plot_article_vs_title_polarity(
     target_label="Article vs Title polarity",
         pageref_label="polarity_scatter"):
     """
@@ -429,8 +437,8 @@ def plot_article_vs_title_polarity_scat(
 
 @log_function_call(streamlit_logger)
 def plot_article_vs_title_subjectivity(
-        Target_label="Article vs Title subjectivity",
-        pageref_label="subjectivity_scatter"):
+    Target_label="Article vs Title subjectivity",
+    pageref_label="subjectivity_scatter"):
     """
     Plots scatter graph of text vs title subjectivity scores
     with label color coding and date filtering.
@@ -452,8 +460,8 @@ def plot_article_vs_title_subjectivity(
 
     # Date selection slider
     show_slider = st.checkbox("Show Date Slider",
-                              value=False,
-                              key=f"{pageref_label}_slider")
+                  value=False,
+                  key=f"{pageref_label}_slider")
 
     if show_slider:
         start_date, end_date = st.slider(
@@ -476,8 +484,9 @@ def plot_article_vs_title_subjectivity(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
+
     my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
-    # Create scatter plot
+    # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
         data=filtered_df,
@@ -485,14 +494,19 @@ def plot_article_vs_title_subjectivity(
         x="article_subjectivity",
         hue="label",
         palette=my_pal,
-        alpha=0.7
+        alpha=0.7,
+        ax=ax
     )
 
     ax.set_title("Scatter Plot of Subjectivity Articles vs Titles",
                  fontsize=10)
-    ax.set_ylabel("Title Subjectivity", fontsize=8)
-    ax.set_xlabel("Article Subjectivity", fontsize=8)
-    ax.legend(title="Label", labels=["Dubious (0)", "Real (1)"], fontsize=10)
+    ax.set_ylabel("Title Subjectivity",
+                  fontsize=8)
+    ax.set_xlabel("Article Subjectivity",
+                  fontsize=8)
+    ax.legend(title="Label",
+                labels=["Dubious (0)", "Real (1)"],
+                fontsize=10)
 
     # Display visualization in Streamlit
     st.pyplot(fig)
@@ -501,7 +515,7 @@ def plot_article_vs_title_subjectivity(
 @log_function_call(streamlit_logger)
 def plot_title_subjectivity_vs_polarity(
     target_label="Title Subjectivity vs Polarity",
-        pageref_label="Title_S_V_P_scatter"):
+    pageref_label="Title_S_V_P_scatter"):
     """
     Plots scatter graph of polarity vs title subjectivity scores
     with label color coding and date filtering.
@@ -537,7 +551,7 @@ def plot_title_subjectivity_vs_polarity(
             key=pageref_label
         )
     else:
-        start_date, end_date = min_date, max_date
+       start_date, end_date = min_date, max_date
 
     # Filter data using the existing filter method
     filtered_df = filter_by_date(df,
@@ -548,33 +562,49 @@ def plot_title_subjectivity_vs_polarity(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
+
+    # User option to select plot type
+    plot_type = st.radio(
+        "Select Plot Type",
+        options=["Scatter", "Hexplot"],
+        index=1,
+        key=f"{pageref_label}_plot_type"
+        )
+
     my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
-    # Create scatter plot
+    # Create plot
     fig, ax = plt.subplots(figsize=(3, 3))
+
     sns.scatterplot(
         data=filtered_df,
         y="title_subjectivity",
         x="title_polarity",
         hue="label",
         palette=my_pal,
-        alpha=0.7
+        alpha=0.7,
+        ax=ax
     )
 
-    ax.set_title("Scatter Plot of Title Subkectivity vs Polarity", fontsize=10)
-    ax.set_ylabel("Title Subjectivity", fontsize=8)
-    ax.set_xlabel("Title Polarity", fontsize=8)
-    ax.legend(title="Label", labels=["Dubious (0)", "Real (1)"], fontsize=10)
+    ax.set_title("Scatter Plot of Title Subjectivity vs Polarity",
+                 fontsize=10)
+    ax.set_ylabel("Title Subjectivity",
+                  fontsize=8)
+    ax.set_xlabel("Title Polarity",
+                  fontsize=8)
+    ax.legend(title="Label",
+              labels=["Dubious (0)", "Real (1)"],
+              fontsize=10)
 
     # Display visualization in Streamlit
     st.pyplot(fig)
 
 
 @log_function_call(streamlit_logger)
-def plot_article_subjectivity_vs_polarity(
-    target_label="Article Subjectivity vs Polarity",
-        pageref_label="Article_S_V_P_scatter"):
+def plot_article_vs_title_subjectivity_scat(
+    Target_label="Article vs Title subjectivity",
+    pageref_label="subjectivity_scatter"):
     """
-    Plots scatter graph of Article subjectivity vs polarity scores
+    Plots scatter graph of text vs title subjectivity scores
     with label color coding and date filtering.
     """
 
@@ -593,9 +623,11 @@ def plot_article_subjectivity_vs_polarity(
     max_date = df["date_clean"].max().date()
 
     # Date selection slider
-    show_slider = st.checkbox("Show Date Slider",
-                              value=False,
-                              key=f"{pageref_label}_slider")
+    show_slider = st.checkbox(
+        "Show Date Slider",
+        value=False,
+        key=f"{pageref_label}_slider"
+    )
 
     if show_slider:
         start_date, end_date = st.slider(
@@ -618,22 +650,40 @@ def plot_article_subjectivity_vs_polarity(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
-    my_pal = {"0": "r", "1": "g", 0: "r", 1: "g"}
-    # Create scatter plot
-    fig, ax = plt.subplots(figsize=(3, 3))
+
+    # Ensure `label` column exists
+    if "label" not in filtered_df:
+        st.error("The dataset is missing the 'label' column.")
+        return
+
+    # Convert `label` to string for correct hue mapping
+    filtered_df["label"] = filtered_df["label"].astype(str)
+
+    # Drop rows where both subjectivity values are missing
+    filtered_df.dropna(subset=["title_subjectivity",
+                               "article_subjectivity"],
+                       how="all", inplace=True)
+
+    # Define color palette for labels
+    my_pal = {"0": "r", "1": "g"}  
+
+    # Create plot
+    fig, ax = plt.subplots(figsize=(6, 6))
+
     sns.scatterplot(
         data=filtered_df,
-        y="article_subjectivity",
-        x="article_polarity",
+        y="title_subjectivity",
+        x="article_subjectivity",
         hue="label",
         palette=my_pal,
-        alpha=0.7
+        alpha=0.7,
+        ax=ax
     )
 
-    ax.set_title("Scatter Plot of Article Subkectivity vs Polarity",
-                 fontsize=10)
-    ax.set_ylabel("Article Subjectivity", fontsize=8)
-    ax.set_xlabel("Article Polarity", fontsize=8)
+    # Customize plot
+    ax.set_title("Scatter Plot of Subjectivity: Articles vs Titles", fontsize=12)
+    ax.set_ylabel("Title Subjectivity", fontsize=10)
+    ax.set_xlabel("Article Subjectivity", fontsize=10)
     ax.legend(title="Label", labels=["Dubious (0)", "Real (1)"], fontsize=10)
 
     # Display visualization in Streamlit
@@ -1279,3 +1329,222 @@ def plot_polarity_subjectivity_boxplots(
 
     # Display visualization in Streamlit
     st.pyplot(fig)
+
+
+@log_function_call(streamlit_logger)
+def plot_hex_subjectivity():
+    """
+    Plots hexbin heatmap showing the weighted percentage of Real vs. Fake articles.
+    - Uses `weights` to normalize for proportion.
+    - Side histograms show volume distribution.
+    """
+
+    # Load dataset
+    df = st.session_state.get("data_clean", None)
+
+    if df is None:
+        st.error("No data found. Please upload a dataset.")
+        return
+
+    # Ensure the date column is in datetime format
+    df["date_clean"] = pd.to_datetime(df["date_clean"])
+
+    # Retrieve min/max date for filtering
+    min_date = df["date_clean"].min().date()
+    max_date = df["date_clean"].max().date()
+
+    # Date selection slider
+    show_slider = st.checkbox(
+        "Show Date Slider for Hex Plot",
+        value=False,
+        key="hex_slider"
+    )
+
+    if show_slider:
+        start_date, end_date = st.slider(
+            "Select Date Range",
+            min_value=min_date,
+            max_value=max_date,
+            value=(min_date, max_date),
+            format="YYYY-MM-DD",
+            key="hex_date"
+        )
+    else:
+        start_date, end_date = min_date, max_date
+
+    # Filter data
+    filtered_df = filter_by_date(df, pd.to_datetime(start_date), pd.to_datetime(end_date), "date_clean")
+
+    if filtered_df.empty:
+        st.warning("No data available for the selected date range.")
+        return
+
+    # Ensure correct data types
+    filtered_df["label"] = filtered_df["label"].astype(int)
+
+    # Handle null and near-null values
+    threshold = 0.001
+    filtered_df.loc[filtered_df["title_subjectivity"].abs() < threshold, "title_subjectivity"] = None
+    filtered_df.loc[filtered_df["article_subjectivity"].abs() < threshold, "article_subjectivity"] = None
+    filtered_df.dropna(subset=["title_subjectivity", "article_subjectivity"], how="all", inplace=True)
+
+    # Create figure
+    fig = plt.figure(figsize=(8, 8))
+    grid = sns.jointplot(
+        data=filtered_df,
+        x="article_subjectivity",
+        y="title_subjectivity",
+        kind="hex",
+        cmap="coolwarm",
+        gridsize=30,
+        marginal_ticks=True
+    )
+
+    # Calculate weights for each hexbin (percent of Real articles)
+    x = filtered_df["article_subjectivity"]
+    y = filtered_df["title_subjectivity"]
+    c = filtered_df["label"]  # 0 for Fake, 1 for Real
+
+    hexbin = grid.ax_joint.hexbin(
+        x, y, C=c, reduce_C_function=np.mean, gridsize=30, cmap="coolwarm"
+    )
+
+    # Color bar
+    cbar = fig.colorbar(hexbin, ax=grid.ax_joint, orientation="vertical")
+    cbar.set_label("Proportion of Real Articles", fontsize=10)
+
+    # Side histograms (volume distributions)
+    sns.histplot(x, bins=30,
+                 ax=grid.ax_marg_x, color="gray", kde=True)
+    sns.histplot(y, bins=30,
+                 ax=grid.ax_marg_y, color="gray", kde=True)
+
+    # Titles and labels
+    grid.ax_joint.set_title("Weighted Percentage of Real vs. Fake Articles",
+                            fontsize=12)
+    grid.ax_joint.set_xlabel("Article Subjectivity",
+                             fontsize=10)
+    grid.ax_joint.set_ylabel("Title Subjectivity",
+                             fontsize=10)
+
+    # Display
+    st.pyplot(grid.fig)
+
+
+@log_function_call(streamlit_logger)
+def plot_hex_charcounts():
+    """
+    Plots hexbin heatmap showing the weighted percentage of Real vs. Fake articles.
+    - Uses `weights` to normalize for proportion.
+    - Side histograms show volume distribution.
+    """
+
+    # Load dataset
+    df = st.session_state.get("data_clean", None)
+
+    if df is None:
+        st.error("No data found. Please upload a dataset.")
+        return
+
+    # Ensure the date column is in datetime format
+    df["date_clean"] = pd.to_datetime(df["date_clean"])
+
+    # Retrieve min/max date for filtering
+    min_date = df["date_clean"].min().date()
+    max_date = df["date_clean"].max().date()
+
+    # Date selection slider
+    show_slider = st.checkbox(
+        "Show Date Slider for Hex Plot",
+        value=False,
+        key="hex_slider"
+    )
+
+    if show_slider:
+        start_date, end_date = st.slider(
+            "Select Date Range",
+            min_value=min_date,
+            max_value=max_date,
+            value=(min_date, max_date),
+            format="YYYY-MM-DD",
+            key="hex_date"
+        )
+    else:
+        start_date, end_date = min_date, max_date
+
+    # Filter data
+    filtered_df = filter_by_date(df,
+                                 pd.to_datetime(start_date),
+                                 pd.to_datetime(end_date),
+                                 "date_clean")
+
+    if filtered_df.empty:
+        st.warning("No data available for the selected date range.")
+        return
+
+    # Ensure correct data types
+    filtered_df["label"] = filtered_df["label"].astype(int)
+
+    # Handle null and near-null values
+    threshold = 0.1
+    filtered_df.loc[filtered_df["title_length"].abs() < threshold,
+                    "title_length"] = None
+    filtered_df.loc[filtered_df["text_length"].abs() < threshold,
+                    "text_length"] = None
+    filtered_df.dropna(subset=["title_length",
+                               "text_length"],
+                       how="all", inplace=True)
+
+    # Create figure
+    fig = plt.figure(figsize=(8, 8))
+    grid = sns.jointplot(
+        data=filtered_df,
+        x="text_length",
+        y="title_length",
+        kind="hex",
+        cmap="coolwarm",
+        gridsize=50,
+        marginal_ticks=True
+    )
+    grid.ax_joint.set_xlim(0, 1000)
+    grid.ax_joint.set_ylim(0, 25000)
+
+    # Calculate weights for each hexbin (percent of Real articles)
+    x = filtered_df["text_length"]
+    y = filtered_df["title_length"]
+    c = filtered_df["label"]  # 0 for Fake, 1 for Real
+
+    hexbin = grid.ax_joint.hexbin(
+        x, y, C=c, reduce_C_function=np.mean,
+        gridsize=50, cmap="coolwarm"
+    )
+
+    # Color bar
+    cbar = fig.colorbar(hexbin,
+                        ax=grid.ax_joint,
+                        orientation="vertical")
+    cbar.set_label("Proportion of Real Articles",
+                   fontsize=10)
+
+    # Side histograms (volume distributions)
+    sns.histplot(x, bins=20,
+                 ax=grid.ax_marg_x,
+                 color="gray",
+                 kde=True)
+    sns.histplot(y, bins=20,
+                 ax=grid.ax_marg_y,
+                 color="gray",
+                 kde=True)
+    grid.ax_joint.set_ylim(0, 1000)
+    grid.ax_joint.set_xlim(0, 50000)
+
+    # Titles and labels
+    grid.ax_joint.set_title("Weighted Percentage of Real vs. Fake Articles",
+                            fontsize=12)
+    grid.ax_joint.set_xlabel("Article Size in Chars",
+                             fontsize=10)
+    grid.ax_joint.set_ylabel("Title Size in Chars",
+                             fontsize=10)
+
+    # Display
+    st.pyplot(grid.fig)

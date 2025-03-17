@@ -13,14 +13,14 @@ def load_page_settings(page_name):
         # set json file path from session_state
         page_settings_path = st.session_state.page_settings_fname
 
-        with open(page_settings_path, "r") as f:
+        with open(page_settings_path, "r", encoding="utf-8") as f:
             config_data = json.load(f)
 
         if st.session_state.debug_mode:
             st.write("📜 **Loaded JSON Data:**", config_data)
 
         if page_name not in config_data:
-            logger.warning(f"⚠️ `{page_name}` not found in JSON.")
+            logger.warning(f"`{page_name}` not found in JSON.")
             st.error(f"❌ Page `{page_name}` not found"
                      " in `page_settings.json`.")
             return {}
@@ -28,11 +28,11 @@ def load_page_settings(page_name):
         return config_data.get(page_name, {})
     except FileNotFoundError:
         st.error("❌ JSON file not found.")
-        logger.error("❌ JSON file not found.")
+        logger.error("JSON file not found.")
         return {}
     except json.JSONDecodeError as e:
         st.error(f"❌ JSON Decode Error: {e}")
-        logger.error(f"❌ JSON Decode Error: {e}")
+        logger.error(f"JSON Decode Error: {e}")
         return {}
 
 
@@ -68,11 +68,15 @@ def execute_element_call(element_settings, imported_objects):
         try:
             function_to_call = getattr(imported_objects, content)
             function_to_call()
-            logger.info(f"✅ Successfully executed function: {content}")
+            logger.info(f"Successfully executed function: {content}")
         except AttributeError:
-            logger.error(f"❌ Function `{content}` not found in required elements.")
+            logger.error(f"Function `{content}` not found in required elements.")
             if st.session_state.get("debug_mode", False):
                 st.error(f"❌ Function `{content}` not found.")
+
+    elif element_type == "markdown":
+        st.markdown(content)
+        logger.info(f"Displayed markdown: {content}")
 
     elif element_type == "text":
         st.write(content)
@@ -81,9 +85,9 @@ def execute_element_call(element_settings, imported_objects):
     elif element_type == "visualization":
         try:
             execute_visualization(content)  # Use the centralized function
-            logger.info(f"✅ Successfully executed visualization: {content}")
+            logger.info(f"Successfully executed visualization: {content}")
         except Exception as e:
-            logger.error(f"❌ Execution error for visualization `{content}`: {e}")
+            logger.error(f"Execution error for visualization `{content}`: {e}")
             if st.session_state.get("debug_mode", False):
                 st.error(f"❌ Failed to execute `{content}`: {e}")
 
@@ -119,7 +123,7 @@ def execute_visualization(content):
         if module_name in globals():
             function_to_call = getattr(globals()[module_name], function_name)
             function_to_call()  # Execute
-            logger.info(f"✅ Successfully executed visualization from global context: {content}")
+            logger.info(f"Successfully executed visualization from global context: {content}")
             return
 
         # Import module dynamically
@@ -127,18 +131,18 @@ def execute_visualization(content):
             module = importlib.import_module(full_module_path)
             function_to_call = getattr(module, function_name)
             function_to_call()  # Execute visualization
-            logger.info(f"✅ Successfully executed visualization: {content}")
+            logger.info(f"Successfully executed visualization: {content}")
         except ImportError as imp_err:
-            logger.error(f"❌ ImportError: Could not load `{full_module_path}`. Error: {imp_err}")
+            logger.error(f"ImportError: Could not load `{full_module_path}`. Error: {imp_err}")
             if st.session_state.get("debug_mode", False):
                 st.error(f"❌ ImportError: {full_module_path} not found. {imp_err}")
         except AttributeError:
-            logger.error(f"❌ Function `{function_name}` not found in `{full_module_path}`.")
+            logger.error(f"Function `{function_name}` not found in `{full_module_path}`.")
             if st.session_state.get("debug_mode", False):
                 st.error(f"❌ Function `{function_name}` not found in `{full_module_path}`.")
 
     except Exception as e:
-        logger.error(f"❌ Execution error for `{content}`: {e}")
+        logger.error(f"Execution error for `{content}`: {e}")
         if st.session_state.get("debug_mode", False):
             st.error(f"❌ Failed to execute `{content}`: {e}")
 
