@@ -1,41 +1,78 @@
 {
-  "Introductory Page": {
+  "Objective": {
     "required_elements": {
       "Dashboard": "Nothing.nothing"
     },
     "page_settings": {
-      "title": "Title",
-      "description": "Description",
+      "title": "Objective",
+      "description": "Aims of this dashboard and project",
       "icon": "Icon",
       "color": "Color",
-      "filter_key": "Filter Key",
-      "target_label": "Target Label",
+      "filter_key": "Objective",
+      "target_label": "Objective_page",
       "data": "Data"
     },
     "tab_contents": {
       "tab1": {
-        "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "subheader", "content": "content" },
-        "Upper_left": { "type": "text", "content": "content" },
-        "Lower_left": { "type": "text", "content": "content" }
+        "Header": {
+          "type": "sub header",
+          "content": "Objectives and Requirements"
+        },
+        "Upper": {
+          "type": "markdown",
+          "content": "#### Objective\n* The objective of this analysis is to identify patterns that can help distinguish between real and fake news.\n* The analysis includes the following steps:\n  * Data Preparation\n  * Exploratory Data Analysis\n  * Feature Engineering\n  * Model Building\n  * Model Evaluation\n  * Model Deployment\n---"
+        },
+        "Upper_left": {
+          "type": "sub header",
+          "content": "Suggested Data Sources"
+        },
+        "Lower_left": {
+          "type": "markdown",
+          "content": "The following datasets were intially discovered through a Google search: \n\n[Debunk Disinformation analysis center](https://www.debunk.org/?gad_source=1&gclid=CjwKCAjwvr--BhB5EiwAd5YbXs1x7Q9xNloMlUT7hUFllO27GXSkWOvoQ5uIPB62zLv3Akwvy3XdiBoCvZEQAvD_BwE)\n\n[webz.io Fake News data Repository](https://github.com/Webhose/fake-news-dataset.)\n\n[UNESCO: Data sources](https://core.unesco.org/en/home)\n\nOr one of the Kaggle datasets such as:. \n\n[BBC Articles Dataset](https://www.kaggle.com/datasets/jacopoferretti/bbc-articles-dataset) \n\n[Fake News Classification Dataset](https://www.kaggle.com/datasets/aadyasingh55/fake-news-classification) \n\n[Fake or Real News Dataset](https://www.kaggle.com/datasets/nitishjolly/news-detection-fake-or-real-dataset) \n\n[AI vs Human Text Dataset](https://www.kaggle.com/datasets/shanegerami/ai-vs-human-text) \n\n[Fake News Detection (2015-2017)](https://www.kaggle.com/datasets/bhavikjikadara/fake-news-detection) \n\n[Fake News Dataset](https://www.kaggle.com/datasets/algord/fake-news) \n\n[PolitiFact Fact-Check Dataset](https://www.kaggle.com/datasets/rmisra/politifact-fact-check-dataset) \n\n[Misinformation & Fake News Text Dataset (79K)](https://www.kaggle.com/datasets/stevenpeutz/misinformation-fake-news-text-dataset-79k) \n\n[Non-English Fake News Dataset](https://www.kaggle.com/datasets/cryptexcode/banfakenews) \n\n[Fake/Real News Dataset (2013-2020)](https://www.kaggle.com/datasets/techykajal/fakereal-news) \n\n[Fake News Dataset Around the Syrian War (2014-2018)](https://www.kaggle.com/datasets/mohamadalhasan/a-fake-news-dataset-around-the-syrian-war)"
+        },
+        "Upper_right": {
+          "type": "sub header",
+          "content": "Data Source(s) Used"
+        },
+        "Lower_right": {
+          "type": "markdown",
+          "content": "The first dataset used was:\n\n[Fake News Detection (2015-2017)](https://www.kaggle.com/datasets/bhavikjikadara/fake-news-detection)\n\n This was later enhanced with:\n\n[Misinformation & Fake News Text Dataset (79K)](https://www.kaggle.com/datasets/stevenpeutz/misinformation-fake-news-text-dataset-79k)"
+        }
       },
       "tab2": {
-        "Header": { "type": "header", "content": "content" },
-        "Upper": { "type": "header", "content": "content" },
-        "Upper_left": { "type": "header", "content": "content" },
-        "Lower_left": { "type": "header", "content": "content" }
+        "Header": { "type": "sub header", "content": "Requirements" },
+        "Upper": {
+          "type": "text",
+          "content": "To help with the design of the dashboard, two personas were created on ChatGPT to help with requirements gathering, one was Joe Bloggs a member of the public and the other was Julia Dempsey an IT and Data Reporter who is commissioning the dashboard and liaising with IT.  It then responded back based on what was achievable in the time limit and with the available data."
+        },
+        "Upper_right": {
+          "type": "sub header",
+          "content": "Julia Depseys communications with IT"
+        },
+        "Lower_right": {
+          "type": "markdown",
+          "content": "Through discussion The IT team have decided to build the initial model based of Real/Fake news datasets available on Kaggle and then potentially link it one or several of the API's to provide recent data for display on the dashboard whilst providing users the opportunity to provide a URL or text sample to the dashboard for scoring - You are now Julia Dempsy and need to highlight the most relevant requirements from Joes feedback, enhance them with your knowledge of the sector, and feedback from IT and make a requirements request to your IT team who have 4 days available to deliver the dashboard using python.. the learning model has not been developed yet and potential existing sources for some of Joe's requirements would help them to meet more requirements with out needing to go to first principles on all of them.\n\n**Subject:** Requirements for Fake News Detection Dashboard (4-Day Build)\n\n**Team,**\n\nBased on feedback from potential users and industry knowledge, we need a public-facing dashboard to help users verify the credibility of news stories. You have **4 days** to build a functional prototype in **Python**. The learning model will be initially built using **Real/Fake news datasets from Kaggle**, with the potential to integrate **fact-checking APIs** for real-time data. Users will also have the ability to **input a news article URL or text snippet** for analysis. Below are the **updated core requirements**:\n\n---\n\n#### **1. Dashboard Overview & UI/UX**\n- Simple, intuitive UI with a **trust score indicator** (e.g., traffic light system or percentage-based confidence level).\n- Users should be able to enter a **news article URL or text snippet** for evaluation.\n- Mobile-friendly and accessible design.\n\n#### **2. Fact-Checking & Source Verification**\n- **Integrate with existing fact-checking APIs** (e.g., Snopes, PolitiFact, FactCheck.org) to retrieve existing evaluations.\n- Display **source credibility history** (e.g., Media Bias Fact Check, NewsGuard API if available).\n- Link model-generated predictions with real-time API results where possible.\n\n#### **3. Machine Learning Model (Initial Phase)**\n- Train a **binary classification model** on Kaggle's **Real/Fake news datasets**.\n- Use **TF-IDF, word embeddings, or transformer-based NLP models** for classification.\n- Implement model inference for **user-submitted URLs or text samples**.\n\n#### **4. Bias & Manipulation Analysis**\n- Implement **basic NLP sentiment analysis** (positive, neutral, negative) using libraries like **NLTK or TextBlob**.\n- Detect **clickbait-style headlines** (e.g., based on word patterns from datasets like Clickbait Challenge).\n\n#### **5. Fake News Trends & Alerts**\n- Show a **real-time list of trending fake news stories** using sources like **Google Fact Check Tools** or Twitter API.\n- Display a **heatmap of misinformation spread** (if location-based misinformation data is available).\n\n#### **6. Image & Video Verification (Stretch Goal)**\n- Integrate **Google Reverse Image Search API** or tools like TinEye.\n- Investigate **deepfake detection** models (e.g., Deepware Scanner API) for future implementation.\n\n#### **7. Community & Expert Input**\n- Allow users to **flag articles** as suspicious (store in a database for future analysis).\n- Display community votes (e.g., 'Trusted' vs. 'Unverified') with moderation controls.\n\n#### **8. Educational Tools**\n- Provide a short, interactive **'How to Spot Fake News' guide**.\n- Weekly updates on **major misinformation trends**.\n\n---\n\n#### **Tech Stack Recommendation**\n- **Backend:** Flask or FastAPI for API handling.\n- **Frontend:** Streamlit (fastest for a 4-day build).\n- **Data Processing:** Pandas, NLTK, TextBlob for NLP.\n- **Machine Learning:** Scikit-learn, TensorFlow, or Hugging Face transformers.\n- **APIs:** Snopes, PolitiFact, Google Fact Check Tools, Media Bias Fact Check (if accessible).\n- **Storage:** SQLite or Firebase for tracking flagged articles.\n\n**Next Steps:**\n1. Train an initial model using **Kaggle datasets**.\n2. Confirm availability of fact-checking APIs.\n3. Assign core tasks based on expertise.\n4. Deliver a working prototype by **Day 4**.\n\nLet me know if you need further clarification.\n\n**Best,**\nJulia Dempsey "
+        },
+        "Upper_left": {
+          "type": "sub header",
+          "content": "Joe Bloggs Requirements"
+        },
+        "Lower_left": {
+          "type": "markdown",
+          "content": "You are Joe Bloggs a 25 year old office worker who is interested in being able to confirm if a news story is Real or Fake - you have been approached by a Julia Dempsy a reporter on IT and Data issues to ask your opinions on what functionality you would like to see on a public facing dashboard that has been trained to provide an estimate on whether a news story is Real or Fake and also to provide useful metrics on the level, scale and nature of previous fake news items\n\nJoe Bloggs' Response to Julia Dempsey (IT and Data Reporter):\n\n\"Hi Julia, thanks for reaching out! As someone who spends a lot of time online, I’d love a dashboard that makes it easy for everyday people like me to quickly check if a news story is real or fake. Here’s what I’d want to see and how it could help me make better judgments:\"\n\n1. **Quick Trust Score & Rating System**\n   - A simple traffic light system (Green = Likely Real, Yellow = Unverified, Red = Likely Fake).\n   - A percentage-based trust score based on AI analysis and fact-checking sources.\n   - A “Confidence Level” indicator showing how certain the system is about its assessment.\n2. **Fact-Checking & Source Analysis**\n   - Links to major fact-checking websites (e.g., Snopes, PolitiFact, BBC Reality Check).\n   - A summary of key fact-checked points in the article.\n   - Information on the news source, including any history of publishing false stories.\n3. **Bias & Manipulation Detection**\n   - A breakdown of potential political or ideological bias in the article.\n   - Sentiment analysis (Is it overly emotional or neutral?).\n   - AI detection of misleading language, clickbait, or exaggeration.\n4. **Fake News Trends & Warnings**\n   - A list of trending fake news stories circulating right now.\n   - Alerts for viral misinformation and debunked claims.\n   - An interactive map showing where fake news is spreading most.\n5. **Image & Video Verification**\n   - Reverse image search integration to see if a photo has been used out of context.\n   - AI detection of manipulated images or deepfakes.\n   - A credibility check for videos, detecting edited or misleading clips.\n6. **Community & Expert Reviews**\n   - A “User Reports” section showing how many people flagged a story as fake.\n   - A credibility ranking system where journalists, experts, and the public can contribute.\n   - A way to submit suspicious articles for fact-checking.\n7. **Educational Tools**\n   - A quick guide on “How to Spot Fake News.”\n   - Interactive quizzes to help users improve their fake news detection skills.\n   - A weekly “Fake News Roundup” showing the biggest misinformation stories exposed.\n\n\"I think a dashboard like this would be incredibly useful, especially for people who don’t have time to do deep research on every news story. The key thing is making it simple, fast, and accessible for anyone to use.\"\n\n\"Would love to hear your thoughts on this—does this align with what you’re looking for?\""
+        }
       },
       "tab3": {
         "Header": {
           "type": "sub header",
-          "content": ""
+          "content": "Outcome and Summary"
         },
         "Upper": {
-          "type": "text",
-          "content": ""
+          "type": "markdown",
+          "content": "Following analysis of the available data the following aims and requirements were agreed for the initial release of the dashboard. "
         },
         "Visualizations": {
-          "type": "visualization",
+          "type": "markdown",
           "content": "empty"
         }
       }
@@ -48,7 +85,7 @@
       "vis2": "sl_visualisations.visualisations.plot_article_count_by_source",
       "vis3": "sl_visualisations.visualisations.plot_article_vs_title_characters",
       "vis4": "sl_visualisations.visualisations.plot_article_count_by_media",
-      "vis5": "sl_visualisations.visualisations.plot_article_count_by_day"
+      "vis5": "sl_visualisations.visualisations.plot_hex_charcounts"
     },
     "page_settings": {
       "title": "Data Exploration",
@@ -116,11 +153,11 @@
         },
         "Upper": {
           "type": "text",
-          "content": "This visualisation enables us to see the spread of articles in the dataset over time and the split between Real and Dubious articles."
+          "content": "A better presentation of the comparison of character counts in title and article by Real and Dubious news articles."
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "sl_visualisations.visualisations.plot_article_count_by_day"
+          "content": "sl_visualisations.visualisations.plot_hex_charcounts"
         }
       }
     }
@@ -240,59 +277,59 @@
         },
         "Upper_left": {
           "type": "text",
-          "content": ""
+          "content": "Below we see the number of articles by day of the week, or special date.  It is clear that there are more articles on a Monday and Tuesday than any other day.  This is likely due to the weekend news cycle."
         },
         "Lower_left": {
           "type": "visualization",
-          "content": ""
+          "content": "sl_visualisations.visualisations.plot_article_count_by_day_label"
         },
         "Upper_right": {
           "type": "text",
-          "content": "sl_The visualisation below does the same for Subjectivity."
+          "content": "Below we see the number of different locations mentioned in articles.  It is clear that the USA is mentioned more than any other location."
         },
         "Lower_right": {
           "type": "visualization",
-          "content": ""
+          "content": "sl_visualisations.visualisations.plot_article_count_by_location"
         }
       },
       "tab2": {
         "Header": {
           "type": "sub header",
-          "content": "Contradictions and Variations"
+          "content": ""
         },
         "Upper": {
           "type": "text",
-          "content": "For reference on the left are the comparisons of the Titles Polarity vs Titles Subjectivity and the same for articles.  Then on the right we have a look at the contradictions in subjectivity vs polarity and the variances."
+          "content": ""
         },
         "Upper_left": {
           "type": "visualization",
-          "content": "sl_visualisations.visualisations.plot_title_subjectivity_vs_polarity"
+          "content": ""
         },
         "Lower_left": {
           "type": "visualization",
-          "content": "sl_visualisations.visualisations.plot_article_subjectivity_vs_polarity"
+          "content": ""
         },
         "Lower_right": {
           "type": "visualization",
-          "content": "sl_visualisations.visualisations.plot_polarity_contrad_variations"
+          "content": ""
         },
         "Upper_right": {
           "type": "visualization",
-          "content": "sl_visualisations.visualisations.plot_subjectivity_contrad_variations"
+          "content": ""
         }
       },
       "tab3": {
         "Header": {
           "type": "header",
-          "content": "Location Mentions in Articles"
+          "content": "Count and Comparison of Articles by Day"
         },
         "Upper": {
           "type": "text",
-          "content": "This visualization displays the number of times a location is mentioned in articles."
+          "content": "The visualisation below looks at the split of Real and Dubious news articles by date, there appears to be an increase in the volume of true articles in the dataset over time, this is potentially an issue of the data collection process rather than a historically true fact and would require further investigation."
         },
         "Visualizations": {
           "type": "visualization",
-          "content": ""
+          "content": "sl_visualisations.visualisations.plot_article_count_by_day"
         }
       }
     }
@@ -302,8 +339,8 @@
       "ROD_Dashboard": "sl_visualisations.map_visualisation.display_maps"
     },
     "page_settings": {
-      "title": "Title",
-      "description": "Description",
+      "title": "Machine Learning Modelling",
+      "description": "Information on Machine Learning Modelling",
       "icon": "Icon",
       "color": "Color",
       "filter_key": "Filter Key",
@@ -326,15 +363,15 @@
       "tab3": {
         "Header": {
           "type": "header",
-          "content": "Location Mentions in Articles"
+          "content": ""
         },
         "Upper": {
           "type": "text",
-          "content": "This visualization displays the number of times a location is mentioned in articles."
+          "content": ""
         },
         "Visualizations": {
           "type": "visualization",
-          "content": "sl_visualisations.map_visualisation.display_maps"
+          "content": ""
         }
       }
     }

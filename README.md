@@ -1,92 +1,187 @@
-# Fake New or Real News
+# Fake News or Real News
 
-**Fake News or Real News** a project to create a dashboard for use by Joe Public to provide information about Fake and Real news and provide a 
-News Scorer for a user submitted element.  Also to include relevant background information and potentially recent identified trends.
+**Fake News or Real News** is a **data-driven dashboard** that helps users distinguish between real and fake news articles. This project implements **machine learning models, natural language processing (NLP), and data visualization** to provide insights into misinformation patterns and biases.
 
-# ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+## 🌍 Live Dashboard
 
+The dashboard is accessible at:  
+**[Fake News Analysis Dashboard](https://YOUR_APP_NAME.herokuapp.com/)**  
 
-## Dataset Content
-* Data Sets for training of ML model are from Kaggle and the ones considered were:
-* Data of cities is from  https://simplemaps.com/data/world-cities, a reference to which needs to be included on the dashboard.
+---
 
+## 📌 Project Objectives
 
-## Business Requirements
-* Describe your business requirements
+This project was developed to:
 
+- Provide a **public-facing dashboard** that visualizes **fake vs. real news trends**.
+- Enable users to **analyze news articles** using **sentiment, subjectivity, and linguistic patterns**.
+- Offer **a "News Scorer" tool** that predicts the likelihood of an article being fake.
+- Display **geographical trends of misinformation** based on source locations.
+- Enhance public awareness of **fake news detection techniques**.
 
-## Hypothesis and how to validate?
-* List here your project hypothesis(es) and how you envision validating it (them) 
+---
 
-## Project Plan
-* Outline the high-level steps taken for the analysis.
-* How was the data managed throughout the collection, processing, analysis and interpretation steps?
-* Why did you choose the research methodologies you used?
+## 📊 Dataset Content
 
-## The rationale to map the business requirements to the Data Visualisations
-* List your business requirements and a rationale to map them to the Data Visualisations
+- **Fake vs. Real News Dataset** ([Kaggle](https://www.kaggle.com/datasets/bhavikjikadara/fake-news-detection))
+- **Misinformation & Fake News Text Dataset (79K)** ([Kaggle](https://www.kaggle.com/datasets/stevenpeutz/misinformation-fake-news-text-dataset-79k))
+- **Geolocation Data** ([SimpleMaps](https://simplemaps.com/data/world-cities))
 
-## Analysis techniques used
-* List the data analysis methods used and explain limitations or alternative approaches.
-* How did you structure the data analysis techniques. Justify your response.
-* Did the data limit you, and did you use an alternative approach to meet these challenges?
-* How did you use generative AI tools to help with ideation, design thinking and code optimisation?
+Additional details on data preparation are available in **[Notes on Data Preparation](notesondataprep.py)**.
 
-## Ethical considerations
-* Were there any data privacy, bias or fairness issues with the data?
-* How did you overcome any legal or societal issues?
+---
 
-## Dashboard Design
-* List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
-* Later, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but subsequently you used another plot type).
-* How were data insights communicated to technical and non-technical audiences?
-* Explain how the dashboard was designed to communicate complex data insights to different audiences. 
+## 🔍 Dashboard Features
 
-## Unfixed Bugs
-* Please mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a significant variable to consider, paucity of time and difficulty understanding implementation are not valid reasons to leave bugs unfixed.
-* Did you recognise gaps in your knowledge, and how did you address them?
-* If applicable, include evidence of feedback received (from peers or instructors) and how it improved your approach or understanding.
+The **Streamlit dashboard** provides multiple **interactive pages**:
 
-## Development Roadmap
-* What challenges did you face, and what strategies were used to overcome these challenges?
-* What new skills or tools do you plan to learn next based on your project experience? 
+### **1️⃣ Introduction**
 
-## Deployment
-### Heroku
+- Overview of the **project goals** and **datasets used**.
+- Course affiliation with **Code Institute** and **West Midlands Combined Authority**.
+- Link to the **GitHub repository** ([introduction.py](introduction.py)).
 
-* The App live link is: https://YOUR_APP_NAME.herokuapp.com/ 
-* Set the runtime.txt Python version to a [Heroku-20](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-* The project was deployed to Heroku using the following steps.
+### **2️⃣ Data Exploration**
 
-1. Log in to Heroku and create an App
-2. From the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App.
-6. If the slug size is too large then add large files not required for the app to the .slugignore file.
+- **Article Polarity vs. Title Polarity** (Scatter plot).
+- **Article Count by Subject** (Bar chart).
+- **Article Count by Source** (Comparison plot).
+- **Media Type Distribution** (Bar chart).
+- **Text vs. Title Length Distribution** ([visualisations.py](visualisations.py)).
 
+### **3️⃣ Data Preprocessing**
 
-## Main Data Analysis Libraries
-* Here you should list the libraries you used in the project and provide an example(s) of how you used these libraries.
+- **Text cleaning, missing values, duplicates detection**.
+- **Correlation heatmaps & outlier detection**.
+- **Polarity and Subjectivity** analysis of titles vs. articles.
+- **Variance and contradiction detection** ([datacleanliness.py](datacleanliness.py)).
 
+### **4️⃣ Geolocation Analysis**
 
-## Credits 
+- **Heatmap of Fake vs. Real News Spread**.
+- **Source distribution by continent, country, and region** ([Map_data_processing.py](Map_data_processing.py)).
 
-* In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism. 
-* You can break the credits section up into Content and Media, depending on what you have included in your project. 
+### **5️⃣ Machine Learning Predictions**
 
-### Content 
+- **RandomForestClassifier model** classifies articles as real or fake.
+- **Regression-based "Realness Score" prediction**.
+- **Model feature importance visualization** ([ML_model2.py](ML_model2.py)).
 
-- The text for the Home page was taken from Wikipedia Article A
-- Instructions on how to implement form validation on the Sign-Up page was taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
+### **6️⃣ Fake News Trends & Alerts**
 
-### Media
+- **Time-series analysis** of fake news occurrences.
+- **Top fake news sources and subjects**.
+- **User-submitted article scoring tool**.
 
-- The photos used on the home and sign-up page are from This Open-Source site
-- The images used for the gallery page were taken from this other open-source site
+---
 
+## 💑 Data Processing & Feature Engineering
 
+### 🛠 **ETL & Transformation**
 
-## Acknowledgements (optional)
-* Thank the people who provided support through this project.
+- **ETL Pipeline** ([ETL.py](ETL.py)) for:
+  - Data extraction and combination.
+  - Text preprocessing & missing values handling.
+  - Sentiment analysis and subjectivity calculations.
+  - Feature extraction (word count, media type, polarity).
+  
+- **Data Transformation** ([TRANSFORM.py](TRANSFORM.py)) for:
+  - **Fake vs. Real news labeling**.
+  - **Text sanitization and cleaning**.
+  - **Date parsing and analysis**.
+  - **Geolocation extraction**.
+
+### 🔍 **Exploratory Data Analysis (EDA)**
+
+- Outlier detection and bias identification.
+- Variance analysis in title and article sentiment.
+- Histogram distributions of fake vs. real news ([datacleanliness.py](datacleanliness.py)).
+
+---
+
+## 🤖 Machine Learning Model Development
+
+**Models Developed:**
+
+1. **Baseline Model**: RandomForestClassifier ([machinelearningmodel1_original.py](machinelearningmodel1_original.py)).
+2. **Refactored Model**: Optimized feature selection & hyperparameters ([ML_Model_Chatgpt_refactor.py](ML_Model_Chatgpt_refactor.py)).
+3. **Regression Model**: Assigns a "realness score" from 1 (fake) to 5 (real) ([ML_model2.py](ML_model2.py)).
+
+**Key Techniques Used:**
+
+- **Natural Language Processing (NLP)**:
+  - Sentiment Analysis.
+  - Subjectivity & Polarity Measurement.
+  - Word Count & Readability Scores.
+  
+- **Feature Selection**:
+  - Recursive Feature Elimination (RFE).
+  - Variance Threshold.
+  - Correlation Analysis.
+
+- **Evaluation Metrics**:
+  - Confusion Matrix.
+  - Classification Report.
+  - Feature Importance.
+
+---
+
+## 🌐 Dashboard Deployment
+
+### **1️⃣ Local Setup**
+
+```sh
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+### **2️⃣ Cloud Deployment (Streamlit)**
+
+1. **Link GitHub repository**.
+2. **Set environment variables (API keys, dataset paths, etc.)**.
+3. **Deploy to Streamlit Cloud**.
+
+---
+
+## ⚠️ Challenges & Lessons Learned
+
+### 🚨 **Challenges**
+
+- **Dataset Bias**: The initial dataset contained strong biases (e.g., **source names were always identified for real news**).
+- **Power BI Constraints**: Initial visualization approach abandoned due to license expiration.
+- **Large File Sizes**: Managed using **compressed CSV storage**.
+
+### ✅ **Solutions Implemented**
+
+- **Bias Reduction**: Integrated **multiple datasets** to balance representation.
+- **Streamlit Implementation**: Allowed **dynamic filtering & interactivity**.
+- **Data Compression**: Used **ZIP archives** to store large files.
+
+---
+
+## 📌 Future Enhancements
+
+- **Live News API Integration** (e.g., Snopes, PolitiFact).
+- **Deepfake Image Detection**.
+- **Community Flagging System** for fake news.
+- **AI-Powered Fact-Checking Chatbot**.
+
+---
+
+## 📚 Credits
+
+### 💜 **Datasets**
+
+- [Kaggle: Fake News Detection](https://www.kaggle.com/datasets/bhavikjikadara/fake-news-detection).
+- [Misinformation & Fake News Dataset](https://www.kaggle.com/datasets/stevenpeutz/misinformation-fake-news-text-dataset-79k).
+
+---
+
+## 🙌 Acknowledgements
+
+Special thanks to:
+
+- **Code Institute & WMCA** for supporting this project.
+- **Kaggle contributors** for dataset access.
+- **Community feedback** on improving fake news detection.
+- **ChatGPT, Gemini and CoPilot** for assistance with ideation, coding and refactoring.
