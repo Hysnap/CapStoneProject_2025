@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sl_components.filters import filter_by_date
 from sl_utils.logger import log_function_call, streamlit_logger
+from matplotlib.ticker import FuncFormatter
 
 
 @log_function_call(streamlit_logger)
@@ -327,7 +328,7 @@ def plot_article_count_by_media(target_label="Article Count by media",
         key=pageref_label
     )
 
-    # Aggregate count of articles per subject split by label
+    # Aggregate count of articles per media type split by label
     article_counts = df.groupby(["media_type",
                                  "label"]).size().reset_index(name="count")
 
@@ -342,6 +343,10 @@ def plot_article_count_by_media(target_label="Article Count by media",
     else:
         y_value = "count"
         y_label = "Count of Articles"
+
+    # Sort media types by total count in descending order
+    sorted_media_types = article_counts.groupby("media_type")["count"].sum().sort_values(ascending=False).index
+
     my_pal = {1: "green", 0: "red"}
     # Create bar plot
     fig, ax = plt.subplots(figsize=(3, 3))
@@ -351,7 +356,8 @@ def plot_article_count_by_media(target_label="Article Count by media",
         y=y_value,
         hue="label",
         palette=my_pal,
-        alpha=0.7
+        alpha=0.7,
+        order=sorted_media_types
     )
 
     ax.set_title("Article Count by Media (Real vs Dubious)", fontsize=10)
@@ -871,7 +877,7 @@ def plot_polarity_contrad_variations(
         )
     else:
         start_date, end_date = min_date, max_date
-        
+
     # Filter data using the existing filter method
     filtered_df = filter_by_date(df,
                                  pd.to_datetime(start_date),
@@ -881,7 +887,7 @@ def plot_polarity_contrad_variations(
     if filtered_df.empty:
         st.warning("No data available for the selected date range.")
         return
-    my_pal = { 0: "red", 1: "green"}
+    my_pal = {1: "red", 0: "green"}
     # Create scatter plot
     fig, ax = plt.subplots(figsize=(3, 3))
     sns.scatterplot(
@@ -973,9 +979,22 @@ def plot_article_count_by_day_label(target_label="Article Count by Day Label",
     plt.xticks(rotation=45)
 
     # Split y-axis
-    ax.set_yscale('log')
-    ax.set_yticks([10000, 22000, 30000, 50000])
-    ax.get_yaxis().set_major_formatter(plt.ScalarFormatter())
+
+    def y_formatter(y, pos):
+        if y < 10000:
+            return f'{y}'
+        elif 10000 <= y < 22000:
+            return ''
+        elif 22000 <= y < 30000:
+            return f'{y - 12000}'
+        elif 30000 <= y < 50000:
+            return ''
+        else:
+            return f'{y - 22000}'
+
+    ax.set_yscale('linear')
+    ax.set_yticks([0, 10000, 22000, 30000, 50000])
+    ax.get_yaxis().set_major_formatter(FuncFormatter(y_formatter))
 
     # Display visualization in Streamlit
     st.pyplot(fig)
@@ -1123,6 +1142,11 @@ def plot_article_count_by_location(target_label="Article Count by Location",
               labels=["Dubious (0)", "Real (1)"],
               fontsize=10)
     plt.xticks(rotation=45)
+
+    # Show every 5th x-axis label
+    for index, label in enumerate(ax.get_xticklabels()):
+        if index % 5 != 0:
+            label.set_visible(False)
 
     # Display visualization in Streamlit
     st.pyplot(fig)
